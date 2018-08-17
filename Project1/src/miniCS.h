@@ -10,7 +10,7 @@
 #define ERROR 9
 #define IGNORE 10
 #define NEW_LINE 11
-
+#define TEXT 12
 extern int yylex();
 extern int yylineno;
 extern char * yytext;

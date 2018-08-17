@@ -98,6 +98,11 @@ int start(int ac, char * av) {
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
+			case TEXT:
+				printf("Line %d - Column %d	>>	  Text :		%s\n", yylineno, yycol, yytext);
+				yycol += strlen(yytext);
+				fprintf(fw, "%s\n", yytext);
+				break;
 			case ERROR:
 				printf("Error in line %d - Column %d	 ->  %s\n", yylineno, yycol, yytext);
 				yycol += strlen(yytext);
