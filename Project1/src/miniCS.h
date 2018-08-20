@@ -15,6 +15,6 @@ extern int yylex();
 extern int yylineno;
 extern char * yytext;
 extern void yyset_in(FILE * in_str);
-int *  yycol;
+int yycol;
 void ToLowerCase(char * word);
 void ToUpperCase(char * word);

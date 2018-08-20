@@ -25,7 +25,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {DBL}|{DBL}{EXP}{DBL}		return DOUBLE;
 {COMM}						return COMMIT;
 {OPT}						return OPERATOR;
-\"(\\.|[^"\\])*\"	return TEXT;
+\"(\\.|[^"\\])*\"	|		return TEXT;
 .							return ERROR;
 %%
 int yywrap(void)
