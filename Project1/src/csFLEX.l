@@ -22,7 +22,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {ESP}						return IGNORE;
 {INT}						return INTEGER;
 {HEX}						return HEXADECIMAL;
-{DBL}|{DBL}{EXP}{DBL}		return DOUBLE;
+{DBL}|{DBL}{EXP}{INT}		return DOUBLE;
 {COMM}						return IGNORE;
 {OPT}						return OPERATOR;
 \"(\\.|[^"\\])*\"			return TEXT;
