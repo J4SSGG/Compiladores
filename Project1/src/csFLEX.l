@@ -23,7 +23,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {INT}						return INTEGER;
 {HEX}						return HEXADECIMAL;
 {DBL}|{DBL}{EXP}{DBL}		return DOUBLE;
-{COMM}						return COMMIT;
+{COMM}						return IGNORE;
 {OPT}						return OPERATOR;
 \"(\\.|[^"\\])*\"			return TEXT;
 .							return ERROR;

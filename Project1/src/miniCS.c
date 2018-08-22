@@ -59,11 +59,6 @@ int start(int ac, char * av) {
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
-			case COMMIT:
-				printf("Line %d - Columns %d to %zu	>>	  Comentario :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
-				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
-				break;
 			case IDENTIFIER:
 				//ToUpperCase(yytext);
 				printf("Line %d - Columns %d to %zu	>>	  Identifier :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
@@ -124,6 +119,8 @@ int start(int ac, char * av) {
 	}	
 	return 1;
 }
+
+//These may be useful ...
 /*
 void ToLowerCase(char * word){
 	for (;*word;++word) *word = tolower(*word);
