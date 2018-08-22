@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 public class HelloWorld
 {
-    [DllImport ("bin/miniCS.so")]
+    [DllImport ("bin/minic.so")]
     private static extern int start(int ac, string av);    
 
     static public void Main ()

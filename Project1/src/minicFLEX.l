@@ -1,5 +1,5 @@
 %{
-#include "miniCS.h"
+#include "minic.h"
 %}
 %option yylineno
 ALL		.*

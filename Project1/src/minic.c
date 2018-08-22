@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include "miniCS.h"
+#include "minic.h"
 
 
 int start(int ac, char * av) {
@@ -55,54 +55,54 @@ int start(int ac, char * av) {
 				break;
 			case RESERVED:
 				//ToLowerCase(yytext);
-				printf("Line %d - Columns %d to %zu	>>	  Reserved :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	RESERVED:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	RESERVED:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case IDENTIFIER:
 				//ToUpperCase(yytext);
-				printf("Line %d - Columns %d to %zu	>>	  Identifier :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case OPERATOR:
-				printf("Line %d - Columns %d to %zu	>>	  Operator :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	OPERATOR:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	OPERATOR:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case INTEGER:
 				//ToLowerCase(yytext);
-				printf("Line %d - Columns %d to %zu	>>	  Integer :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	INTEGER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	INTEGER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case DOUBLE:
 				//ToLowerCase(yytext);
-				printf("Line %d - Columns %d to %zu	>>	  Double :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	DOUBLE:		     %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	DOUBLE:		     %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case HEXADECIMAL:
 				//ToLowerCase(yytext);
-				printf("Line %d - Columns %d to %zu	>>	  Hexa :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	HEXA:		    %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	HEXA:		     %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case BOOL:
-				printf("Line %d - Columns %d to %zu	>>	  Boolean :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	BOOLEAN:		    %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	BOOLEAN:		    %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case TEXT:
-				printf("Line %d - Columns %d to %zu	>>	  Text :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("Line: %5d - Columns: %3d to %3zu >>	STRING:		     %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	STRING:		     %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				fprintf(fw, "%s\n", yytext);
 				break;
 			case ERROR:
-				printf("Error in line %d - Column %d to %zu ->  %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	Unrecognized: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	Unrecognized: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				hasError = 1;
-				fprintf(fw, "Error >>> %s\n", yytext);
 				break;
 		}
 		
