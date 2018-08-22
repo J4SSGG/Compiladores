@@ -603,7 +603,7 @@ static yyconst flex_int16_t yy_chk[326] =
 /* Table of booleans, true if rule could match eol. */
 static yyconst flex_int32_t yy_rule_can_match_eol[14] =
     {   0,
-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -931,7 +931,6 @@ YY_RULE_SETUP
 return IDENTIFIER;
 	YY_BREAK
 case 5:
-/* rule 5 can match eol */
 YY_RULE_SETUP
 #line 22 "src/csFLEX.l"
 return IGNORE;
@@ -978,7 +977,7 @@ YY_RULE_SETUP
 #line 30 "src/csFLEX.l"
 ECHO;
 	YY_BREAK
-#line 982 "src/csFLEX.c"
+#line 981 "src/csFLEX.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

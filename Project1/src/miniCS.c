@@ -55,56 +55,56 @@ int start(int ac, char * av) {
 				break;
 			case RESERVED:
 				//ToLowerCase(yytext);
-				printf("Line %d - Column %d	>>	  Reserved :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Reserved :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case COMMIT:
-				printf("Line %d - Column %d	>>	  Commit :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Comentario :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case IDENTIFIER:
 				//ToUpperCase(yytext);
-				printf("Line %d - Column %d	>>	  Identifier :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Identifier :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case OPERATOR:
-				printf("Line %d - Column %d	>>	  Operator :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Operator :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case INTEGER:
 				//ToLowerCase(yytext);
-				printf("Line %d - Column %d	>>	  Integer :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Integer :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case DOUBLE:
 				//ToLowerCase(yytext);
-				printf("Line %d - Column %d	>>	  Double :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Double :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case HEXADECIMAL:
 				//ToLowerCase(yytext);
-				printf("Line %d - Column %d	>>	  Hexadecimal :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Hexa :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case BOOL:
-				printf("Line %d - Column %d	>>	  Boolean :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Boolean :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case TEXT:
-				printf("Line %d - Column %d	>>	  Text :		%s\n", yylineno, yycol, yytext);
+				printf("Line %d - Columns %d to %zu	>>	  Text :		%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				fprintf(fw, "%s\n", yytext);
 				break;
 			case ERROR:
-				printf("Error in line %d - Column %d	 ->  %s\n", yylineno, yycol, yytext);
+				printf("Error in line %d - Column %d to %zu ->  %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				hasError = 1;
 				fprintf(fw, "Error >>> %s\n", yytext);

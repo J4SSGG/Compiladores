@@ -19,13 +19,13 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {VIP}						return RESERVED;
 {BOOL}						return BOOL;
 {IDF}						return IDENTIFIER;
-{ESP}|{NWL}					return IGNORE;
+{ESP}						return IGNORE;
 {INT}						return INTEGER;
 {HEX}						return HEXADECIMAL;
 {DBL}|{DBL}{EXP}{DBL}		return DOUBLE;
 {COMM}						return COMMIT;
 {OPT}						return OPERATOR;
-\"(\\.|[^"\\])*\"	|		return TEXT;
+\"(\\.|[^"\\])*\"			return TEXT;
 .							return ERROR;
 %%
 int yywrap(void)
