@@ -1,2 +1,4 @@
-Project1/bin/*
-Project1/files/*
+Project1/bin/*.so
+Project1/bin/*.exe
+Project1/files/*.cs
+Project1/files/*.out
