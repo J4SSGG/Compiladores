@@ -4,11 +4,14 @@
 #define DOUBLE 4
 #define HEXADECIMAL 5
 #define BOOL 6
-#define TEXT 7
+#define STRING 7
 #define OPERATOR 8
 #define ERROR 9
 #define IGNORE 10
 #define NEW_LINE 11
+#define ERROR_COMMENT 12
+#define ERROR_STRING 13
+
 
 extern int yylex();
 extern int yylineno;
