@@ -941,7 +941,7 @@ YY_LINENO_REWIND_TO(yy_cp - 1);
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
 #line 28 "src/minicFLEX.l"
-return STRING;
+return STRING; // dollar char added to catch only those strings that end with quote
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */

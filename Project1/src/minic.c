@@ -61,8 +61,16 @@ int start(int ac, char * av) {
 				break;
 			case IDENTIFIER:
 				//ToUpperCase(yytext);
-				printf("Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
-				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				if(strlen(yytext) > 31){
+					//truncate string
+					yytext[31] = 0; //  This modifies the original pointer, IT DOES NOT MAKE A COPY. Only used this whether the complete value in yytext is not used in other places.
+					printf("Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s		(TRUNCATED)\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+					fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s		(TRUNCATED)\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				}
+				else {
+					printf("Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+					fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	IDENTIFIER:		 %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				}
 				yycol += strlen(yytext);
 				break;
 			case OPERATOR:

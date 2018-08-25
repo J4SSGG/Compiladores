@@ -25,7 +25,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {DBL}|{DBL}{EXP}{INT}		return DOUBLE;
 {COMM}						return IGNORE;
 {OPT}						return OPERATOR;
-\"(\\.|[^\\"])*\"$			return STRING;
+\"(\\.|[^\\"])*\"$			return STRING; // dollar char added to catch only those strings that end with quote
 (\"(\\.|[^\\"])*)[^.]$		return ERROR_STRING; // Not valid string...
 ("/*"([^*]|(\*+[^*/]))*)	return ERROR_COMMENT; // Not valid comment...
 .							return ERROR;
