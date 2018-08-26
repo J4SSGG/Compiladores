@@ -113,8 +113,8 @@ int start(int ac, char * av) {
 				hasError = 1;
 				break;
 			case ERROR_COMMENT:
-				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid comment: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
-				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid comment: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid: comment unclosed\n", yylineno, yycol, yycol + strlen(yytext));
+				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid: comment: unclosed", yylineno, yycol, yycol + strlen(yytext));
 				yycol += strlen(yytext);
 				hasError = 1;
 				break;
