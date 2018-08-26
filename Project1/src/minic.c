@@ -102,8 +102,8 @@ int start(int ac, char * av) {
 				yycol += strlen(yytext);
 				break;
 			case STRING:
-				printf("Line: %5d - Columns: %3d to %3zu >>	STRING:		     %s\n", yylineno, yycol, yycol + strlen(yystring), yystring);
-				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	STRING:		     %s\n", yylineno, yycol, yycol + strlen(yystring), yystring);
+				printf("Line: %5d - Columns: %3d to %3zu >>	STRING:		     \"%s\"\n", yylineno, yycol, yycol + strlen(yystring), yystring);
+				fprintf(fw, "Line: %5d - Columns: %3d to %3zu >>	STRING:		     \"%s\"\n", yylineno, yycol, yycol + strlen(yystring), yystring);
 				yycol += strlen(yytext);
 				break;
 			case ERROR:
@@ -119,8 +119,8 @@ int start(int ac, char * av) {
 				hasError = 1;
 				break;
 			case ERROR_STRING:
-				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid String: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
-				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid String: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid String: \"%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
+				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid String: \"%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
 				hasError = 1;
 				break;
