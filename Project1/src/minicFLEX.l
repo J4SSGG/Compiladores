@@ -1,3 +1,4 @@
+%x quote comment
 %{
 #include "minic.h"
 %}
@@ -23,14 +24,25 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {INT}						return INTEGER;
 {HEX}						return HEXADECIMAL;
 {DBL}|{DBL}{EXP}{INT}		return DOUBLE;
-{COMM}						return IGNORE;
+"/*"						BEGIN(comment);
+<comment>"*/"				{BEGIN(INITIAL);}
+<comment>([^*]|\n)+|.		yyAddText();
+<comment><<EOF>>			{BEGIN(INITIAL); return ERROR_COMMENT;}			
 {OPT}						return OPERATOR;
-\"(\\.|[^\\"])*\"$			return STRING; // dollar char added to catch only those strings that end with quote
-(\"(\\.|[^\\"])*)[^.]$		return ERROR_STRING; // Not valid string...
-("/*"([^*]|(\*+[^*/]))*)	return ERROR_COMMENT; // Not valid comment...
+\"							BEGIN(quote);
+<quote>\"					{BEGIN(0); return STRING;}
+<quote>\n+					{BEGIN(0); return ERROR_STRING;} // Not valid string...
+<quote><<EOF>>				{BEGIN(0); return ERROR_STRING;} // Not valid string...
+<quote>[^"\n]*				yyAddText();
 .							return ERROR;
 %%
 int yywrap(void)
 {
 	return 1;
+}
+
+void yyAddText(){
+	char * newString = malloc(strlen(yytext));
+	strcpy(newString, yytext);
+	yystring = newString;
 }
