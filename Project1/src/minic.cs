@@ -25,6 +25,7 @@ public class HelloWorld
                 else
                     Console.WriteLine ("The file '{0}' has some errors\n", files[i]);
             }
+            Console.WriteLine("Finished!");
         }
         catch (System.DllNotFoundException e)
         {
