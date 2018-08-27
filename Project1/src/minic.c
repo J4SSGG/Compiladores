@@ -15,13 +15,13 @@ int start(int ac, char * av) {
 		if (!(fr = fopen(av, "r"))) // Checks if file exits and is readable...
 		{
 			printf("Error while open the file '%s'\n", av);
-			return -1;
+			return 1;
 		}
 		// Set the file reference to flex.
 		yyset_in(fr); 
 	}else{
 		printf("INVALID PATH '%s'", av);
-		return -1;
+		return 1;
 	}
 
 	// Some control variables..
@@ -40,7 +40,7 @@ int start(int ac, char * av) {
 	if (!(fw = fopen(newName, "wb")))
 	{
 		printf("I can't create or open the file '%s'", newName);
-		return -1;
+		return 1;
 	}
 	
 	// This loop iterates over every line read from the file, pass the line content to flex, and catch the outputs.
@@ -110,19 +110,19 @@ int start(int ac, char * av) {
 				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Unrecognized: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Unrecognized: %s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				hasError = 1;
+				hasError += 1;
 				break;
 			case ERROR_COMMENT:
 				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid: comment unclosed\n", yylineno, yycol, yycol + strlen(yytext));
 				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid: comment: unclosed", yylineno, yycol, yycol + strlen(yytext));
 				yycol += strlen(yytext);
-				hasError = 1;
+				hasError += 1;
 				break;
 			case ERROR_STRING:
 				printf("<<	ERRROR	>>	Line: %5d - Columns: %3d to %3zu >>	 Invalid String: \"%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				fprintf(fw, "<<	ERRROR	>>	Line: %5d - Columns %3d to %3zu >>	 Invalid String: \"%s\n", yylineno, yycol, yycol + strlen(yytext), yytext);
 				yycol += strlen(yytext);
-				hasError = 1;
+				hasError += 1;
 				break;
 		}
 		
@@ -131,13 +131,10 @@ int start(int ac, char * av) {
 	
 	//Close file
 	fclose(fw);
-
-	// File had errors?
-	if (hasError == 1){
-		return -1;
-	}	
-	return 1;
+	yylineno = 1;
+	return hasError;
 }
+
 
 //These may be useful ...
 /*
