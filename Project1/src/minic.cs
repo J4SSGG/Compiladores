@@ -9,16 +9,26 @@ public class HelloWorld
     [DllImport ("bin/minic.so")]
     private static extern int start(int ac, string av);    
 
-    static public void Main ()
+    static public void Main (string[] files)
     {        
         try
         {
-            if(start(1, "files/test.cs") == 1) Console.WriteLine("Success!");
+            if (files.Length == 0){
+                Console.WriteLine("No file given as argument: EXIT!");
+                return;
+            }
+            for (int i = 0; i < files.Length; i++)
+            {
+                Console.WriteLine("Now reading: '{0}'\n", files[i]);
+                if(start(1, files[i]) >= 0) 
+                    Console.WriteLine("No errors reported for '{0}'\n", files[i]);
+                else
+                    Console.WriteLine ("The file '{0}' has some errors\n", files[i]);
+            }
         }
         catch (System.DllNotFoundException e)
         {
             Console.WriteLine(e);
         } 
-        //main(1, "main.php");
     }
 }

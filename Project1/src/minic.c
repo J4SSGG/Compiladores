@@ -14,13 +14,13 @@ int start(int ac, char * av) {
 		FILE *fr;
 		if (!(fr = fopen(av, "r"))) // Checks if file exits and is readable...
 		{
-			perror("Error al abrir archivo: ");
+			printf("Error while open the file '%s'\n", av);
 			return -1;
 		}
 		// Set the file reference to flex.
 		yyset_in(fr); 
 	}else{
-		printf("INVALID PATH %s", av);
+		printf("INVALID PATH '%s'", av);
 		return -1;
 	}
 
@@ -39,7 +39,7 @@ int start(int ac, char * av) {
 	FILE * fw;
 	if (!(fw = fopen(newName, "wb")))
 	{
-		printf("No se pudo crear o abrir el archivo: %s", newName);
+		printf("I can't create or open the file '%s'", newName);
 		return -1;
 	}
 	
@@ -134,7 +134,6 @@ int start(int ac, char * av) {
 
 	// File had errors?
 	if (hasError == 1){
-		printf ("El archivo %s contiene errores.\n", av);
 		return -1;
 	}	
 	return 1;
