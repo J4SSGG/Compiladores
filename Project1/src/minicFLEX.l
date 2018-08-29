@@ -30,11 +30,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 <comment><<EOF>>			{BEGIN(INITIAL); return ERROR_COMMENT;}
 {COMM}						return IGNORE;			
 {OPT}						return OPERATOR;
-\"							BEGIN(quote);
-<quote>\"					{BEGIN(0); return STRING;}
-<quote>[^"\n]*\n+			{BEGIN(0); yyAddText(); return ERROR_STRING;} // Not valid string...
-<quote><<EOF>>				{BEGIN(0); return ERROR_STRING;} // Not valid string...
-<quote>[^"\n]*				yyAddText();
+\".*\"						return STRING;
 .							return ERROR;
 %%
 int yywrap(void)
