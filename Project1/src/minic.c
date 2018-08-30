@@ -29,14 +29,10 @@ int start(int ac, char * av) {
 	int value = yylex(); // value (or token if applicable) returned by flex
 	int token = 0; // input-lines counter
 	int hasError = 0; // errors in file?
+	
 	// Write cs tokens file ...
-
-	char * newName = malloc(strlen(av)+1);
-	strcpy(newName, av);
-	newName[strlen(av)-2] = 'o';
-	newName[strlen(av)-1] = 'u';
-	newName[strlen(av)] = 't';
 	FILE * fw;
+	char * newName = FileOut(av);
 	if (!(fw = fopen(newName, "wb")))
 	{
 		printf("I can't create or open the file '%s'", newName);
@@ -135,6 +131,27 @@ int start(int ac, char * av) {
 	return hasError;
 }
 
+char * FileOut(char * FileInput){
+	int period = -1;
+	for (int i = 0; i < strlen(FileInput); i++){
+		period++;
+		if(FileInput[i] == 46){
+			break;
+		}
+		
+	}
+	char * out = malloc(period + 4);
+
+	for (int i = 0; i < period; i++){
+		out[i] = FileInput[i];
+	}
+
+	out[period] = 46;
+	out[period + 1] = 'o';
+	out[period + 2] = 'u';
+	out[period + 3] = 't';
+	return out;
+}
 
 //These may be useful ...
 /*

@@ -22,3 +22,4 @@ char * yystring;
 void ToLowerCase(char * word);
 void ToUpperCase(char * word);
 void yyAddText();
+char * FileOut(char * FileInput);
