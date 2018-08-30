@@ -23,7 +23,7 @@ OPT		"+"|"-"|"*"|"/"|"%"|"<"|"<="|">"|">"|"="|"=="|"!="|"&&"|"\|\|"|"!"|";"|"."|
 {ESP}						return IGNORE;
 {INT}						return INTEGER;
 {HEX}						return HEXADECIMAL;
-{DBL}|{DBL}{EXP}{INT}		return DOUBLE;
+{DBL}|{DBL}{EXP}({DBL}|{INT})		return DOUBLE;
 "/*"						BEGIN(comment);
 <comment>"*/"				{BEGIN(INITIAL);}
 <comment>([^*]|\n)+|.		yyAddText();
