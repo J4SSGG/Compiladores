@@ -8,7 +8,8 @@ extern FILE * yyin;
 extern int yylineno;
 
 // Syntactic analyser functions
-int Parse(char * path);
+int ParseExpression();
+int ParseFile(char * path);
 void yyerror(char * s);
 
 %}
@@ -41,12 +42,13 @@ void yyerror(char * s){
   printf("%s", s);
 }
 
+int ParseFile(char * filePath){
+  FILE * inputFile;
+  if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
+  yyin = inputFile;
+  return yyparse();
+}
 
-int main (int argc, char * argv[]){
-  if (argc > 1){
-    FILE * inputFile = fopen(argv[1], "r");
-    yyin = inputFile;
-    yyparse();
-  }
-  return 0;
+int ParseExpression(){
+  return yyparse();
 }

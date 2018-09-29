@@ -73,11 +73,12 @@ extern FILE * yyin;
 extern int yylineno;
 
 // Syntactic analyser functions
-int Parse(char * path);
+int ParseExpression();
+int ParseFile(char * path);
 void yyerror(char * s);
 
 
-#line 81 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
+#line 82 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -133,14 +134,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
+#line 16 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
 
   int intval;
   double doubleval;
   char * stringval;
   char charval;
 
-#line 144 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
+#line 145 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -157,7 +158,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 161 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
+#line 162 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -456,7 +457,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    37,    37
+       0,    38,    38
 };
 #endif
 
@@ -1224,13 +1225,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 37 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 38 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     { printf("works\n");}
-#line 1230 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1231 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
 
-#line 1234 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1235 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1458,19 +1459,20 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 38 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
+#line 39 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
 
 
 void yyerror(char * s){
   printf("%s", s);
 }
 
+int ParseFile(char * filePath){
+  FILE * inputFile;
+  if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
+  yyin = inputFile;
+  return yyparse();
+}
 
-int main (int argc, char * argv[]){
-  if (argc > 1){
-    FILE * inputFile = fopen(argv[1], "r");
-    yyin = inputFile;
-    yyparse();
-  }
-  return 0;
+int ParseExpression(){
+  return yyparse();
 }
