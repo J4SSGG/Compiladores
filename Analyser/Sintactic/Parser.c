@@ -113,19 +113,62 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    RESERVED = 258,
-    IDENTIFIER = 259,
-    INTEGER = 260,
-    DOUBLE = 261,
-    HEXADECIMAL = 262,
-    BOOL = 263,
-    STRING = 264,
-    OPERATOR = 265,
-    ERROR = 266,
-    IGNORE = 267,
-    NEW_LINE = 268,
-    ERROR_COMMENT = 269,
-    ERROR_STRING = 270
+    VIP_void = 258,
+    VIP_int = 259,
+    VIP_double = 260,
+    VIP_bool = 261,
+    VIP_string = 262,
+    VIP_class = 263,
+    VIP_interface = 264,
+    VIP_null = 265,
+    VIP_this = 266,
+    VIP_extends = 267,
+    VIP_implements = 268,
+    VIP_for = 269,
+    VIP_while = 270,
+    VIP_if = 271,
+    VIP_else = 272,
+    VIP_return = 273,
+    VIP_break = 274,
+    VIP_New = 275,
+    VIP_NewArray = 276,
+    VIP_Print = 277,
+    VIP_ReadInteger = 278,
+    VIP_ReadLine = 279,
+    VIP_Malloc = 280,
+    IDENTIFIER = 281,
+    NUM_int = 282,
+    NUM_hex = 283,
+    NUM_double = 284,
+    STRING = 285,
+    BOOL = 286,
+    OPT_plus = 287,
+    OPT_minus = 288,
+    OPT_times = 289,
+    OPT_divide = 290,
+    OPT_mod = 291,
+    OPT_lower = 292,
+    OPT_lower_equal = 293,
+    OPT_greater = 294,
+    OPT_greater_equal = 295,
+    OPT_assign = 296,
+    OPT_equal = 297,
+    OPT_not_equal = 298,
+    OPT_and = 299,
+    OPT_or = 300,
+    OPT_not = 301,
+    OPT_semicolon = 302,
+    OPT_dot = 303,
+    OPT_coma = 304,
+    OPT_left_bracket = 305,
+    OPT_right_bracket = 306,
+    OPT_left_brace = 307,
+    OPT_right_brace = 308,
+    OPT_left_parentheses = 309,
+    OPT_right_parentheses = 310,
+    OPT_brackets = 311,
+    OPT_parentheses = 312,
+    OPT_braces = 313
   };
 #endif
 
@@ -136,12 +179,12 @@ union YYSTYPE
 {
 #line 16 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
 
-  int intval;
-  double doubleval;
-  char * stringval;
-  char charval;
+  int intVal;
+  double doubleVal;
+  char * stringVal;
+  char charVal;
 
-#line 145 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
+#line 188 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -158,7 +201,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 162 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
+#line 205 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -403,7 +446,7 @@ union yyalloc
 #define YYLAST   2
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  16
+#define YYNTOKENS  59
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -414,7 +457,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   270
+#define YYMAXUTOK   313
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -450,14 +493,18 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56,    57,    58
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    38,    38
+       0,    80,    80
 };
 #endif
 
@@ -466,9 +513,19 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "RESERVED", "IDENTIFIER", "INTEGER",
-  "DOUBLE", "HEXADECIMAL", "BOOL", "STRING", "OPERATOR", "ERROR", "IGNORE",
-  "NEW_LINE", "ERROR_COMMENT", "ERROR_STRING", "$accept", "A", YY_NULLPTR
+  "$end", "error", "$undefined", "VIP_void", "VIP_int", "VIP_double",
+  "VIP_bool", "VIP_string", "VIP_class", "VIP_interface", "VIP_null",
+  "VIP_this", "VIP_extends", "VIP_implements", "VIP_for", "VIP_while",
+  "VIP_if", "VIP_else", "VIP_return", "VIP_break", "VIP_New",
+  "VIP_NewArray", "VIP_Print", "VIP_ReadInteger", "VIP_ReadLine",
+  "VIP_Malloc", "IDENTIFIER", "NUM_int", "NUM_hex", "NUM_double", "STRING",
+  "BOOL", "OPT_plus", "OPT_minus", "OPT_times", "OPT_divide", "OPT_mod",
+  "OPT_lower", "OPT_lower_equal", "OPT_greater", "OPT_greater_equal",
+  "OPT_assign", "OPT_equal", "OPT_not_equal", "OPT_and", "OPT_or",
+  "OPT_not", "OPT_semicolon", "OPT_dot", "OPT_coma", "OPT_left_bracket",
+  "OPT_right_bracket", "OPT_left_brace", "OPT_right_brace",
+  "OPT_left_parentheses", "OPT_right_parentheses", "OPT_brackets",
+  "OPT_parentheses", "OPT_braces", "$accept", "A", YY_NULLPTR
 };
 #endif
 
@@ -478,14 +535,18 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
+     295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
+     305,   306,   307,   308,   309,   310,   311,   312,   313
 };
 # endif
 
-#define YYPACT_NINF -10
+#define YYPACT_NINF -41
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-10)))
+  (!!((Yystate) == (-41)))
 
 #define YYTABLE_NINF -1
 
@@ -496,7 +557,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,    -9,     2,   -10,   -10
+      -4,   -40,     2,   -41,   -41
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -510,7 +571,7 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -10,   -10
+     -41,   -41
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -529,20 +590,20 @@ static const yytype_uint8 yytable[] =
 
 static const yytype_uint8 yycheck[] =
 {
-       3,    10,     0
+       4,    41,     0
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    17,    10,     0
+       0,     4,    60,    41,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    16,    17
+       0,    59,    60
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1225,13 +1286,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 38 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 80 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     { printf("works\n");}
-#line 1231 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1292 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
 
-#line 1235 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1296 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1459,7 +1520,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 39 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
+#line 82 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
 
 
 void yyerror(char * s){
