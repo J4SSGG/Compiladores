@@ -1,5 +1,4 @@
-*.so
-*.exe
-*.cs
 *.out
+Analyser/*.c
+Analyser/*.h
 Test/*
