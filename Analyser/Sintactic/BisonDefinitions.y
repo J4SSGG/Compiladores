@@ -109,6 +109,7 @@ FUNCTION_DECL : TYPE identifier opt_left_parentheses FORMALS opt_right_parenthes
 
 FORMALS : VARIABLE                      {;}
         | VARIABLE opt_coma FORMALS     {;}
+        | %empty                        {;}
 
 CLASS_DECL  : vip_class identifier EXTENDS IMPLEMENTS opt_left_brace FIELD opt_right_brace  {;}
 
