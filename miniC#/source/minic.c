@@ -5,7 +5,7 @@
 int main(int argc, char ** argv) {
 	if (argc > 1){
 		// File is given as argument
-		ParseFile(argv[0]);
+		ParseFile(argv[1]);
 	}else{
 		ParseExpression();
 	}
