@@ -105,7 +105,7 @@ TYPE      : vip_int                      {;}
           | TYPE opt_brackets            {;}
 
 FUNCTION_DECL : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK   {;}
-              | vip_void opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK          {;}
+              | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK          {;}
 
 FORMALS : VARIABLE                      {;}
         | VARIABLE opt_coma FORMALS     {;}
