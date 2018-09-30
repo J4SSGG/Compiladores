@@ -45,10 +45,6 @@ void yyerror(char * s);
 %token vip_Malloc
 %token vip_GetByte
 %token vip_SetByte
-%token vip_intConstant
-%token vip_doubleConstant
-%token vip_boolConstant
-%token vip_stringConstant
 %token identifier
 %token num_int
 %token num_hex
@@ -79,33 +75,31 @@ void yyerror(char * s);
 %token opt_right_brace
 %token opt_left_parentheses
 %token opt_right_parentheses
-%token opt_brackets
-%token opt_parentheses
-%token opt_braces
+
 
 %%
 
 
 
-PROGRAM : DECL PROGRAM      {;}
-        | DECL              {;}
+PROGRAM : DECL               {;}
+        | DECL PROGRAM       {;}
 
 DECL  : VAR_DECL            {;}
       | FUNCTION_DECL       {;}
       | CLASS_DECL          {;}
       | INTERFACE_DECL      {;}
 
-VAR_DECL  : VARIABLE opt_semicolon       {;}
-VARIABLE  : TYPE identifier              {;}
-TYPE      : vip_int                      {;}
-          | vip_double                   {;}
-          | val_bool                     {;}
-          | val_string                   {;}
-          | identifier                   {;}
-          | TYPE opt_brackets            {;}
+VAR_DECL  : VARIABLE opt_semicolon                  {;}
+VARIABLE  : TYPE identifier                         {;}
+TYPE      : vip_int                                 {;}
+          | vip_double                              {;}
+          | val_bool                                {;}
+          | val_string                              {;}
+          | identifier                              {;}
+          | TYPE opt_left_bracket opt_right_bracket {;}
 
-FUNCTION_DECL : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK   {;}
-              | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK          {;}
+FUNCTION_DECL : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK             {;}
+              | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK         {;}
 
 FORMALS : VARIABLE                      {;}
         | VARIABLE opt_coma FORMALS     {;}
@@ -115,6 +109,7 @@ CLASS_DECL  : vip_class identifier EXTENDS IMPLEMENTS opt_left_brace FIELD opt_r
 
 EXTENDS : vip_extends identifier EXTENDS  {;}
         | %empty                          {;}
+
 IMPLEMENTS  : vip_implements identifier opt_coma IMPLEMENTS    {;}
             | %empty                                           {;}
 
@@ -136,7 +131,7 @@ VARS  : VAR_DECL VARS   {;}
 STMTS : STATEMENT STMTS   {;}
       | %empty            {;}
 
-STATEMENT  : EXPR opt_semicolon   {;}
+STATEMENT   : EXPR opt_semicolon  {;}
             | IF_STMT             {;}
             | WHILE_STMT          {;}
             | FOR_STMT            {;}
@@ -146,6 +141,7 @@ STATEMENT  : EXPR opt_semicolon   {;}
             | STMT_BLOCK          {;}
 
 IF_STMT : vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT ELSE_STMT      {;}
+
 ELSE_STMT : vip_else STATEMENT  ELSE_STMT   {;}
           | %empty                          {;}
 
@@ -189,13 +185,13 @@ EXPRESSION  : VALUE opt_assign EXPRESSION                                       
             | opt_not EXPRESSION                                                                    {;}
             | vip_New opt_left_parentheses identifier opt_right_parentheses                         {;}
             | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses      {;}
-            | vip_ReadInteger opt_parentheses                                                       {;}
-            | vip_ReadLine opt_parentheses                                                          {;}
+            | vip_ReadInteger opt_left_parentheses opt_right_parentheses                            {;}
+            | vip_ReadLine opt_left_parentheses opt_right_parentheses                               {;}
             | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                      {;}
 
 VALUE : identifier                                            {;}
       | EXPRESSION opt_dot identifier                         {;}
-      | EXPRESSION opt_left_bracket EXPR opt_right_bracket    {;}
+      | EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket    {;}
 
 CALL  : identifier opt_left_parentheses ACTUAL opt_right_parentheses                        {;}
       | EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses     {;}
@@ -204,14 +200,13 @@ CALL  : identifier opt_left_parentheses ACTUAL opt_right_parentheses            
 LIB_CALL  : vip_GetByte opt_left_parentheses EXPRESSION opt_right_parentheses                         {;}
           | vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses     {;}
 
-ACTUAL  : EXPRPLUS  {;}
-        | %empty    {;}
+ACTUAL  : EXPR    {;}
 
-CONST : vip_intConstant     {;}
-      | vip_doubleConstant  {;}
-      | vip_boolConstant    {;}
-      | vip_stringConstant  {;}
-      | vip_null            {;}
+CONST : num_int     {;}
+      | num_hex     {;}
+      | num_double  {;}
+      | val_bool    {;}
+      | val_string  {;}
 
 %%
 
