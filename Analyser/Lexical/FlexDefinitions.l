@@ -50,12 +50,12 @@ Print						return vip_Print;
 ReadInteger					return vip_ReadInteger;
 ReadLine					return vip_ReadLine;
 Malloc						return vip_Malloc;
-GetByte						return vip_GetByte
-SetByte						return vip_SetByte
-intConstant					return vip_intConstant
-doubleConstant				return vip_doubleConstant
-boolConstant				return vip_boolConstant
-stringConstan				return vip_stringConstant
+GetByte						return vip_GetByte;
+SetByte						return vip_SetByte;
+intConstant					return vip_intConstant;
+doubleConstant				return vip_doubleConstant;
+boolConstant				return vip_boolConstant;
+stringConstan				return vip_stringConstant;
 {BOOL}						return val_bool;
 {IDF}						return identifier;
 {ESP}						;
