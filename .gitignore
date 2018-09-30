@@ -1,4 +1,5 @@
 *.out
-Analyser/*.c
-Analyser/*.h
+Analyser/Lexical/*.c
+Analyser/Sintactic/*.h
+Analyser/Sintactic/*.c
 Test/*
