@@ -13,71 +13,72 @@ int ParseFile(char * path);
 void yyerror(char * s);
 
 %}
+%start PROGRAM
 %union {
   int intVal;
   double doubleVal;
   char * stringVal;
   char charVal;
 }
-%token VIP_void 
-%token VIP_int
-%token VIP_double
-%token VIP_bool
-%token VIP_string
-%token VIP_class
-%token VIP_interface
-%token VIP_null
-%token VIP_this
-%token VIP_extends
-%token VIP_implements
-%token VIP_for
-%token VIP_while
-%token VIP_if
-%token VIP_else
-%token VIP_return
-%token VIP_break
-%token VIP_New
-%token VIP_NewArray
-%token VIP_Print
-%token VIP_ReadInteger
-%token VIP_ReadLine
-%token VIP_Malloc
-%token IDENTIFIER
-%token NUM_int
-%token NUM_hex
-%token NUM_double
-%token STRING
-%token BOOL
-%token OPT_plus
-%token OPT_minus
-%token OPT_times
-%token OPT_divide
-%token OPT_mod
-%token OPT_lower
-%token OPT_lower_equal
-%token OPT_greater
-%token OPT_greater_equal
-%token OPT_assign
-%token OPT_equal
-%token OPT_not_equal
-%token OPT_and
-%token OPT_or
-%token OPT_not
-%token OPT_semicolon
-%token OPT_dot
-%token OPT_coma
-%token OPT_left_bracket
-%token OPT_right_bracket
-%token OPT_left_brace
-%token OPT_right_brace
-%token OPT_left_parentheses
-%token OPT_right_parentheses
-%token OPT_brackets
-%token OPT_parentheses
-%token OPT_braces
+%token vip_void 
+%token vip_int
+%token vip_double
+%token vip_bool
+%token vip_string
+%token vip_class
+%token vip_interface
+%token vip_null
+%token vip_this
+%token vip_extends
+%token vip_implements
+%token vip_for
+%token vip_while
+%token vip_if
+%token vip_else
+%token vip_return
+%token vip_break
+%token vip_New
+%token vip_NewArray
+%token vip_Print
+%token vip_ReadInteger
+%token vip_ReadLine
+%token vip_Malloc
+%token identifier
+%token num_int
+%token num_hex
+%token num_double
+%token val_string
+%token val_bool
+%token opt_plus
+%token opt_minus
+%token opt_times
+%token opt_divide
+%token opt_mod
+%token opt_lower
+%token opt_lower_equal
+%token opt_greater
+%token opt_greater_equal
+%token opt_assign
+%token opt_equal
+%token opt_not_equal
+%token opt_and
+%token opt_or
+%token opt_not
+%token opt_semicolon
+%token opt_dot
+%token opt_coma
+%token opt_left_bracket
+%token opt_right_bracket
+%token opt_left_brace
+%token opt_right_brace
+%token opt_left_parentheses
+%token opt_right_parentheses
+%token opt_brackets
+%token opt_parentheses
+%token opt_braces
 
 %%
-A :  VIP_int OPT_assign { printf("works\n");}
+PROGRAM : num_double {;}
 
 %%
 

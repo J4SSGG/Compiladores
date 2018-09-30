@@ -935,127 +935,127 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 30 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_void;
+return vip_void;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 31 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_int;
+return vip_int;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 32 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_double;
+return vip_double;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 33 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_bool;
+return vip_bool;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 34 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_string;
+return vip_string;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 35 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_class;
+return vip_class;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 36 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_interface;
+return vip_interface;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 37 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_null;
+return vip_null;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 38 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_this;
+return vip_this;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 39 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_extends;
+return vip_extends;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 40 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_implements;
+return vip_implements;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 41 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_for;
+return vip_for;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 42 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_while;
+return vip_while;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 43 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_if;
+return vip_if;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 44 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_else;
+return vip_else;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 45 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_return;
+return vip_return;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 46 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_break;
+return vip_break;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 47 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_New;
+return vip_New;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 48 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_NewArray;
+return vip_NewArray;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 49 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_Print;
+return vip_Print;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 50 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_ReadInteger;
+return vip_ReadInteger;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 51 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_ReadLine;
+return vip_ReadLine;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 52 "Analyser/Lexical/FlexDefinitions.l"
-return VIP_Malloc;
+return vip_Malloc;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 53 "Analyser/Lexical/FlexDefinitions.l"
-return BOOL;
+return val_bool;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 54 "Analyser/Lexical/FlexDefinitions.l"
-return IDENTIFIER;
+return identifier;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
@@ -1065,17 +1065,17 @@ YY_RULE_SETUP
 case 28:
 YY_RULE_SETUP
 #line 56 "Analyser/Lexical/FlexDefinitions.l"
-return NUM_int;
+return num_int;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 57 "Analyser/Lexical/FlexDefinitions.l"
-return NUM_hex;
+return num_hex;
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 58 "Analyser/Lexical/FlexDefinitions.l"
-return NUM_double;
+return num_double;
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -1105,142 +1105,142 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 64 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_plus;
+return opt_plus;
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 65 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_minus;
+return opt_minus;
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 66 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_times;
+return opt_times;
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 67 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_divide;
+return opt_divide;
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 68 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_mod;
+return opt_mod;
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 69 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_lower;
+return opt_lower;
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 70 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_lower_equal;
+return opt_lower_equal;
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 71 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_greater;
+return opt_greater;
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 72 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_greater_equal;
+return opt_greater_equal;
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 73 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_assign;
+return opt_assign;
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 74 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_equal;
+return opt_equal;
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 75 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_not_equal;
+return opt_not_equal;
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 76 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_and;
+return opt_and;
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 77 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_or;
+return opt_or;
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 78 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_not;
+return opt_not;
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 79 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_semicolon;
+return opt_semicolon;
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 80 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_dot;
+return opt_dot;
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 81 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_coma;
+return opt_coma;
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 82 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_left_bracket;
+return opt_left_bracket;
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 83 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_right_bracket;
+return opt_right_bracket;
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 84 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_left_brace;
+return opt_left_brace;
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 85 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_right_brace;
+return opt_right_brace;
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 86 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_left_parentheses;
+return opt_left_parentheses;
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 87 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_right_parentheses;
+return opt_right_parentheses;
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 88 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_brackets;
+return opt_brackets;
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 89 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_parentheses;
+return opt_parentheses;
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 90 "Analyser/Lexical/FlexDefinitions.l"
-return OPT_braces;
+return opt_braces;
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
 #line 91 "Analyser/Lexical/FlexDefinitions.l"
-return STRING;
+return val_string;
 	YY_BREAK
 case 63:
 YY_RULE_SETUP

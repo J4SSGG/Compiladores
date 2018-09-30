@@ -113,62 +113,62 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    VIP_void = 258,
-    VIP_int = 259,
-    VIP_double = 260,
-    VIP_bool = 261,
-    VIP_string = 262,
-    VIP_class = 263,
-    VIP_interface = 264,
-    VIP_null = 265,
-    VIP_this = 266,
-    VIP_extends = 267,
-    VIP_implements = 268,
-    VIP_for = 269,
-    VIP_while = 270,
-    VIP_if = 271,
-    VIP_else = 272,
-    VIP_return = 273,
-    VIP_break = 274,
-    VIP_New = 275,
-    VIP_NewArray = 276,
-    VIP_Print = 277,
-    VIP_ReadInteger = 278,
-    VIP_ReadLine = 279,
-    VIP_Malloc = 280,
-    IDENTIFIER = 281,
-    NUM_int = 282,
-    NUM_hex = 283,
-    NUM_double = 284,
-    STRING = 285,
-    BOOL = 286,
-    OPT_plus = 287,
-    OPT_minus = 288,
-    OPT_times = 289,
-    OPT_divide = 290,
-    OPT_mod = 291,
-    OPT_lower = 292,
-    OPT_lower_equal = 293,
-    OPT_greater = 294,
-    OPT_greater_equal = 295,
-    OPT_assign = 296,
-    OPT_equal = 297,
-    OPT_not_equal = 298,
-    OPT_and = 299,
-    OPT_or = 300,
-    OPT_not = 301,
-    OPT_semicolon = 302,
-    OPT_dot = 303,
-    OPT_coma = 304,
-    OPT_left_bracket = 305,
-    OPT_right_bracket = 306,
-    OPT_left_brace = 307,
-    OPT_right_brace = 308,
-    OPT_left_parentheses = 309,
-    OPT_right_parentheses = 310,
-    OPT_brackets = 311,
-    OPT_parentheses = 312,
-    OPT_braces = 313
+    vip_void = 258,
+    vip_int = 259,
+    vip_double = 260,
+    vip_bool = 261,
+    vip_string = 262,
+    vip_class = 263,
+    vip_interface = 264,
+    vip_null = 265,
+    vip_this = 266,
+    vip_extends = 267,
+    vip_implements = 268,
+    vip_for = 269,
+    vip_while = 270,
+    vip_if = 271,
+    vip_else = 272,
+    vip_return = 273,
+    vip_break = 274,
+    vip_New = 275,
+    vip_NewArray = 276,
+    vip_Print = 277,
+    vip_ReadInteger = 278,
+    vip_ReadLine = 279,
+    vip_Malloc = 280,
+    identifier = 281,
+    num_int = 282,
+    num_hex = 283,
+    num_double = 284,
+    val_string = 285,
+    val_bool = 286,
+    opt_plus = 287,
+    opt_minus = 288,
+    opt_times = 289,
+    opt_divide = 290,
+    opt_mod = 291,
+    opt_lower = 292,
+    opt_lower_equal = 293,
+    opt_greater = 294,
+    opt_greater_equal = 295,
+    opt_assign = 296,
+    opt_equal = 297,
+    opt_not_equal = 298,
+    opt_and = 299,
+    opt_or = 300,
+    opt_not = 301,
+    opt_semicolon = 302,
+    opt_dot = 303,
+    opt_coma = 304,
+    opt_left_bracket = 305,
+    opt_right_bracket = 306,
+    opt_left_brace = 307,
+    opt_right_brace = 308,
+    opt_left_parentheses = 309,
+    opt_right_parentheses = 310,
+    opt_brackets = 311,
+    opt_parentheses = 312,
+    opt_braces = 313
   };
 #endif
 
@@ -177,7 +177,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 16 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
+#line 17 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
 
   int intVal;
   double doubleVal;
@@ -441,9 +441,9 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  4
+#define YYFINAL  3
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   2
+#define YYLAST   1
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  59
@@ -452,7 +452,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  5
+#define YYNSTATES  4
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -504,7 +504,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    80,    80
+       0,    81,    81
 };
 #endif
 
@@ -513,19 +513,19 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "VIP_void", "VIP_int", "VIP_double",
-  "VIP_bool", "VIP_string", "VIP_class", "VIP_interface", "VIP_null",
-  "VIP_this", "VIP_extends", "VIP_implements", "VIP_for", "VIP_while",
-  "VIP_if", "VIP_else", "VIP_return", "VIP_break", "VIP_New",
-  "VIP_NewArray", "VIP_Print", "VIP_ReadInteger", "VIP_ReadLine",
-  "VIP_Malloc", "IDENTIFIER", "NUM_int", "NUM_hex", "NUM_double", "STRING",
-  "BOOL", "OPT_plus", "OPT_minus", "OPT_times", "OPT_divide", "OPT_mod",
-  "OPT_lower", "OPT_lower_equal", "OPT_greater", "OPT_greater_equal",
-  "OPT_assign", "OPT_equal", "OPT_not_equal", "OPT_and", "OPT_or",
-  "OPT_not", "OPT_semicolon", "OPT_dot", "OPT_coma", "OPT_left_bracket",
-  "OPT_right_bracket", "OPT_left_brace", "OPT_right_brace",
-  "OPT_left_parentheses", "OPT_right_parentheses", "OPT_brackets",
-  "OPT_parentheses", "OPT_braces", "$accept", "A", YY_NULLPTR
+  "$end", "error", "$undefined", "vip_void", "vip_int", "vip_double",
+  "vip_bool", "vip_string", "vip_class", "vip_interface", "vip_null",
+  "vip_this", "vip_extends", "vip_implements", "vip_for", "vip_while",
+  "vip_if", "vip_else", "vip_return", "vip_break", "vip_New",
+  "vip_NewArray", "vip_Print", "vip_ReadInteger", "vip_ReadLine",
+  "vip_Malloc", "identifier", "num_int", "num_hex", "num_double",
+  "val_string", "val_bool", "opt_plus", "opt_minus", "opt_times",
+  "opt_divide", "opt_mod", "opt_lower", "opt_lower_equal", "opt_greater",
+  "opt_greater_equal", "opt_assign", "opt_equal", "opt_not_equal",
+  "opt_and", "opt_or", "opt_not", "opt_semicolon", "opt_dot", "opt_coma",
+  "opt_left_bracket", "opt_right_bracket", "opt_left_brace",
+  "opt_right_brace", "opt_left_parentheses", "opt_right_parentheses",
+  "opt_brackets", "opt_parentheses", "opt_braces", "$accept", "PROGRAM", YY_NULLPTR
 };
 #endif
 
@@ -543,10 +543,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -41
+#define YYPACT_NINF -30
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-41)))
+  (!!((Yystate) == (-30)))
 
 #define YYTABLE_NINF -1
 
@@ -557,7 +557,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -4,   -40,     2,   -41,   -41
+     -29,   -30,     1,   -30
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -565,13 +565,13 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     2,     1
+       0,     2,     0,     1
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -41,   -41
+     -30,   -30
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -585,19 +585,19 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     3,     4
+       1,     3
 };
 
 static const yytype_uint8 yycheck[] =
 {
-       4,    41,     0
+      29,     0
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     4,    60,    41,     0
+       0,    29,    60,     0
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -609,7 +609,7 @@ static const yytype_uint8 yyr1[] =
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2
+       0,     2,     1
 };
 
 
@@ -1286,8 +1286,8 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 80 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
-    { printf("works\n");}
+#line 81 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {;}
 #line 1292 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
@@ -1520,7 +1520,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 82 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
+#line 83 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
 
 
 void yyerror(char * s){
