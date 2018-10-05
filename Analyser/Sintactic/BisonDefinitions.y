@@ -6,6 +6,7 @@
 extern int yylex();
 extern FILE * yyin;
 extern int yylineno;
+extern int yydebug;
 
 // Syntactic analyser functions
 int ParseExpression();
@@ -81,146 +82,228 @@ void yyerror(char * s);
 
 
 
-PROGRAM : DECL               {;}
-        | DECL PROGRAM       {;}
+PROGRAM 
+      : DECL               {;}
+      | DECL PROGRAM       {;}
+      ;
 
-DECL  : VAR_DECL            {;}
+DECL  
+      : VAR_DECL            {;}
       | FUNCTION_DECL       {;}
       | CLASS_DECL          {;}
       | INTERFACE_DECL      {;}
+      ;
 
-VAR_DECL  : VARIABLE opt_semicolon                  {;}
-VARIABLE  : TYPE identifier                         {;}
-TYPE      : vip_int                                 {;}
-          | vip_double                              {;}
-          | val_bool                                {;}
-          | val_string                              {;}
-          | identifier                              {;}
-          | TYPE opt_left_bracket opt_right_bracket {;}
+VAR_DECL    
+      : VARIABLE opt_semicolon                  {;}
+      ;
 
-FUNCTION_DECL : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK             {;}
-              | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK         {;}
+VARIABLE    
+      : TYPE identifier                         {;}
+      ;
 
-FORMALS : VARIABLE                      {;}
-        | VARIABLE opt_coma FORMALS     {;}
-        | %empty                        {;}
+VARIABLE_PLUS
+      : VARIABLE opt_coma VARIABLE_PLUS         {;}
+      | VARIABLE                                {;}
 
-CLASS_DECL  : vip_class identifier EXTENDS IMPLEMENTS opt_left_brace FIELD opt_right_brace  {;}
+TYPE      
+      : vip_int                                 {;}
+      | vip_double                              {;}
+      | vip_bool                                {;}
+      | vip_string                              {;}
+      | TYPE opt_left_bracket opt_right_bracket {;}
+      ;
 
-EXTENDS : vip_extends identifier EXTENDS  {;}
-        | %empty                          {;}
+FUNCTION_DECL 
+      : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK             {;}
+      | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK         {;}
+      ;
 
-IMPLEMENTS  : vip_implements identifier opt_coma IMPLEMENTS    {;}
-            | %empty                                           {;}
-
-FIELD : VAR_DECL        {;}
-      | FUNCTION_DECL   {;}
-
-INTERFACE_DECL  : vip_interface identifier opt_left_brace PROTOTYPE opt_right_brace   {;}
-
-PROTOTYPE : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon                  {;}
-          | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon              {;}
-          | TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon PROTOTYPE        {;}
-          | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon PROTOTYPE    {;}
-
-STMT_BLOCK  : opt_left_brace VARS STMTS opt_right_brace  {;}
-
-VARS  : VAR_DECL VARS   {;}
+FORMALS 
+      : VARIABLE_PLUS   {;}
       | %empty          {;}
+      ;
 
-STMTS : STATEMENT STMTS   {;}
-      | %empty            {;}
+CLASS_DECL  
+      : vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace  {;}
+      ;
 
-STATEMENT   : EXPR opt_semicolon  {;}
-            | IF_STMT             {;}
-            | WHILE_STMT          {;}
-            | FOR_STMT            {;}
-            | BREAK_STMT          {;}
-            | RETURN_STMT         {;}
-            | PRINT_STMT          {;}
-            | STMT_BLOCK          {;}
-
-IF_STMT : vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT ELSE_STMT      {;}
-
-ELSE_STMT : vip_else STATEMENT  ELSE_STMT   {;}
-          | %empty                          {;}
-
-WHILE_STMT  : vip_while opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT     {;}
-
-FOR_STMT  : vip_for opt_left_parentheses EXPR opt_semicolon EXPRESSION opt_semicolon EXPR opt_right_parentheses STATEMENT     {;}
-
-RETURN_STMT  : vip_return EXPR opt_semicolon    {;}
-
-BREAK_STMT  : vip_break opt_semicolon     {;}
-
-PRINT_STMT  : vip_Print opt_left_parentheses EXPRPLUS opt_right_parentheses opt_semicolon     {;}
-
-EXPR  : EXPRESSION opt_coma EXPR    {;}
-      | EXPRESSION                  {;}
+EXTENDS 
+      : vip_extends identifier      {;}
       | %empty                      {;}
+      ;
 
-EXPRPLUS  : EXPRESSION opt_coma EXPRPLUS      {;}
-          | EXPRESSION                        {;} 
+IMPLEMENTS
+      : vip_implements IDENTIFIER_PLUS    {;}
+      | %empty
+      ;
 
-EXPRESSION  : VALUE opt_assign EXPRESSION                                                           {;}
-            | CONST                                                                                 {;}
-            | VALUE                                                                                 {;}
-            | vip_this                                                                              {;}
-            | CALL                                                                                  {;}
-            | opt_left_parentheses EXPRESSION opt_right_parentheses                                 {;}
-            | EXPRESSION opt_plus EXPRESSION                                                        {;}
-            | EXPRESSION opt_minus EXPRESSION                                                       {;}
-            | EXPRESSION opt_divide EXPRESSION                                                      {;}
-            | EXPRESSION opt_times EXPRESSION                                                       {;}
-            | EXPRESSION opt_mod EXPRESSION                                                         {;}
-            | opt_minus EXPRESSION                                                                  {;}
-            | EXPRESSION opt_lower EXPRESSION                                                       {;}
-            | EXPRESSION opt_lower_equal EXPRESSION                                                 {;}
-            | EXPRESSION opt_greater EXPRESSION                                                     {;}
-            | EXPRESSION opt_greater_equal EXPRESSION                                               {;}
-            | EXPRESSION opt_equal EXPRESSION                                                       {;}
-            | EXPRESSION opt_not_equal EXPRESSION                                                   {;}
-            | EXPRESSION opt_and EXPRESSION                                                         {;}
-            | EXPRESSION opt_or EXPRESSION                                                          {;}
-            | opt_not EXPRESSION                                                                    {;}
-            | vip_New opt_left_parentheses identifier opt_right_parentheses                         {;}
-            | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses      {;}
-            | vip_ReadInteger opt_left_parentheses opt_right_parentheses                            {;}
-            | vip_ReadLine opt_left_parentheses opt_right_parentheses                               {;}
-            | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                      {;}
+IDENTIFIER_PLUS  
+      : identifier opt_coma IDENTIFIER_PLUS     {;}
+      | identifier                              {;}
+      ;
 
-VALUE : identifier                                            {;}
-      | EXPRESSION opt_dot identifier                         {;}
-      | EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket    {;}
+FIELD 
+      : VAR_DECL              {;}
+      | FUNCTION_DECL         {;}
+      ;
 
-CALL  : identifier opt_left_parentheses ACTUAL opt_right_parentheses                        {;}
+INTERFACE_DECL    
+      : vip_interface identifier opt_left_brace PROTOTYPE opt_right_brace   {;}
+      ;
+
+PROTOTYPE 
+      : TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon              {;}
+      | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon          {;}
+      ;
+
+STMT_BLOCK  
+      : opt_left_brace VARS STMTS opt_right_brace  {;}
+      ;
+
+VARS  
+      : VAR_DECL VARS   {;}
+      | %empty          {;}
+      ;
+
+STMTS 
+      : STATEMENT STMTS   {;}
+      | %empty            {;}
+      ;
+
+STATEMENT   
+      : EXPRESSION_Q opt_semicolon  {;}
+      | IF_STMT             {;}
+      | WHILE_STMT          {;}
+      | FOR_STMT            {;}
+      | BREAK_STMT          {;}
+      | RETURN_STMT         {;}
+      | PRINT_STMT          {;}
+      | STMT_BLOCK          {;}
+      ;
+
+IF_STMT     
+      : vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT                        {;}
+      | vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT     {;}
+      ;
+
+
+WHILE_STMT  
+      : vip_while opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT     {;}
+      ;
+
+FOR_STMT  
+      : vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT         {;}
+      ;
+
+RETURN_STMT 
+      : vip_return EXPRESSION_Q opt_semicolon    {;}
+      ;
+
+BREAK_STMT 
+      : vip_break opt_semicolon     {;}
+      ;
+
+PRINT_STMT  
+      : vip_Print opt_left_parentheses EXPRESSION_PLUS opt_right_parentheses opt_semicolon     {;}
+      ;
+
+EXPRESSION_Q  
+      : EXPRESSION      {;}
+      | %empty          {;}
+      ;
+
+EXPRESSION_PLUS  
+      : EXPRESSION opt_coma EXPRESSION_PLUS     {;}
+      | EXPRESSION                              {;} 
+      ;
+
+EXPRESSION  
+      : VALUE opt_assign RRR {;}
+      | RRR {;}
+      ;
+RRR
+      : RRR opt_lower SSS    {;}
+      | RRR opt_lower_equal SSS {;}
+      | RRR opt_greater SSS {;}
+      | RRR opt_greater_equal SSS {;}
+      | RRR opt_equal SSS {;}
+      | RRR opt_not_equal SSS {;}
+      | RRR opt_and SSS {;}
+      | RRR opt_or SSS {;}
+      | SSS {;}
+      ;
+SSS
+      : SSS opt_plus PPP {;}
+      | SSS opt_minus PPP {;}
+      | opt_minus PPP {;}
+      | opt_not PPP {;}
+      | PPP {;}
+      ;
+
+PPP
+      : PPP opt_times TTT {;}
+      | PPP opt_divide TTT {;}
+      | PPP opt_mod TTT {;}
+      | TTT {;}
+      ;
+
+TTT
+      : vip_this {;}
+      | CONST {;}
+      | CALL {;}
+      | VALUE {;}
+      | vip_New opt_left_parentheses identifier opt_right_parentheses {;}
+      | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses {;}
+      | vip_ReadInteger opt_left_parentheses opt_right_parentheses {;}
+      | vip_ReadLine opt_left_parentheses opt_right_parentheses {;}
+      | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses {;}
+
+VALUE 
+      : identifier                                                      {;}
+      | EXPRESSION opt_dot identifier                                   {;}
+      | EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket        {;}
+      ;
+
+CALL  
+      : identifier opt_left_parentheses ACTUAL opt_right_parentheses                        {;}
       | EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses     {;}
       | EXPRESSION opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses       {;}
+      ;
 
-LIB_CALL  : vip_GetByte opt_left_parentheses EXPRESSION opt_right_parentheses                         {;}
-          | vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses     {;}
+LIB_CALL  
+      : vip_GetByte opt_left_parentheses EXPRESSION opt_right_parentheses                         {;}
+      | vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses     {;}
+      ;
 
-ACTUAL  : EXPR    {;}
+ACTUAL  
+      : EXPRESSION_PLUS       {;}
+      | %empty                {;}
+      ;
 
-CONST : num_int     {;}
+CONST 
+      : num_int     {;}
       | num_hex     {;}
       | num_double  {;}
       | val_bool    {;}
       | val_string  {;}
+      | vip_null    {;}    
+      ;
 
 %%
 
 void yyerror(char * s){
-  printf("%s", s);
+      printf("%s", s);
 }
 
 int ParseFile(char * filePath){
-  FILE * inputFile;
-  if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
-  yyin = inputFile;
-  return yyparse();
+      yydebug = 1;
+      FILE * inputFile;
+      if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
+      yyin = inputFile;
+      return yyparse();
 }
 
 int ParseExpression(){
-  return yyparse();
+      return yyparse();
 }

@@ -71,6 +71,7 @@
 extern int yylex();
 extern FILE * yyin;
 extern int yylineno;
+extern int yydebug;
 
 // Syntactic analyser functions
 int ParseExpression();
@@ -78,7 +79,7 @@ int ParseFile(char * path);
 void yyerror(char * s);
 
 
-#line 82 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
+#line 83 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -102,7 +103,7 @@ void yyerror(char * s);
 # define YY_YY_ANALYSER_SINTACTIC_PARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -176,14 +177,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
+#line 18 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
 
   int intVal;
   double doubleVal;
   char * stringVal;
   char charVal;
 
-#line 187 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
+#line 188 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -200,7 +201,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 204 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
+#line 205 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -440,18 +441,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  20
+#define YYFINAL  19
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   517
+#define YYLAST   273
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  58
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  33
+#define YYNNTS  38
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  98
+#define YYNRULES  101
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  217
+#define YYNSTATES  215
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -501,18 +502,19 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    84,    84,    85,    87,    88,    89,    90,    92,    93,
-      94,    95,    96,    97,    98,    99,   101,   102,   104,   105,
-     106,   108,   110,   111,   113,   114,   116,   117,   119,   121,
-     122,   123,   124,   126,   128,   129,   131,   132,   134,   135,
-     136,   137,   138,   139,   140,   141,   143,   145,   146,   148,
-     150,   152,   154,   156,   158,   159,   160,   162,   163,   165,
-     166,   167,   168,   169,   170,   171,   172,   173,   174,   175,
-     176,   177,   178,   179,   180,   181,   182,   183,   184,   185,
-     186,   187,   188,   189,   190,   192,   193,   194,   196,   197,
-     198,   200,   201,   203,   205,   206,   207,   208,   209
+       0,    86,    86,    87,    91,    92,    93,    94,    98,   102,
+     106,   107,   110,   111,   112,   113,   114,   118,   119,   123,
+     124,   128,   132,   133,   137,   138,   142,   143,   147,   148,
+     152,   156,   157,   161,   165,   166,   170,   171,   175,   176,
+     177,   178,   179,   180,   181,   182,   186,   187,   192,   196,
+     200,   204,   208,   212,   213,   217,   218,   222,   223,   226,
+     227,   228,   229,   230,   231,   232,   233,   234,   237,   238,
+     239,   240,   241,   245,   246,   247,   248,   252,   253,   254,
+     255,   256,   257,   258,   259,   260,   263,   264,   265,   269,
+     270,   271,   275,   276,   280,   281,   285,   286,   287,   288,
+     289,   290
 };
 #endif
 
@@ -534,12 +536,13 @@ static const char *const yytname[] =
   "opt_semicolon", "opt_dot", "opt_coma", "opt_left_bracket",
   "opt_right_bracket", "opt_left_brace", "opt_right_brace",
   "opt_left_parentheses", "opt_right_parentheses", "$accept", "PROGRAM",
-  "DECL", "VAR_DECL", "VARIABLE", "TYPE", "FUNCTION_DECL", "FORMALS",
-  "CLASS_DECL", "EXTENDS", "IMPLEMENTS", "FIELD", "INTERFACE_DECL",
-  "PROTOTYPE", "STMT_BLOCK", "VARS", "STMTS", "STATEMENT", "IF_STMT",
-  "ELSE_STMT", "WHILE_STMT", "FOR_STMT", "RETURN_STMT", "BREAK_STMT",
-  "PRINT_STMT", "EXPR", "EXPRPLUS", "EXPRESSION", "VALUE", "CALL",
-  "LIB_CALL", "ACTUAL", "CONST", YY_NULLPTR
+  "DECL", "VAR_DECL", "VARIABLE", "VARIABLE_PLUS", "TYPE", "FUNCTION_DECL",
+  "FORMALS", "CLASS_DECL", "EXTENDS", "IMPLEMENTS", "IDENTIFIER_PLUS",
+  "FIELD", "INTERFACE_DECL", "PROTOTYPE", "STMT_BLOCK", "VARS", "STMTS",
+  "STATEMENT", "IF_STMT", "WHILE_STMT", "FOR_STMT", "RETURN_STMT",
+  "BREAK_STMT", "PRINT_STMT", "EXPRESSION_Q", "EXPRESSION_PLUS",
+  "EXPRESSION", "RRR", "SSS", "PPP", "TTT", "VALUE", "CALL", "LIB_CALL",
+  "ACTUAL", "CONST", YY_NULLPTR
 };
 #endif
 
@@ -557,12 +560,12 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -139
+#define YYPACT_NINF -175
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-139)))
+  (!!((Yystate) == (-175)))
 
-#define YYTABLE_NINF -57
+#define YYTABLE_NINF -55
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -571,28 +574,28 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     102,   -24,  -139,  -139,   -21,   -12,  -139,  -139,  -139,    18,
-     102,  -139,   -29,   -25,  -139,  -139,  -139,   -31,    17,   -19,
-    -139,  -139,  -139,   -23,    19,   139,    45,    61,   202,   139,
-    -139,    25,   -22,    21,    17,    51,    29,    64,    -5,    38,
-      43,   139,  -139,    48,  -139,    53,   205,    52,    60,  -139,
-      48,  -139,   139,  -139,    61,  -139,  -139,    62,   139,   139,
-    -139,   139,    66,  -139,  -139,    67,    68,  -139,  -139,    65,
-      70,    71,   169,    74,    72,    73,    77,    80,    81,    82,
-      83,  -139,  -139,  -139,  -139,  -139,   169,   169,   169,  -139,
-      93,    66,  -139,  -139,  -139,  -139,  -139,  -139,   108,   370,
-     115,  -139,  -139,   116,   119,   169,   169,   169,   120,  -139,
-     142,   169,   169,   117,   118,   169,   169,   465,   465,   206,
-    -139,  -139,  -139,   169,   169,   169,   169,   169,   169,   169,
-     169,   169,   169,   169,   169,   169,    41,   169,   169,   169,
-     202,   202,   124,   230,   254,  -139,   121,   389,   126,   408,
-    -139,  -139,   278,  -139,   127,  -139,   465,   465,   465,   465,
-     465,   465,   465,   465,   465,   465,   465,   465,   465,   125,
-     130,   132,   135,  -139,   350,   465,  -139,  -139,   169,   131,
-     131,  -139,   139,   128,   169,  -139,  -139,   169,   169,   169,
-     169,  -139,   427,  -139,   159,   -33,  -139,  -139,   302,   446,
-     138,   146,   169,   131,  -139,  -139,  -139,   169,  -139,  -139,
-     154,   159,   326,   131,  -139,  -139,  -139
+     208,     2,  -175,  -175,  -175,  -175,    17,    28,    25,   208,
+    -175,    11,   -21,  -175,  -175,  -175,     9,    62,    37,  -175,
+    -175,  -175,    41,    50,   111,    80,    99,   173,   111,  -175,
+      71,  -175,   -18,    56,  -175,    95,    95,   113,   -17,    87,
+      92,   111,  -175,    98,   106,  -175,   112,   118,   125,  -175,
+      98,  -175,   111,  -175,    95,   186,   111,   111,  -175,   111,
+      57,  -175,  -175,  -175,   128,   110,   127,  -175,  -175,  -175,
+     131,   141,   145,   175,   153,   165,   166,   184,   185,   187,
+     188,   189,  -175,  -175,  -175,  -175,  -175,   175,   175,  -175,
+     154,    57,  -175,  -175,  -175,  -175,  -175,  -175,   193,    -2,
+      54,   -15,   182,  -175,   203,  -175,  -175,  -175,   199,   200,
+     175,   175,   175,   201,  -175,   219,   175,   175,   179,   194,
+     175,   175,    -2,   182,   182,  -175,  -175,  -175,   198,   175,
+     175,   175,   175,   175,   175,   175,   175,   175,   175,   175,
+     175,   175,   175,   175,  -175,  -175,   204,   -34,   -24,  -175,
+     195,   177,   197,   180,  -175,  -175,   -11,  -175,   202,   205,
+     206,   207,   209,    74,   -15,   -15,   -15,   -15,   -15,   -15,
+     -15,   -15,   182,   182,  -175,  -175,  -175,    54,   175,   140,
+     140,  -175,   111,   211,   175,  -175,  -175,   175,   175,   175,
+     175,  -175,    96,  -175,   238,   -35,  -175,  -175,    -3,   183,
+     210,   212,   175,   140,  -175,  -175,   175,  -175,  -175,   213,
+    -175,    52,   140,  -175,  -175
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -600,46 +603,46 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,    10,    11,     0,     0,    14,    13,    12,     0,
-       2,     4,     0,     0,     5,     6,     7,     0,    23,     0,
-       1,     3,     8,     9,     0,    20,     0,    25,     0,    20,
-      15,    18,     0,     0,    23,     0,     0,     0,     0,     0,
-       0,    20,     9,     0,    22,     0,     0,     0,     0,    28,
-       0,    19,    35,    17,    25,    26,    27,     0,    20,    20,
-      16,    35,    37,    24,    21,     0,     0,    34,    62,     0,
-       0,     0,    56,     0,     0,     0,     0,     0,     0,     0,
-      85,    94,    95,    96,    98,    97,     0,     0,     0,    45,
-       0,    37,    39,    40,    41,    43,    42,    44,     0,    55,
-      61,    63,    60,     0,     0,    56,     0,     0,     0,    52,
-       0,     0,     0,     0,     0,     0,    56,    70,    79,     0,
-      33,    36,    38,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    56,     0,     0,
-      30,    29,     0,     0,     0,    51,     0,     0,     0,    58,
-      82,    83,     0,    93,     0,    64,    65,    66,    68,    67,
-      69,    71,    72,    73,    74,    75,    76,    77,    78,     0,
-       0,    86,     0,    54,     0,    59,    32,    31,     0,    56,
-      56,    80,     0,     0,     0,    84,    88,     0,     0,    56,
-      56,    87,     0,    49,    48,     0,    53,    57,     0,     0,
-       0,     0,    56,    56,    46,    81,    91,     0,    89,    90,
-       0,    48,     0,    56,    47,    92,    50
+       0,     0,    12,    13,    14,    15,     0,     0,     0,     2,
+       4,     0,     0,     5,     6,     7,     0,    23,     0,     1,
+       3,     8,     9,     0,    20,     0,    25,     0,    20,    16,
+      11,    19,     0,     0,    22,     0,     0,     0,     0,     0,
+       0,     0,     9,     0,    27,    24,     0,     0,     0,    30,
+       0,    10,    35,    18,     0,     0,    20,    20,    17,    35,
+      37,    26,    28,    29,     0,     0,     0,    34,   101,    77,
+       0,     0,     0,    54,     0,     0,     0,     0,     0,     0,
+       0,    86,    96,    97,    98,   100,    99,     0,     0,    45,
+       0,    37,    39,    40,    41,    43,    42,    44,     0,    53,
+      58,    67,    72,    76,    80,    79,    78,    21,     0,     0,
+      54,     0,     0,     0,    51,     0,     0,     0,     0,     0,
+       0,    95,     0,    70,    71,    33,    36,    38,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    32,    31,     0,     0,     0,    50,
+       0,     0,     0,    56,    83,    84,     0,    94,     0,     0,
+       0,    87,     0,     0,    59,    60,    61,    62,    63,    64,
+      65,    66,    68,    69,    73,    74,    75,    57,     0,    54,
+      54,    81,     0,     0,     0,    85,    89,     0,     0,    95,
+      95,    88,     0,    48,    46,     0,    52,    55,     0,     0,
+       0,     0,    54,    54,    82,    92,     0,    90,    91,     0,
+      47,     0,    54,    93,    49
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -139,   186,  -139,   -44,   -20,     0,   166,   -15,  -139,   179,
-     160,  -139,  -139,   -79,   -28,   155,   129,  -138,  -139,     4,
-    -139,  -139,  -139,  -139,  -139,   -71,    34,   -75,  -139,  -139,
-    -139,  -119,  -139
+    -175,   247,  -175,    55,   -20,   216,     0,   217,   -13,  -175,
+    -175,  -175,   -12,  -175,  -175,  -175,    16,   214,   167,  -174,
+    -175,  -175,  -175,  -175,  -175,  -175,   -70,  -115,   -59,   121,
+       3,   -75,    97,  -175,  -175,  -175,  -106,  -175
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
-      -1,     9,    10,    11,    12,    32,    14,    33,    15,    27,
-      36,    57,    16,    39,    89,    62,    90,    91,    92,   204,
-      93,    94,    95,    96,    97,    98,   148,    99,   100,   101,
-     172,   154,   102
+      -1,     8,     9,    10,    11,    31,    32,    13,    33,    14,
+      26,    36,    45,    64,    15,    39,    89,    60,    90,    91,
+      92,    93,    94,    95,    96,    97,    98,   157,   122,   100,
+     101,   102,   103,   104,   105,   162,   158,   106
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -647,172 +650,126 @@ static const yytype_int16 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-      13,   108,    55,    23,    17,    31,    42,    18,    61,    31,
-      13,   117,   118,   119,    40,    53,    19,    61,    20,    24,
-      22,    31,    60,    48,   205,    25,    51,    24,    38,    26,
-      24,   143,   144,    29,   142,    28,   147,   149,    31,    31,
-     152,   193,   194,    65,    66,   153,    13,    24,   156,   157,
-     158,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,   176,   177,   174,   175,   211,   173,   169,   170,   171,
-     200,   201,    30,    34,    35,   216,    41,    68,    43,    45,
-      69,    70,    71,    46,    72,    73,    74,    75,    76,    77,
-      78,    79,    47,    49,    80,    81,    82,    83,    84,    85,
-      50,    86,    52,   192,    54,     1,     2,     3,    58,   149,
-       4,     5,   198,   199,    87,   -56,    59,    64,   153,   153,
-      52,   105,    88,   109,   103,   104,   106,   107,   110,   111,
-       6,   210,   212,   112,     7,     8,   113,   114,   115,   116,
-      38,    38,    68,     2,     3,    69,    70,    71,   120,    72,
-      73,    74,    75,    76,    77,    78,    79,   122,   139,    80,
-      81,    82,    83,    84,    85,   140,    86,     6,   141,   145,
-     146,     7,     8,   178,   150,   151,   203,   196,   181,    87,
-      68,   187,   195,   183,   186,    52,   188,    88,   189,    74,
-      75,   190,    77,    78,    79,   208,    21,    80,    81,    82,
-      83,    84,    85,   209,    86,    37,     2,     3,     1,     2,
-       3,   213,    56,    44,    63,   214,    67,    87,   197,     0,
-     121,     0,     0,     0,     0,    88,     0,     0,     0,     0,
-       6,     0,     0,     6,     7,     8,     0,     7,     8,     0,
-     123,   124,   125,   126,   127,   128,   129,   130,   131,     0,
-     132,   133,   134,   135,     0,     0,   136,     0,   138,     0,
-       0,     0,     0,   155,   123,   124,   125,   126,   127,   128,
-     129,   130,   131,     0,   132,   133,   134,   135,     0,     0,
-     136,     0,   138,     0,     0,     0,     0,   179,   123,   124,
-     125,   126,   127,   128,   129,   130,   131,     0,   132,   133,
-     134,   135,     0,     0,   136,     0,   138,     0,     0,     0,
-       0,   180,   123,   124,   125,   126,   127,   128,   129,   130,
-     131,     0,   132,   133,   134,   135,     0,     0,   136,     0,
-     138,     0,     0,     0,     0,   185,   123,   124,   125,   126,
-     127,   128,   129,   130,   131,     0,   132,   133,   134,   135,
-       0,     0,   136,     0,   138,     0,     0,     0,     0,   206,
-     123,   124,   125,   126,   127,   128,   129,   130,   131,     0,
-     132,   133,   134,   135,     0,     0,   136,     0,   138,     0,
-       0,     0,     0,   215,   123,   124,   125,   126,   127,   128,
-     129,   130,   131,     0,   132,   133,   134,   135,     0,     0,
-     136,     0,   138,   191,   123,   124,   125,   126,   127,   128,
-     129,   130,   131,     0,   132,   133,   134,   135,     0,     0,
-     136,   137,   138,   123,   124,   125,   126,   127,   128,   129,
-     130,   131,     0,   132,   133,   134,   135,     0,     0,   136,
-     182,   138,   123,   124,   125,   126,   127,   128,   129,   130,
-     131,     0,   132,   133,   134,   135,     0,     0,   136,   184,
-     138,   123,   124,   125,   126,   127,   128,   129,   130,   131,
-       0,   132,   133,   134,   135,     0,   202,   136,     0,   138,
-     123,   124,   125,   126,   127,   128,   129,   130,   131,     0,
-     132,   133,   134,   135,     0,     0,   136,   207,   138,   123,
-     124,   125,   126,   127,   128,   129,   130,   131,     0,   132,
-     133,   134,   135,     0,     0,   136,     0,   138
+      12,    99,   152,   113,    30,   193,   194,    22,    30,    12,
+      42,    48,   123,   124,    99,    40,   128,    23,   129,   138,
+     139,    30,   204,   179,    46,    19,   128,    38,   129,   210,
+      16,    23,    99,   180,    23,    23,    30,    30,   214,   128,
+     146,   129,    61,    65,    66,    17,   185,   128,   128,   129,
+     129,    99,   147,   148,   205,    12,    18,   151,   153,    53,
+      21,   156,   153,   172,   173,    24,    58,    68,    69,   197,
+     163,    70,    71,    72,    25,    73,    74,    75,    76,    77,
+      78,    79,    80,   200,   201,    81,    82,    83,    84,    85,
+      86,    27,    87,   130,   131,   132,   133,    28,   134,   135,
+     136,   137,   128,    29,   129,    88,   -54,    59,    34,   213,
+      62,    52,    35,    43,    59,     2,     3,     4,     5,   192,
+      99,    99,    41,    44,   128,   153,   129,   191,   198,   199,
+     153,   153,   209,   164,   165,   166,   167,   168,   169,   170,
+     171,    47,    49,    99,    99,   202,   128,   211,   129,    50,
+      68,    69,    52,    99,    70,    71,    72,    54,    73,    74,
+      75,    76,    77,    78,    79,    80,    55,   108,    81,    82,
+      83,    84,    85,    86,    56,    87,    37,     2,     3,     4,
+       5,    57,   195,   107,   109,    68,    69,   110,    88,     1,
+       2,     3,     4,     5,    52,    75,    76,   111,    78,    79,
+      80,   112,   114,    81,    82,    83,    84,    85,    86,   125,
+      87,     1,     2,     3,     4,     5,     6,     7,   140,   141,
+     142,   115,   116,    88,   159,   160,   161,   128,   182,   129,
+     128,   184,   129,   128,   206,   129,   154,   174,   175,   176,
+     117,   118,   127,   119,   120,   121,   143,   150,   144,   145,
+     149,   155,   181,   178,   183,   203,    20,    51,   126,   186,
+     196,   187,   188,   189,   177,   190,     0,   207,     0,   208,
+     212,     0,    63,    67
 };
 
 static const yytype_int16 yycheck[] =
 {
-       0,    72,    46,    28,    28,    25,    28,    28,    52,    29,
-      10,    86,    87,    88,    29,    43,    28,    61,     0,    52,
-      49,    41,    50,    28,    57,    56,    41,    52,    28,    12,
-      52,   106,   107,    56,   105,    54,   111,   112,    58,    59,
-     115,   179,   180,    58,    59,   116,    46,    52,   123,   124,
-     125,   126,   127,   128,   129,   130,   131,   132,   133,   134,
-     135,   140,   141,   138,   139,   203,   137,    26,    27,    28,
-     189,   190,    53,    28,    13,   213,    51,    11,    57,    28,
-      14,    15,    16,    54,    18,    19,    20,    21,    22,    23,
-      24,    25,    28,    55,    28,    29,    30,    31,    32,    33,
-      57,    35,    54,   178,    51,     3,     4,     5,    56,   184,
-       8,     9,   187,   188,    48,    49,    56,    55,   189,   190,
-      54,    56,    56,    49,    57,    57,    56,    56,    56,    56,
-      28,   202,   207,    56,    32,    33,    56,    56,    56,    56,
-     140,   141,    11,     4,     5,    14,    15,    16,    55,    18,
-      19,    20,    21,    22,    23,    24,    25,    49,    43,    28,
-      29,    30,    31,    32,    33,    49,    35,    28,    49,    49,
-      28,    32,    33,    49,    57,    57,    17,    49,    57,    48,
-      11,    56,   182,    57,    57,    54,    56,    56,    56,    20,
-      21,    56,    23,    24,    25,    57,    10,    28,    29,    30,
-      31,    32,    33,    57,    35,     3,     4,     5,     3,     4,
-       5,    57,    46,    34,    54,   211,    61,    48,   184,    -1,
-      91,    -1,    -1,    -1,    -1,    56,    -1,    -1,    -1,    -1,
-      28,    -1,    -1,    28,    32,    33,    -1,    32,    33,    -1,
-      34,    35,    36,    37,    38,    39,    40,    41,    42,    -1,
-      44,    45,    46,    47,    -1,    -1,    50,    -1,    52,    -1,
-      -1,    -1,    -1,    57,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    -1,    44,    45,    46,    47,    -1,    -1,
-      50,    -1,    52,    -1,    -1,    -1,    -1,    57,    34,    35,
-      36,    37,    38,    39,    40,    41,    42,    -1,    44,    45,
-      46,    47,    -1,    -1,    50,    -1,    52,    -1,    -1,    -1,
-      -1,    57,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    -1,    44,    45,    46,    47,    -1,    -1,    50,    -1,
-      52,    -1,    -1,    -1,    -1,    57,    34,    35,    36,    37,
-      38,    39,    40,    41,    42,    -1,    44,    45,    46,    47,
-      -1,    -1,    50,    -1,    52,    -1,    -1,    -1,    -1,    57,
-      34,    35,    36,    37,    38,    39,    40,    41,    42,    -1,
-      44,    45,    46,    47,    -1,    -1,    50,    -1,    52,    -1,
-      -1,    -1,    -1,    57,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    -1,    44,    45,    46,    47,    -1,    -1,
-      50,    -1,    52,    53,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    -1,    44,    45,    46,    47,    -1,    -1,
-      50,    51,    52,    34,    35,    36,    37,    38,    39,    40,
-      41,    42,    -1,    44,    45,    46,    47,    -1,    -1,    50,
-      51,    52,    34,    35,    36,    37,    38,    39,    40,    41,
-      42,    -1,    44,    45,    46,    47,    -1,    -1,    50,    51,
-      52,    34,    35,    36,    37,    38,    39,    40,    41,    42,
-      -1,    44,    45,    46,    47,    -1,    49,    50,    -1,    52,
-      34,    35,    36,    37,    38,    39,    40,    41,    42,    -1,
-      44,    45,    46,    47,    -1,    -1,    50,    51,    52,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    -1,    44,
-      45,    46,    47,    -1,    -1,    50,    -1,    52
+       0,    60,   117,    73,    24,   179,   180,    28,    28,     9,
+      28,    28,    87,    88,    73,    28,    50,    52,    52,    34,
+      35,    41,    57,    57,    36,     0,    50,    27,    52,   203,
+      28,    52,    91,    57,    52,    52,    56,    57,   212,    50,
+     110,    52,    54,    56,    57,    28,    57,    50,    50,    52,
+      52,   110,   111,   112,    57,    55,    28,   116,   117,    43,
+      49,   120,   121,   138,   139,    56,    50,    10,    11,   184,
+     129,    14,    15,    16,    12,    18,    19,    20,    21,    22,
+      23,    24,    25,   189,   190,    28,    29,    30,    31,    32,
+      33,    54,    35,    39,    40,    41,    42,    56,    44,    45,
+      46,    47,    50,    53,    52,    48,    49,    52,    28,    57,
+      55,    54,    13,    57,    59,     4,     5,     6,     7,   178,
+     179,   180,    51,    28,    50,   184,    52,    53,   187,   188,
+     189,   190,   202,   130,   131,   132,   133,   134,   135,   136,
+     137,    28,    55,   202,   203,    49,    50,   206,    52,    57,
+      10,    11,    54,   212,    14,    15,    16,    51,    18,    19,
+      20,    21,    22,    23,    24,    25,    54,    57,    28,    29,
+      30,    31,    32,    33,    56,    35,     3,     4,     5,     6,
+       7,    56,   182,    55,    57,    10,    11,    56,    48,     3,
+       4,     5,     6,     7,    54,    20,    21,    56,    23,    24,
+      25,    56,    49,    28,    29,    30,    31,    32,    33,    55,
+      35,     3,     4,     5,     6,     7,     8,     9,    36,    37,
+      38,    56,    56,    48,    26,    27,    28,    50,    51,    52,
+      50,    51,    52,    50,    51,    52,    57,   140,   141,   142,
+      56,    56,    49,    56,    56,    56,    43,    28,    49,    49,
+      49,    57,    57,    49,    57,    17,     9,    41,    91,    57,
+      49,    56,    56,    56,   143,    56,    -1,    57,    -1,    57,
+      57,    -1,    55,    59
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     4,     5,     8,     9,    28,    32,    33,    59,
-      60,    61,    62,    63,    64,    66,    70,    28,    28,    28,
-       0,    59,    49,    28,    52,    56,    12,    67,    54,    56,
-      53,    62,    63,    65,    28,    13,    68,     3,    63,    71,
-      65,    51,    28,    57,    67,    28,    54,    28,    28,    55,
-      57,    65,    54,    72,    51,    61,    64,    69,    56,    56,
-      72,    61,    73,    68,    55,    65,    65,    73,    11,    14,
-      15,    16,    18,    19,    20,    21,    22,    23,    24,    25,
-      28,    29,    30,    31,    32,    33,    35,    48,    56,    72,
-      74,    75,    76,    78,    79,    80,    81,    82,    83,    85,
-      86,    87,    90,    57,    57,    56,    56,    56,    83,    49,
-      56,    56,    56,    56,    56,    56,    56,    85,    85,    85,
-      55,    74,    49,    34,    35,    36,    37,    38,    39,    40,
-      41,    42,    44,    45,    46,    47,    50,    51,    52,    43,
-      49,    49,    83,    85,    85,    49,    28,    85,    84,    85,
-      57,    57,    85,    83,    89,    57,    85,    85,    85,    85,
-      85,    85,    85,    85,    85,    85,    85,    85,    85,    26,
-      27,    28,    88,    83,    85,    85,    71,    71,    49,    57,
+       0,     3,     4,     5,     6,     7,     8,     9,    59,    60,
+      61,    62,    64,    65,    67,    72,    28,    28,    28,     0,
+      59,    49,    28,    52,    56,    12,    68,    54,    56,    53,
+      62,    63,    64,    66,    28,    13,    69,     3,    64,    73,
+      66,    51,    28,    57,    28,    70,    70,    28,    28,    55,
+      57,    63,    54,    74,    51,    54,    56,    56,    74,    61,
+      75,    70,    61,    65,    71,    66,    66,    75,    10,    11,
+      14,    15,    16,    18,    19,    20,    21,    22,    23,    24,
+      25,    28,    29,    30,    31,    32,    33,    35,    48,    74,
+      76,    77,    78,    79,    80,    81,    82,    83,    84,    86,
+      87,    88,    89,    90,    91,    92,    95,    55,    57,    57,
+      56,    56,    56,    84,    49,    56,    56,    56,    56,    56,
+      56,    56,    86,    89,    89,    55,    76,    49,    50,    52,
+      39,    40,    41,    42,    44,    45,    46,    47,    34,    35,
+      36,    37,    38,    43,    49,    49,    84,    86,    86,    49,
+      28,    86,    85,    86,    57,    57,    86,    85,    94,    26,
+      27,    28,    93,    86,    88,    88,    88,    88,    88,    88,
+      88,    88,    89,    89,    90,    90,    90,    87,    49,    57,
       57,    57,    51,    57,    51,    57,    57,    56,    56,    56,
-      56,    53,    85,    75,    75,    63,    49,    84,    85,    85,
-      89,    89,    49,    17,    77,    57,    57,    51,    57,    57,
-      83,    75,    85,    57,    77,    57,    75
+      56,    53,    86,    77,    77,    64,    49,    85,    86,    86,
+      94,    94,    49,    17,    57,    57,    51,    57,    57,    84,
+      77,    86,    57,    57,    77
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
        0,    58,    59,    59,    60,    60,    60,    60,    61,    62,
-      63,    63,    63,    63,    63,    63,    64,    64,    65,    65,
-      65,    66,    67,    67,    68,    68,    69,    69,    70,    71,
-      71,    71,    71,    72,    73,    73,    74,    74,    75,    75,
-      75,    75,    75,    75,    75,    75,    76,    77,    77,    78,
-      79,    80,    81,    82,    83,    83,    83,    84,    84,    85,
-      85,    85,    85,    85,    85,    85,    85,    85,    85,    85,
-      85,    85,    85,    85,    85,    85,    85,    85,    85,    85,
-      85,    85,    85,    85,    85,    86,    86,    86,    87,    87,
-      87,    88,    88,    89,    90,    90,    90,    90,    90
+      63,    63,    64,    64,    64,    64,    64,    65,    65,    66,
+      66,    67,    68,    68,    69,    69,    70,    70,    71,    71,
+      72,    73,    73,    74,    75,    75,    76,    76,    77,    77,
+      77,    77,    77,    77,    77,    77,    78,    78,    79,    80,
+      81,    82,    83,    84,    84,    85,    85,    86,    86,    87,
+      87,    87,    87,    87,    87,    87,    87,    87,    88,    88,
+      88,    88,    88,    89,    89,    89,    89,    90,    90,    90,
+      90,    90,    90,    90,    90,    90,    91,    91,    91,    92,
+      92,    92,    93,    93,    94,    94,    95,    95,    95,    95,
+      95,    95
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     1,     1,     2,     2,
-       1,     1,     1,     1,     1,     3,     6,     6,     1,     3,
-       0,     7,     3,     0,     4,     0,     1,     1,     5,     6,
-       6,     7,     7,     4,     2,     0,     2,     0,     2,     1,
-       1,     1,     1,     1,     1,     1,     6,     3,     0,     5,
-       9,     3,     2,     5,     3,     1,     0,     3,     1,     3,
-       1,     1,     1,     1,     3,     3,     3,     3,     3,     3,
-       2,     3,     3,     3,     3,     3,     3,     3,     3,     2,
-       4,     6,     3,     3,     4,     1,     3,     4,     4,     6,
-       6,     4,     6,     1,     1,     1,     1,     1,     1
+       3,     1,     1,     1,     1,     1,     3,     6,     6,     1,
+       0,     8,     2,     0,     2,     0,     3,     1,     1,     1,
+       5,     6,     6,     4,     2,     0,     2,     0,     2,     1,
+       1,     1,     1,     1,     1,     1,     5,     7,     5,     9,
+       3,     2,     5,     1,     0,     3,     1,     3,     1,     3,
+       3,     3,     3,     3,     3,     3,     3,     1,     3,     3,
+       2,     2,     1,     3,     3,     3,     1,     1,     1,     1,
+       1,     4,     6,     3,     3,     4,     1,     3,     4,     4,
+       6,     6,     4,     6,     1,     0,     1,     1,     1,     1,
+       1,     1
 };
 
 
@@ -1489,589 +1446,601 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 84 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 86 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1495 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1452 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 85 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 87 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1501 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1458 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 87 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 91 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1507 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1464 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 88 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 92 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1513 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1470 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 89 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 93 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1519 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1476 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 90 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 94 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1525 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1482 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 92 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 98 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1531 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1488 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 93 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 102 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1537 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1494 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 94 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 106 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1543 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1500 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 95 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 107 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1549 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1506 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 96 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 110 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1555 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1512 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 97 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 111 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1561 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1518 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 98 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 112 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1567 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1524 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 99 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 113 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1573 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1530 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 101 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 114 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1579 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1536 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 102 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 118 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1585 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1542 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 104 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 119 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1591 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1548 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 105 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 123 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1597 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1554 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 106 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 124 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1603 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1560 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 108 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 128 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1609 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1566 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 110 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 132 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1615 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1572 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 111 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 133 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1621 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1578 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 113 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 137 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1627 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
-    break;
-
-  case 25:
-#line 114 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
-    {;}
-#line 1633 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1584 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 116 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 142 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1639 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1590 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 117 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 143 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1645 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1596 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 119 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 147 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1651 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1602 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 121 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 148 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1657 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1608 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 122 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 152 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1663 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1614 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 123 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 156 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1669 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1620 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 124 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 157 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1675 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1626 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 126 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 161 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1681 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1632 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 128 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 165 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1687 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1638 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 129 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 166 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1693 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1644 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 131 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 170 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1699 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1650 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 132 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 171 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1705 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1656 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 134 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 175 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1711 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1662 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 135 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 176 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1717 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1668 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 136 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 177 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1723 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1674 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 137 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 178 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1729 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1680 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 138 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 179 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1735 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1686 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 139 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 180 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1741 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1692 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 140 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 181 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1747 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1698 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 141 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 182 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1753 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1704 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 143 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 186 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1759 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1710 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 145 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 187 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1765 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1716 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 146 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 192 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1771 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1722 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 148 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 196 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1777 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1728 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 150 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 200 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1783 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1734 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 152 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 204 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1789 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1740 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 154 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 208 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1795 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1746 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 156 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 212 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1801 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1752 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 158 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 213 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1807 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1758 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 159 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 217 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1813 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1764 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 160 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 218 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1819 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1770 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 162 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 222 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1825 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1776 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 163 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 223 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1831 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1782 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 165 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 226 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1837 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1788 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 166 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 227 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1843 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1794 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 167 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 228 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1849 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1800 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 168 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 229 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1855 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1806 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 169 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 230 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1861 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1812 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 170 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 231 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1867 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1818 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 171 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 232 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1873 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1824 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 172 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 233 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1879 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1830 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 173 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 234 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1885 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1836 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 174 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 237 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1891 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1842 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 175 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 238 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1897 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1848 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 176 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 239 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1903 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1854 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 177 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 240 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1909 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1860 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 178 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 241 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1915 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1866 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 179 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 245 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1921 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1872 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 180 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 246 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1927 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1878 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 181 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 247 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1933 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1884 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 182 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 248 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1939 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1890 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 183 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 252 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1945 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1896 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 184 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 253 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1951 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1902 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 185 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 254 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1957 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1908 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 186 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 255 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1963 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1914 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 187 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 256 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1969 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1920 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 188 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 257 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1975 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1926 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 189 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 258 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1981 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1932 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 190 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 259 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1987 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1938 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 192 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 260 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1993 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1944 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 193 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 263 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1999 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1950 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 194 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 264 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2005 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1956 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 196 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 265 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2011 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1962 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 197 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 269 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2017 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1968 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 198 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 270 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2023 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1974 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 200 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 271 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2029 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1980 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 201 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 275 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2035 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1986 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 203 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 276 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2041 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1992 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 205 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 280 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2047 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1998 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 206 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 281 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2053 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2004 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 207 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 285 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2059 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2010 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 208 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 286 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2065 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2016 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 209 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 287 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2071 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2022 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+    break;
+
+  case 99:
+#line 288 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {;}
+#line 2028 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+    break;
+
+  case 100:
+#line 289 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {;}
+#line 2034 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+    break;
+
+  case 101:
+#line 290 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {;}
+#line 2040 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
 
-#line 2075 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2044 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2299,20 +2268,21 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 211 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
+#line 293 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
 
 
 void yyerror(char * s){
-  printf("%s", s);
+      printf("%s", s);
 }
 
 int ParseFile(char * filePath){
-  FILE * inputFile;
-  if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
-  yyin = inputFile;
-  return yyparse();
+      yydebug = 1;
+      FILE * inputFile;
+      if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
+      yyin = inputFile;
+      return yyparse();
 }
 
 int ParseExpression(){
-  return yyparse();
+      return yyparse();
 }

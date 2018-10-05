@@ -34,7 +34,7 @@
 # define YY_YY_ANALYSER_SINTACTIC_PARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -108,7 +108,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
+#line 18 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
 
   int intVal;
   double doubleVal;

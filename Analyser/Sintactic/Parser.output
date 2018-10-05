@@ -1,0 +1,3577 @@
+State 123 conflicts: 12 reduce/reduce
+State 124 conflicts: 12 reduce/reduce
+State 164 conflicts: 10 reduce/reduce
+State 165 conflicts: 10 reduce/reduce
+State 166 conflicts: 10 reduce/reduce
+State 167 conflicts: 10 reduce/reduce
+State 168 conflicts: 10 reduce/reduce
+State 169 conflicts: 10 reduce/reduce
+State 170 conflicts: 10 reduce/reduce
+State 171 conflicts: 10 reduce/reduce
+State 172 conflicts: 12 reduce/reduce
+State 173 conflicts: 12 reduce/reduce
+State 174 conflicts: 15 reduce/reduce
+State 175 conflicts: 15 reduce/reduce
+State 176 conflicts: 15 reduce/reduce
+State 177 conflicts: 2 reduce/reduce
+State 194 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: PROGRAM $end
+
+    1 PROGRAM: DECL
+    2        | DECL PROGRAM
+
+    3 DECL: VAR_DECL
+    4     | FUNCTION_DECL
+    5     | CLASS_DECL
+    6     | INTERFACE_DECL
+
+    7 VAR_DECL: VARIABLE opt_semicolon
+
+    8 VARIABLE: TYPE identifier
+
+    9 VARIABLE_PLUS: VARIABLE opt_coma VARIABLE_PLUS
+   10              | VARIABLE
+
+   11 TYPE: vip_int
+   12     | vip_double
+   13     | vip_bool
+   14     | vip_string
+   15     | TYPE opt_left_bracket opt_right_bracket
+
+   16 FUNCTION_DECL: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+   17              | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+
+   18 FORMALS: VARIABLE_PLUS
+   19        | %empty
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace
+
+   21 EXTENDS: vip_extends identifier
+   22        | %empty
+
+   23 IMPLEMENTS: vip_implements IDENTIFIER_PLUS
+   24           | %empty
+
+   25 IDENTIFIER_PLUS: identifier opt_coma IDENTIFIER_PLUS
+   26                | identifier
+
+   27 FIELD: VAR_DECL
+   28      | FUNCTION_DECL
+
+   29 INTERFACE_DECL: vip_interface identifier opt_left_brace PROTOTYPE opt_right_brace
+
+   30 PROTOTYPE: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+   31          | vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+
+   32 STMT_BLOCK: opt_left_brace VARS STMTS opt_right_brace
+
+   33 VARS: VAR_DECL VARS
+   34     | %empty
+
+   35 STMTS: STATEMENT STMTS
+   36      | %empty
+
+   37 STATEMENT: EXPRESSION_Q opt_semicolon
+   38          | IF_STMT
+   39          | WHILE_STMT
+   40          | FOR_STMT
+   41          | BREAK_STMT
+   42          | RETURN_STMT
+   43          | PRINT_STMT
+   44          | STMT_BLOCK
+
+   45 IF_STMT: vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT
+   46        | vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT
+
+   47 WHILE_STMT: vip_while opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+
+   49 RETURN_STMT: vip_return EXPRESSION_Q opt_semicolon
+
+   50 BREAK_STMT: vip_break opt_semicolon
+
+   51 PRINT_STMT: vip_Print opt_left_parentheses EXPRESSION_PLUS opt_right_parentheses opt_semicolon
+
+   52 EXPRESSION_Q: EXPRESSION
+   53             | %empty
+
+   54 EXPRESSION_PLUS: EXPRESSION opt_coma EXPRESSION_PLUS
+   55                | EXPRESSION
+
+   56 EXPRESSION: VALUE opt_assign RRR
+   57           | RRR
+
+   58 RRR: RRR opt_lower SSS
+   59    | RRR opt_lower_equal SSS
+   60    | RRR opt_greater SSS
+   61    | RRR opt_greater_equal SSS
+   62    | RRR opt_equal SSS
+   63    | RRR opt_not_equal SSS
+   64    | RRR opt_and SSS
+   65    | RRR opt_or SSS
+   66    | SSS
+
+   67 SSS: SSS opt_plus PPP
+   68    | SSS opt_minus PPP
+   69    | opt_minus PPP
+   70    | opt_not PPP
+   71    | PPP
+
+   72 PPP: PPP opt_times TTT
+   73    | PPP opt_divide TTT
+   74    | PPP opt_mod TTT
+   75    | TTT
+
+   76 TTT: vip_this
+   77    | CONST
+   78    | CALL
+   79    | VALUE
+   80    | vip_New opt_left_parentheses identifier opt_right_parentheses
+   81    | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses
+   82    | vip_ReadInteger opt_left_parentheses opt_right_parentheses
+   83    | vip_ReadLine opt_left_parentheses opt_right_parentheses
+   84    | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses
+
+   85 VALUE: identifier
+   86      | EXPRESSION opt_dot identifier
+   87      | EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket
+
+   88 CALL: identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   89     | EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+   91 LIB_CALL: vip_GetByte opt_left_parentheses EXPRESSION opt_right_parentheses
+   92         | vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses
+
+   93 ACTUAL: EXPRESSION_PLUS
+   94       | %empty
+
+   95 CONST: num_int
+   96      | num_hex
+   97      | num_double
+   98      | val_bool
+   99      | val_string
+  100      | vip_null
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+vip_void (258) 17 31
+vip_int (259) 11
+vip_double (260) 12
+vip_bool (261) 13
+vip_string (262) 14
+vip_class (263) 20
+vip_interface (264) 29
+vip_null (265) 100
+vip_this (266) 76
+vip_extends (267) 21
+vip_implements (268) 23
+vip_for (269) 48
+vip_while (270) 47
+vip_if (271) 45 46
+vip_else (272) 46
+vip_return (273) 49
+vip_break (274) 50
+vip_New (275) 80
+vip_NewArray (276) 81
+vip_Print (277) 51
+vip_ReadInteger (278) 82
+vip_ReadLine (279) 83
+vip_Malloc (280) 84
+vip_GetByte (281) 91
+vip_SetByte (282) 92
+identifier (283) 8 16 17 20 21 25 26 29 30 31 80 85 86 88 89
+num_int (284) 95
+num_hex (285) 96
+num_double (286) 97
+val_string (287) 99
+val_bool (288) 98
+opt_plus (289) 67
+opt_minus (290) 68 69
+opt_times (291) 72
+opt_divide (292) 73
+opt_mod (293) 74
+opt_lower (294) 58
+opt_lower_equal (295) 59
+opt_greater (296) 60
+opt_greater_equal (297) 61
+opt_assign (298) 56
+opt_equal (299) 62
+opt_not_equal (300) 63
+opt_and (301) 64
+opt_or (302) 65
+opt_not (303) 70
+opt_semicolon (304) 7 30 31 37 48 49 50 51
+opt_dot (305) 86 89 90
+opt_coma (306) 9 25 54 81 92
+opt_left_bracket (307) 15 87
+opt_right_bracket (308) 15 87
+opt_left_brace (309) 20 29 32
+opt_right_brace (310) 20 29 32
+opt_left_parentheses (311) 16 17 30 31 45 46 47 48 51 80 81 82 83 84
+    88 89 90 91 92
+opt_right_parentheses (312) 16 17 30 31 45 46 47 48 51 80 81 82 83
+    84 88 89 90 91 92
+
+
+Nonterminals, with rules where they appear
+
+$accept (58)
+    on left: 0
+PROGRAM (59)
+    on left: 1 2, on right: 0 2
+DECL (60)
+    on left: 3 4 5 6, on right: 1 2
+VAR_DECL (61)
+    on left: 7, on right: 3 27 33
+VARIABLE (62)
+    on left: 8, on right: 7 9 10
+VARIABLE_PLUS (63)
+    on left: 9 10, on right: 9 18
+TYPE (64)
+    on left: 11 12 13 14 15, on right: 8 15 16 30 81
+FUNCTION_DECL (65)
+    on left: 16 17, on right: 4 28
+FORMALS (66)
+    on left: 18 19, on right: 16 17 30 31
+CLASS_DECL (67)
+    on left: 20, on right: 5
+EXTENDS (68)
+    on left: 21 22, on right: 20
+IMPLEMENTS (69)
+    on left: 23 24, on right: 20
+IDENTIFIER_PLUS (70)
+    on left: 25 26, on right: 20 23 25
+FIELD (71)
+    on left: 27 28, on right: 20
+INTERFACE_DECL (72)
+    on left: 29, on right: 6
+PROTOTYPE (73)
+    on left: 30 31, on right: 29
+STMT_BLOCK (74)
+    on left: 32, on right: 16 17 44
+VARS (75)
+    on left: 33 34, on right: 32 33
+STMTS (76)
+    on left: 35 36, on right: 32 35
+STATEMENT (77)
+    on left: 37 38 39 40 41 42 43 44, on right: 35 45 46 47 48
+IF_STMT (78)
+    on left: 45 46, on right: 38
+WHILE_STMT (79)
+    on left: 47, on right: 39
+FOR_STMT (80)
+    on left: 48, on right: 40
+RETURN_STMT (81)
+    on left: 49, on right: 42
+BREAK_STMT (82)
+    on left: 50, on right: 41
+PRINT_STMT (83)
+    on left: 51, on right: 43
+EXPRESSION_Q (84)
+    on left: 52 53, on right: 37 48 49
+EXPRESSION_PLUS (85)
+    on left: 54 55, on right: 51 54 93
+EXPRESSION (86)
+    on left: 56 57, on right: 45 46 47 48 52 54 55 81 84 86 87 89 90
+    91 92
+RRR (87)
+    on left: 58 59 60 61 62 63 64 65 66, on right: 56 57 58 59 60 61
+    62 63 64 65
+SSS (88)
+    on left: 67 68 69 70 71, on right: 58 59 60 61 62 63 64 65 66 67
+    68
+PPP (89)
+    on left: 72 73 74 75, on right: 67 68 69 70 71 72 73 74
+TTT (90)
+    on left: 76 77 78 79 80 81 82 83 84, on right: 72 73 74 75
+VALUE (91)
+    on left: 85 86 87, on right: 56 79
+CALL (92)
+    on left: 88 89 90, on right: 78
+LIB_CALL (93)
+    on left: 91 92, on right: 90
+ACTUAL (94)
+    on left: 93 94, on right: 88 89 90
+CONST (95)
+    on left: 95 96 97 98 99 100, on right: 77
+
+
+State 0
+
+    0 $accept: . PROGRAM $end
+
+    vip_void       shift, and go to state 1
+    vip_int        shift, and go to state 2
+    vip_double     shift, and go to state 3
+    vip_bool       shift, and go to state 4
+    vip_string     shift, and go to state 5
+    vip_class      shift, and go to state 6
+    vip_interface  shift, and go to state 7
+
+    PROGRAM         go to state 8
+    DECL            go to state 9
+    VAR_DECL        go to state 10
+    VARIABLE        go to state 11
+    TYPE            go to state 12
+    FUNCTION_DECL   go to state 13
+    CLASS_DECL      go to state 14
+    INTERFACE_DECL  go to state 15
+
+
+State 1
+
+   17 FUNCTION_DECL: vip_void . identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+
+    identifier  shift, and go to state 16
+
+
+State 2
+
+   11 TYPE: vip_int .
+
+    $default  reduce using rule 11 (TYPE)
+
+
+State 3
+
+   12 TYPE: vip_double .
+
+    $default  reduce using rule 12 (TYPE)
+
+
+State 4
+
+   13 TYPE: vip_bool .
+
+    $default  reduce using rule 13 (TYPE)
+
+
+State 5
+
+   14 TYPE: vip_string .
+
+    $default  reduce using rule 14 (TYPE)
+
+
+State 6
+
+   20 CLASS_DECL: vip_class . identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace
+
+    identifier  shift, and go to state 17
+
+
+State 7
+
+   29 INTERFACE_DECL: vip_interface . identifier opt_left_brace PROTOTYPE opt_right_brace
+
+    identifier  shift, and go to state 18
+
+
+State 8
+
+    0 $accept: PROGRAM . $end
+
+    $end  shift, and go to state 19
+
+
+State 9
+
+    1 PROGRAM: DECL .
+    2        | DECL . PROGRAM
+
+    vip_void       shift, and go to state 1
+    vip_int        shift, and go to state 2
+    vip_double     shift, and go to state 3
+    vip_bool       shift, and go to state 4
+    vip_string     shift, and go to state 5
+    vip_class      shift, and go to state 6
+    vip_interface  shift, and go to state 7
+
+    $default  reduce using rule 1 (PROGRAM)
+
+    PROGRAM         go to state 20
+    DECL            go to state 9
+    VAR_DECL        go to state 10
+    VARIABLE        go to state 11
+    TYPE            go to state 12
+    FUNCTION_DECL   go to state 13
+    CLASS_DECL      go to state 14
+    INTERFACE_DECL  go to state 15
+
+
+State 10
+
+    3 DECL: VAR_DECL .
+
+    $default  reduce using rule 3 (DECL)
+
+
+State 11
+
+    7 VAR_DECL: VARIABLE . opt_semicolon
+
+    opt_semicolon  shift, and go to state 21
+
+
+State 12
+
+    8 VARIABLE: TYPE . identifier
+   15 TYPE: TYPE . opt_left_bracket opt_right_bracket
+   16 FUNCTION_DECL: TYPE . identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+
+    identifier        shift, and go to state 22
+    opt_left_bracket  shift, and go to state 23
+
+
+State 13
+
+    4 DECL: FUNCTION_DECL .
+
+    $default  reduce using rule 4 (DECL)
+
+
+State 14
+
+    5 DECL: CLASS_DECL .
+
+    $default  reduce using rule 5 (DECL)
+
+
+State 15
+
+    6 DECL: INTERFACE_DECL .
+
+    $default  reduce using rule 6 (DECL)
+
+
+State 16
+
+   17 FUNCTION_DECL: vip_void identifier . opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+
+    opt_left_parentheses  shift, and go to state 24
+
+
+State 17
+
+   20 CLASS_DECL: vip_class identifier . EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace
+
+    vip_extends  shift, and go to state 25
+
+    $default  reduce using rule 22 (EXTENDS)
+
+    EXTENDS  go to state 26
+
+
+State 18
+
+   29 INTERFACE_DECL: vip_interface identifier . opt_left_brace PROTOTYPE opt_right_brace
+
+    opt_left_brace  shift, and go to state 27
+
+
+State 19
+
+    0 $accept: PROGRAM $end .
+
+    $default  accept
+
+
+State 20
+
+    2 PROGRAM: DECL PROGRAM .
+
+    $default  reduce using rule 2 (PROGRAM)
+
+
+State 21
+
+    7 VAR_DECL: VARIABLE opt_semicolon .
+
+    $default  reduce using rule 7 (VAR_DECL)
+
+
+State 22
+
+    8 VARIABLE: TYPE identifier .
+   16 FUNCTION_DECL: TYPE identifier . opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK
+
+    opt_left_parentheses  shift, and go to state 28
+
+    $default  reduce using rule 8 (VARIABLE)
+
+
+State 23
+
+   15 TYPE: TYPE opt_left_bracket . opt_right_bracket
+
+    opt_right_bracket  shift, and go to state 29
+
+
+State 24
+
+   17 FUNCTION_DECL: vip_void identifier opt_left_parentheses . FORMALS opt_right_parentheses STMT_BLOCK
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 19 (FORMALS)
+
+    VARIABLE       go to state 30
+    VARIABLE_PLUS  go to state 31
+    TYPE           go to state 32
+    FORMALS        go to state 33
+
+
+State 25
+
+   21 EXTENDS: vip_extends . identifier
+
+    identifier  shift, and go to state 34
+
+
+State 26
+
+   20 CLASS_DECL: vip_class identifier EXTENDS . IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace
+
+    vip_implements  shift, and go to state 35
+
+    $default  reduce using rule 24 (IMPLEMENTS)
+
+    IMPLEMENTS  go to state 36
+
+
+State 27
+
+   29 INTERFACE_DECL: vip_interface identifier opt_left_brace . PROTOTYPE opt_right_brace
+
+    vip_void    shift, and go to state 37
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    TYPE       go to state 38
+    PROTOTYPE  go to state 39
+
+
+State 28
+
+   16 FUNCTION_DECL: TYPE identifier opt_left_parentheses . FORMALS opt_right_parentheses STMT_BLOCK
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 19 (FORMALS)
+
+    VARIABLE       go to state 30
+    VARIABLE_PLUS  go to state 31
+    TYPE           go to state 32
+    FORMALS        go to state 40
+
+
+State 29
+
+   15 TYPE: TYPE opt_left_bracket opt_right_bracket .
+
+    $default  reduce using rule 15 (TYPE)
+
+
+State 30
+
+    9 VARIABLE_PLUS: VARIABLE . opt_coma VARIABLE_PLUS
+   10              | VARIABLE .
+
+    opt_coma  shift, and go to state 41
+
+    $default  reduce using rule 10 (VARIABLE_PLUS)
+
+
+State 31
+
+   18 FORMALS: VARIABLE_PLUS .
+
+    $default  reduce using rule 18 (FORMALS)
+
+
+State 32
+
+    8 VARIABLE: TYPE . identifier
+   15 TYPE: TYPE . opt_left_bracket opt_right_bracket
+
+    identifier        shift, and go to state 42
+    opt_left_bracket  shift, and go to state 23
+
+
+State 33
+
+   17 FUNCTION_DECL: vip_void identifier opt_left_parentheses FORMALS . opt_right_parentheses STMT_BLOCK
+
+    opt_right_parentheses  shift, and go to state 43
+
+
+State 34
+
+   21 EXTENDS: vip_extends identifier .
+
+    $default  reduce using rule 21 (EXTENDS)
+
+
+State 35
+
+   23 IMPLEMENTS: vip_implements . IDENTIFIER_PLUS
+
+    identifier  shift, and go to state 44
+
+    IDENTIFIER_PLUS  go to state 45
+
+
+State 36
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS . IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace
+
+    identifier  shift, and go to state 44
+
+    IDENTIFIER_PLUS  go to state 46
+
+
+State 37
+
+   31 PROTOTYPE: vip_void . identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+
+    identifier  shift, and go to state 47
+
+
+State 38
+
+   15 TYPE: TYPE . opt_left_bracket opt_right_bracket
+   30 PROTOTYPE: TYPE . identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+
+    identifier        shift, and go to state 48
+    opt_left_bracket  shift, and go to state 23
+
+
+State 39
+
+   29 INTERFACE_DECL: vip_interface identifier opt_left_brace PROTOTYPE . opt_right_brace
+
+    opt_right_brace  shift, and go to state 49
+
+
+State 40
+
+   16 FUNCTION_DECL: TYPE identifier opt_left_parentheses FORMALS . opt_right_parentheses STMT_BLOCK
+
+    opt_right_parentheses  shift, and go to state 50
+
+
+State 41
+
+    9 VARIABLE_PLUS: VARIABLE opt_coma . VARIABLE_PLUS
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    VARIABLE       go to state 30
+    VARIABLE_PLUS  go to state 51
+    TYPE           go to state 32
+
+
+State 42
+
+    8 VARIABLE: TYPE identifier .
+
+    $default  reduce using rule 8 (VARIABLE)
+
+
+State 43
+
+   17 FUNCTION_DECL: vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses . STMT_BLOCK
+
+    opt_left_brace  shift, and go to state 52
+
+    STMT_BLOCK  go to state 53
+
+
+State 44
+
+   25 IDENTIFIER_PLUS: identifier . opt_coma IDENTIFIER_PLUS
+   26                | identifier .
+
+    opt_coma  shift, and go to state 54
+
+    $default  reduce using rule 26 (IDENTIFIER_PLUS)
+
+
+State 45
+
+   23 IMPLEMENTS: vip_implements IDENTIFIER_PLUS .
+
+    $default  reduce using rule 23 (IMPLEMENTS)
+
+
+State 46
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS . opt_left_brace FIELD opt_right_brace
+
+    opt_left_brace  shift, and go to state 55
+
+
+State 47
+
+   31 PROTOTYPE: vip_void identifier . opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+
+    opt_left_parentheses  shift, and go to state 56
+
+
+State 48
+
+   30 PROTOTYPE: TYPE identifier . opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon
+
+    opt_left_parentheses  shift, and go to state 57
+
+
+State 49
+
+   29 INTERFACE_DECL: vip_interface identifier opt_left_brace PROTOTYPE opt_right_brace .
+
+    $default  reduce using rule 29 (INTERFACE_DECL)
+
+
+State 50
+
+   16 FUNCTION_DECL: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses . STMT_BLOCK
+
+    opt_left_brace  shift, and go to state 52
+
+    STMT_BLOCK  go to state 58
+
+
+State 51
+
+    9 VARIABLE_PLUS: VARIABLE opt_coma VARIABLE_PLUS .
+
+    $default  reduce using rule 9 (VARIABLE_PLUS)
+
+
+State 52
+
+   32 STMT_BLOCK: opt_left_brace . VARS STMTS opt_right_brace
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 34 (VARS)
+
+    VAR_DECL  go to state 59
+    VARIABLE  go to state 11
+    TYPE      go to state 32
+    VARS      go to state 60
+
+
+State 53
+
+   17 FUNCTION_DECL: vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK .
+
+    $default  reduce using rule 17 (FUNCTION_DECL)
+
+
+State 54
+
+   25 IDENTIFIER_PLUS: identifier opt_coma . IDENTIFIER_PLUS
+
+    identifier  shift, and go to state 44
+
+    IDENTIFIER_PLUS  go to state 61
+
+
+State 55
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace . FIELD opt_right_brace
+
+    vip_void    shift, and go to state 1
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    VAR_DECL       go to state 62
+    VARIABLE       go to state 11
+    TYPE           go to state 12
+    FUNCTION_DECL  go to state 63
+    FIELD          go to state 64
+
+
+State 56
+
+   31 PROTOTYPE: vip_void identifier opt_left_parentheses . FORMALS opt_right_parentheses opt_semicolon
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 19 (FORMALS)
+
+    VARIABLE       go to state 30
+    VARIABLE_PLUS  go to state 31
+    TYPE           go to state 32
+    FORMALS        go to state 65
+
+
+State 57
+
+   30 PROTOTYPE: TYPE identifier opt_left_parentheses . FORMALS opt_right_parentheses opt_semicolon
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 19 (FORMALS)
+
+    VARIABLE       go to state 30
+    VARIABLE_PLUS  go to state 31
+    TYPE           go to state 32
+    FORMALS        go to state 66
+
+
+State 58
+
+   16 FUNCTION_DECL: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses STMT_BLOCK .
+
+    $default  reduce using rule 16 (FUNCTION_DECL)
+
+
+State 59
+
+   33 VARS: VAR_DECL . VARS
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    $default  reduce using rule 34 (VARS)
+
+    VAR_DECL  go to state 59
+    VARIABLE  go to state 11
+    TYPE      go to state 32
+    VARS      go to state 67
+
+
+State 60
+
+   32 STMT_BLOCK: opt_left_brace VARS . STMTS opt_right_brace
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    opt_semicolon  reduce using rule 53 (EXPRESSION_Q)
+    $default       reduce using rule 36 (STMTS)
+
+    STMT_BLOCK    go to state 89
+    STMTS         go to state 90
+    STATEMENT     go to state 91
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 61
+
+   25 IDENTIFIER_PLUS: identifier opt_coma IDENTIFIER_PLUS .
+
+    $default  reduce using rule 25 (IDENTIFIER_PLUS)
+
+
+State 62
+
+   27 FIELD: VAR_DECL .
+
+    $default  reduce using rule 27 (FIELD)
+
+
+State 63
+
+   28 FIELD: FUNCTION_DECL .
+
+    $default  reduce using rule 28 (FIELD)
+
+
+State 64
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD . opt_right_brace
+
+    opt_right_brace  shift, and go to state 107
+
+
+State 65
+
+   31 PROTOTYPE: vip_void identifier opt_left_parentheses FORMALS . opt_right_parentheses opt_semicolon
+
+    opt_right_parentheses  shift, and go to state 108
+
+
+State 66
+
+   30 PROTOTYPE: TYPE identifier opt_left_parentheses FORMALS . opt_right_parentheses opt_semicolon
+
+    opt_right_parentheses  shift, and go to state 109
+
+
+State 67
+
+   33 VARS: VAR_DECL VARS .
+
+    $default  reduce using rule 33 (VARS)
+
+
+State 68
+
+  100 CONST: vip_null .
+
+    $default  reduce using rule 100 (CONST)
+
+
+State 69
+
+   76 TTT: vip_this .
+
+    $default  reduce using rule 76 (TTT)
+
+
+State 70
+
+   48 FOR_STMT: vip_for . opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+
+    opt_left_parentheses  shift, and go to state 110
+
+
+State 71
+
+   47 WHILE_STMT: vip_while . opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT
+
+    opt_left_parentheses  shift, and go to state 111
+
+
+State 72
+
+   45 IF_STMT: vip_if . opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT
+   46        | vip_if . opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT
+
+    opt_left_parentheses  shift, and go to state 112
+
+
+State 73
+
+   49 RETURN_STMT: vip_return . EXPRESSION_Q opt_semicolon
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    EXPRESSION_Q  go to state 113
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 74
+
+   50 BREAK_STMT: vip_break . opt_semicolon
+
+    opt_semicolon  shift, and go to state 114
+
+
+State 75
+
+   80 TTT: vip_New . opt_left_parentheses identifier opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 115
+
+
+State 76
+
+   81 TTT: vip_NewArray . opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 116
+
+
+State 77
+
+   51 PRINT_STMT: vip_Print . opt_left_parentheses EXPRESSION_PLUS opt_right_parentheses opt_semicolon
+
+    opt_left_parentheses  shift, and go to state 117
+
+
+State 78
+
+   82 TTT: vip_ReadInteger . opt_left_parentheses opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 118
+
+
+State 79
+
+   83 TTT: vip_ReadLine . opt_left_parentheses opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 119
+
+
+State 80
+
+   84 TTT: vip_Malloc . opt_left_parentheses EXPRESSION opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 120
+
+
+State 81
+
+   85 VALUE: identifier .
+   88 CALL: identifier . opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 121
+
+    $default  reduce using rule 85 (VALUE)
+
+
+State 82
+
+   95 CONST: num_int .
+
+    $default  reduce using rule 95 (CONST)
+
+
+State 83
+
+   96 CONST: num_hex .
+
+    $default  reduce using rule 96 (CONST)
+
+
+State 84
+
+   97 CONST: num_double .
+
+    $default  reduce using rule 97 (CONST)
+
+
+State 85
+
+   99 CONST: val_string .
+
+    $default  reduce using rule 99 (CONST)
+
+
+State 86
+
+   98 CONST: val_bool .
+
+    $default  reduce using rule 98 (CONST)
+
+
+State 87
+
+   69 SSS: opt_minus . PPP
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 123
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 88
+
+   70 SSS: opt_not . PPP
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 124
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 89
+
+   44 STATEMENT: STMT_BLOCK .
+
+    $default  reduce using rule 44 (STATEMENT)
+
+
+State 90
+
+   32 STMT_BLOCK: opt_left_brace VARS STMTS . opt_right_brace
+
+    opt_right_brace  shift, and go to state 125
+
+
+State 91
+
+   35 STMTS: STATEMENT . STMTS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    opt_semicolon  reduce using rule 53 (EXPRESSION_Q)
+    $default       reduce using rule 36 (STMTS)
+
+    STMT_BLOCK    go to state 89
+    STMTS         go to state 126
+    STATEMENT     go to state 91
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 92
+
+   38 STATEMENT: IF_STMT .
+
+    $default  reduce using rule 38 (STATEMENT)
+
+
+State 93
+
+   39 STATEMENT: WHILE_STMT .
+
+    $default  reduce using rule 39 (STATEMENT)
+
+
+State 94
+
+   40 STATEMENT: FOR_STMT .
+
+    $default  reduce using rule 40 (STATEMENT)
+
+
+State 95
+
+   42 STATEMENT: RETURN_STMT .
+
+    $default  reduce using rule 42 (STATEMENT)
+
+
+State 96
+
+   41 STATEMENT: BREAK_STMT .
+
+    $default  reduce using rule 41 (STATEMENT)
+
+
+State 97
+
+   43 STATEMENT: PRINT_STMT .
+
+    $default  reduce using rule 43 (STATEMENT)
+
+
+State 98
+
+   37 STATEMENT: EXPRESSION_Q . opt_semicolon
+
+    opt_semicolon  shift, and go to state 127
+
+
+State 99
+
+   52 EXPRESSION_Q: EXPRESSION .
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot           shift, and go to state 128
+    opt_left_bracket  shift, and go to state 129
+
+    $default  reduce using rule 52 (EXPRESSION_Q)
+
+
+State 100
+
+   57 EXPRESSION: RRR .
+   58 RRR: RRR . opt_lower SSS
+   59    | RRR . opt_lower_equal SSS
+   60    | RRR . opt_greater SSS
+   61    | RRR . opt_greater_equal SSS
+   62    | RRR . opt_equal SSS
+   63    | RRR . opt_not_equal SSS
+   64    | RRR . opt_and SSS
+   65    | RRR . opt_or SSS
+
+    opt_lower          shift, and go to state 130
+    opt_lower_equal    shift, and go to state 131
+    opt_greater        shift, and go to state 132
+    opt_greater_equal  shift, and go to state 133
+    opt_equal          shift, and go to state 134
+    opt_not_equal      shift, and go to state 135
+    opt_and            shift, and go to state 136
+    opt_or             shift, and go to state 137
+
+    $default  reduce using rule 57 (EXPRESSION)
+
+
+State 101
+
+   66 RRR: SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    $default  reduce using rule 66 (RRR)
+
+
+State 102
+
+   71 SSS: PPP .
+   72 PPP: PPP . opt_times TTT
+   73    | PPP . opt_divide TTT
+   74    | PPP . opt_mod TTT
+
+    opt_times   shift, and go to state 140
+    opt_divide  shift, and go to state 141
+    opt_mod     shift, and go to state 142
+
+    $default  reduce using rule 71 (SSS)
+
+
+State 103
+
+   75 PPP: TTT .
+
+    $default  reduce using rule 75 (PPP)
+
+
+State 104
+
+   56 EXPRESSION: VALUE . opt_assign RRR
+   79 TTT: VALUE .
+
+    opt_assign  shift, and go to state 143
+
+    $default  reduce using rule 79 (TTT)
+
+
+State 105
+
+   78 TTT: CALL .
+
+    $default  reduce using rule 78 (TTT)
+
+
+State 106
+
+   77 TTT: CONST .
+
+    $default  reduce using rule 77 (TTT)
+
+
+State 107
+
+   20 CLASS_DECL: vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace .
+
+    $default  reduce using rule 20 (CLASS_DECL)
+
+
+State 108
+
+   31 PROTOTYPE: vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses . opt_semicolon
+
+    opt_semicolon  shift, and go to state 144
+
+
+State 109
+
+   30 PROTOTYPE: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses . opt_semicolon
+
+    opt_semicolon  shift, and go to state 145
+
+
+State 110
+
+   48 FOR_STMT: vip_for opt_left_parentheses . EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    EXPRESSION_Q  go to state 146
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 111
+
+   47 WHILE_STMT: vip_while opt_left_parentheses . EXPRESSION opt_right_parentheses STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 147
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 112
+
+   45 IF_STMT: vip_if opt_left_parentheses . EXPRESSION opt_right_parentheses STATEMENT
+   46        | vip_if opt_left_parentheses . EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 148
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 113
+
+   49 RETURN_STMT: vip_return EXPRESSION_Q . opt_semicolon
+
+    opt_semicolon  shift, and go to state 149
+
+
+State 114
+
+   50 BREAK_STMT: vip_break opt_semicolon .
+
+    $default  reduce using rule 50 (BREAK_STMT)
+
+
+State 115
+
+   80 TTT: vip_New opt_left_parentheses . identifier opt_right_parentheses
+
+    identifier  shift, and go to state 150
+
+
+State 116
+
+   81 TTT: vip_NewArray opt_left_parentheses . EXPRESSION opt_coma TYPE opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 151
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 117
+
+   51 PRINT_STMT: vip_Print opt_left_parentheses . EXPRESSION_PLUS opt_right_parentheses opt_semicolon
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION_PLUS  go to state 152
+    EXPRESSION       go to state 153
+    RRR              go to state 100
+    SSS              go to state 101
+    PPP              go to state 102
+    TTT              go to state 103
+    VALUE            go to state 104
+    CALL             go to state 105
+    CONST            go to state 106
+
+
+State 118
+
+   82 TTT: vip_ReadInteger opt_left_parentheses . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 154
+
+
+State 119
+
+   83 TTT: vip_ReadLine opt_left_parentheses . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 155
+
+
+State 120
+
+   84 TTT: vip_Malloc opt_left_parentheses . EXPRESSION opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 156
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 121
+
+   88 CALL: identifier opt_left_parentheses . ACTUAL opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 94 (ACTUAL)
+
+    EXPRESSION_PLUS  go to state 157
+    EXPRESSION       go to state 153
+    RRR              go to state 100
+    SSS              go to state 101
+    PPP              go to state 102
+    TTT              go to state 103
+    VALUE            go to state 104
+    CALL             go to state 105
+    ACTUAL           go to state 158
+    CONST            go to state 106
+
+
+State 122
+
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot           shift, and go to state 128
+    opt_left_bracket  shift, and go to state 129
+
+
+State 123
+
+   69 SSS: opt_minus PPP .
+   71    | PPP .
+   72 PPP: PPP . opt_times TTT
+   73    | PPP . opt_divide TTT
+   74    | PPP . opt_mod TTT
+
+    opt_times   shift, and go to state 140
+    opt_divide  shift, and go to state 141
+    opt_mod     shift, and go to state 142
+
+    opt_plus           reduce using rule 69 (SSS)
+    opt_plus           [reduce using rule 71 (SSS)]
+    opt_minus          reduce using rule 69 (SSS)
+    opt_minus          [reduce using rule 71 (SSS)]
+    opt_lower          reduce using rule 69 (SSS)
+    opt_lower          [reduce using rule 71 (SSS)]
+    opt_lower_equal    reduce using rule 69 (SSS)
+    opt_lower_equal    [reduce using rule 71 (SSS)]
+    opt_greater        reduce using rule 69 (SSS)
+    opt_greater        [reduce using rule 71 (SSS)]
+    opt_greater_equal  reduce using rule 69 (SSS)
+    opt_greater_equal  [reduce using rule 71 (SSS)]
+    opt_equal          reduce using rule 69 (SSS)
+    opt_equal          [reduce using rule 71 (SSS)]
+    opt_not_equal      reduce using rule 69 (SSS)
+    opt_not_equal      [reduce using rule 71 (SSS)]
+    opt_and            reduce using rule 69 (SSS)
+    opt_and            [reduce using rule 71 (SSS)]
+    opt_or             reduce using rule 69 (SSS)
+    opt_or             [reduce using rule 71 (SSS)]
+    opt_dot            reduce using rule 69 (SSS)
+    opt_dot            [reduce using rule 71 (SSS)]
+    opt_left_bracket   reduce using rule 69 (SSS)
+    opt_left_bracket   [reduce using rule 71 (SSS)]
+    $default           reduce using rule 69 (SSS)
+
+
+State 124
+
+   70 SSS: opt_not PPP .
+   71    | PPP .
+   72 PPP: PPP . opt_times TTT
+   73    | PPP . opt_divide TTT
+   74    | PPP . opt_mod TTT
+
+    opt_times   shift, and go to state 140
+    opt_divide  shift, and go to state 141
+    opt_mod     shift, and go to state 142
+
+    opt_plus           reduce using rule 70 (SSS)
+    opt_plus           [reduce using rule 71 (SSS)]
+    opt_minus          reduce using rule 70 (SSS)
+    opt_minus          [reduce using rule 71 (SSS)]
+    opt_lower          reduce using rule 70 (SSS)
+    opt_lower          [reduce using rule 71 (SSS)]
+    opt_lower_equal    reduce using rule 70 (SSS)
+    opt_lower_equal    [reduce using rule 71 (SSS)]
+    opt_greater        reduce using rule 70 (SSS)
+    opt_greater        [reduce using rule 71 (SSS)]
+    opt_greater_equal  reduce using rule 70 (SSS)
+    opt_greater_equal  [reduce using rule 71 (SSS)]
+    opt_equal          reduce using rule 70 (SSS)
+    opt_equal          [reduce using rule 71 (SSS)]
+    opt_not_equal      reduce using rule 70 (SSS)
+    opt_not_equal      [reduce using rule 71 (SSS)]
+    opt_and            reduce using rule 70 (SSS)
+    opt_and            [reduce using rule 71 (SSS)]
+    opt_or             reduce using rule 70 (SSS)
+    opt_or             [reduce using rule 71 (SSS)]
+    opt_dot            reduce using rule 70 (SSS)
+    opt_dot            [reduce using rule 71 (SSS)]
+    opt_left_bracket   reduce using rule 70 (SSS)
+    opt_left_bracket   [reduce using rule 71 (SSS)]
+    $default           reduce using rule 70 (SSS)
+
+
+State 125
+
+   32 STMT_BLOCK: opt_left_brace VARS STMTS opt_right_brace .
+
+    $default  reduce using rule 32 (STMT_BLOCK)
+
+
+State 126
+
+   35 STMTS: STATEMENT STMTS .
+
+    $default  reduce using rule 35 (STMTS)
+
+
+State 127
+
+   37 STATEMENT: EXPRESSION_Q opt_semicolon .
+
+    $default  reduce using rule 37 (STATEMENT)
+
+
+State 128
+
+   86 VALUE: EXPRESSION opt_dot . identifier
+   89 CALL: EXPRESSION opt_dot . identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION opt_dot . LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    vip_GetByte  shift, and go to state 159
+    vip_SetByte  shift, and go to state 160
+    identifier   shift, and go to state 161
+
+    LIB_CALL  go to state 162
+
+
+State 129
+
+   87 VALUE: EXPRESSION opt_left_bracket . EXPRESSION opt_right_bracket
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 163
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 130
+
+   58 RRR: RRR opt_lower . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 164
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 131
+
+   59 RRR: RRR opt_lower_equal . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 165
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 132
+
+   60 RRR: RRR opt_greater . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 166
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 133
+
+   61 RRR: RRR opt_greater_equal . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 167
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 134
+
+   62 RRR: RRR opt_equal . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 168
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 135
+
+   63 RRR: RRR opt_not_equal . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 169
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 136
+
+   64 RRR: RRR opt_and . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 170
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 137
+
+   65 RRR: RRR opt_or . SSS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 171
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 138
+
+   67 SSS: SSS opt_plus . PPP
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 172
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 139
+
+   68 SSS: SSS opt_minus . PPP
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 173
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 140
+
+   72 PPP: PPP opt_times . TTT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 174
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 141
+
+   73 PPP: PPP opt_divide . TTT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 175
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 142
+
+   74 PPP: PPP opt_mod . TTT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 176
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 143
+
+   56 EXPRESSION: VALUE opt_assign . RRR
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 122
+    RRR         go to state 177
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 144
+
+   31 PROTOTYPE: vip_void identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon .
+
+    $default  reduce using rule 31 (PROTOTYPE)
+
+
+State 145
+
+   30 PROTOTYPE: TYPE identifier opt_left_parentheses FORMALS opt_right_parentheses opt_semicolon .
+
+    $default  reduce using rule 30 (PROTOTYPE)
+
+
+State 146
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q . opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+
+    opt_semicolon  shift, and go to state 178
+
+
+State 147
+
+   47 WHILE_STMT: vip_while opt_left_parentheses EXPRESSION . opt_right_parentheses STATEMENT
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot                shift, and go to state 128
+    opt_left_bracket       shift, and go to state 129
+    opt_right_parentheses  shift, and go to state 179
+
+
+State 148
+
+   45 IF_STMT: vip_if opt_left_parentheses EXPRESSION . opt_right_parentheses STATEMENT
+   46        | vip_if opt_left_parentheses EXPRESSION . opt_right_parentheses STATEMENT vip_else STATEMENT
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot                shift, and go to state 128
+    opt_left_bracket       shift, and go to state 129
+    opt_right_parentheses  shift, and go to state 180
+
+
+State 149
+
+   49 RETURN_STMT: vip_return EXPRESSION_Q opt_semicolon .
+
+    $default  reduce using rule 49 (RETURN_STMT)
+
+
+State 150
+
+   80 TTT: vip_New opt_left_parentheses identifier . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 181
+
+
+State 151
+
+   81 TTT: vip_NewArray opt_left_parentheses EXPRESSION . opt_coma TYPE opt_right_parentheses
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot           shift, and go to state 128
+    opt_coma          shift, and go to state 182
+    opt_left_bracket  shift, and go to state 129
+
+
+State 152
+
+   51 PRINT_STMT: vip_Print opt_left_parentheses EXPRESSION_PLUS . opt_right_parentheses opt_semicolon
+
+    opt_right_parentheses  shift, and go to state 183
+
+
+State 153
+
+   54 EXPRESSION_PLUS: EXPRESSION . opt_coma EXPRESSION_PLUS
+   55                | EXPRESSION .
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot           shift, and go to state 128
+    opt_coma          shift, and go to state 184
+    opt_left_bracket  shift, and go to state 129
+
+    $default  reduce using rule 55 (EXPRESSION_PLUS)
+
+
+State 154
+
+   82 TTT: vip_ReadInteger opt_left_parentheses opt_right_parentheses .
+
+    $default  reduce using rule 82 (TTT)
+
+
+State 155
+
+   83 TTT: vip_ReadLine opt_left_parentheses opt_right_parentheses .
+
+    $default  reduce using rule 83 (TTT)
+
+
+State 156
+
+   84 TTT: vip_Malloc opt_left_parentheses EXPRESSION . opt_right_parentheses
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot                shift, and go to state 128
+    opt_left_bracket       shift, and go to state 129
+    opt_right_parentheses  shift, and go to state 185
+
+
+State 157
+
+   93 ACTUAL: EXPRESSION_PLUS .
+
+    $default  reduce using rule 93 (ACTUAL)
+
+
+State 158
+
+   88 CALL: identifier opt_left_parentheses ACTUAL . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 186
+
+
+State 159
+
+   91 LIB_CALL: vip_GetByte . opt_left_parentheses EXPRESSION opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 187
+
+
+State 160
+
+   92 LIB_CALL: vip_SetByte . opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 188
+
+
+State 161
+
+   86 VALUE: EXPRESSION opt_dot identifier .
+   89 CALL: EXPRESSION opt_dot identifier . opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 189
+
+    $default  reduce using rule 86 (VALUE)
+
+
+State 162
+
+   90 CALL: EXPRESSION opt_dot LIB_CALL . opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_left_parentheses  shift, and go to state 190
+
+
+State 163
+
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   87      | EXPRESSION opt_left_bracket EXPRESSION . opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_dot            shift, and go to state 128
+    opt_left_bracket   shift, and go to state 129
+    opt_right_bracket  shift, and go to state 191
+
+
+State 164
+
+   58 RRR: RRR opt_lower SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 58 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 58 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 58 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 58 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 58 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 58 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 58 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 58 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 58 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 58 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 58 (RRR)
+
+
+State 165
+
+   59 RRR: RRR opt_lower_equal SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 59 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 59 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 59 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 59 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 59 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 59 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 59 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 59 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 59 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 59 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 59 (RRR)
+
+
+State 166
+
+   60 RRR: RRR opt_greater SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 60 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 60 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 60 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 60 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 60 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 60 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 60 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 60 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 60 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 60 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 60 (RRR)
+
+
+State 167
+
+   61 RRR: RRR opt_greater_equal SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 61 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 61 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 61 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 61 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 61 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 61 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 61 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 61 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 61 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 61 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 61 (RRR)
+
+
+State 168
+
+   62 RRR: RRR opt_equal SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 62 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 62 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 62 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 62 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 62 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 62 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 62 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 62 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 62 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 62 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 62 (RRR)
+
+
+State 169
+
+   63 RRR: RRR opt_not_equal SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 63 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 63 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 63 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 63 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 63 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 63 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 63 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 63 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 63 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 63 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 63 (RRR)
+
+
+State 170
+
+   64 RRR: RRR opt_and SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 64 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 64 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 64 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 64 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 64 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 64 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 64 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 64 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 64 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 64 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 64 (RRR)
+
+
+State 171
+
+   65 RRR: RRR opt_or SSS .
+   66    | SSS .
+   67 SSS: SSS . opt_plus PPP
+   68    | SSS . opt_minus PPP
+
+    opt_plus   shift, and go to state 138
+    opt_minus  shift, and go to state 139
+
+    opt_lower          reduce using rule 65 (RRR)
+    opt_lower          [reduce using rule 66 (RRR)]
+    opt_lower_equal    reduce using rule 65 (RRR)
+    opt_lower_equal    [reduce using rule 66 (RRR)]
+    opt_greater        reduce using rule 65 (RRR)
+    opt_greater        [reduce using rule 66 (RRR)]
+    opt_greater_equal  reduce using rule 65 (RRR)
+    opt_greater_equal  [reduce using rule 66 (RRR)]
+    opt_equal          reduce using rule 65 (RRR)
+    opt_equal          [reduce using rule 66 (RRR)]
+    opt_not_equal      reduce using rule 65 (RRR)
+    opt_not_equal      [reduce using rule 66 (RRR)]
+    opt_and            reduce using rule 65 (RRR)
+    opt_and            [reduce using rule 66 (RRR)]
+    opt_or             reduce using rule 65 (RRR)
+    opt_or             [reduce using rule 66 (RRR)]
+    opt_dot            reduce using rule 65 (RRR)
+    opt_dot            [reduce using rule 66 (RRR)]
+    opt_left_bracket   reduce using rule 65 (RRR)
+    opt_left_bracket   [reduce using rule 66 (RRR)]
+    $default           reduce using rule 65 (RRR)
+
+
+State 172
+
+   67 SSS: SSS opt_plus PPP .
+   71    | PPP .
+   72 PPP: PPP . opt_times TTT
+   73    | PPP . opt_divide TTT
+   74    | PPP . opt_mod TTT
+
+    opt_times   shift, and go to state 140
+    opt_divide  shift, and go to state 141
+    opt_mod     shift, and go to state 142
+
+    opt_plus           reduce using rule 67 (SSS)
+    opt_plus           [reduce using rule 71 (SSS)]
+    opt_minus          reduce using rule 67 (SSS)
+    opt_minus          [reduce using rule 71 (SSS)]
+    opt_lower          reduce using rule 67 (SSS)
+    opt_lower          [reduce using rule 71 (SSS)]
+    opt_lower_equal    reduce using rule 67 (SSS)
+    opt_lower_equal    [reduce using rule 71 (SSS)]
+    opt_greater        reduce using rule 67 (SSS)
+    opt_greater        [reduce using rule 71 (SSS)]
+    opt_greater_equal  reduce using rule 67 (SSS)
+    opt_greater_equal  [reduce using rule 71 (SSS)]
+    opt_equal          reduce using rule 67 (SSS)
+    opt_equal          [reduce using rule 71 (SSS)]
+    opt_not_equal      reduce using rule 67 (SSS)
+    opt_not_equal      [reduce using rule 71 (SSS)]
+    opt_and            reduce using rule 67 (SSS)
+    opt_and            [reduce using rule 71 (SSS)]
+    opt_or             reduce using rule 67 (SSS)
+    opt_or             [reduce using rule 71 (SSS)]
+    opt_dot            reduce using rule 67 (SSS)
+    opt_dot            [reduce using rule 71 (SSS)]
+    opt_left_bracket   reduce using rule 67 (SSS)
+    opt_left_bracket   [reduce using rule 71 (SSS)]
+    $default           reduce using rule 67 (SSS)
+
+
+State 173
+
+   68 SSS: SSS opt_minus PPP .
+   71    | PPP .
+   72 PPP: PPP . opt_times TTT
+   73    | PPP . opt_divide TTT
+   74    | PPP . opt_mod TTT
+
+    opt_times   shift, and go to state 140
+    opt_divide  shift, and go to state 141
+    opt_mod     shift, and go to state 142
+
+    opt_plus           reduce using rule 68 (SSS)
+    opt_plus           [reduce using rule 71 (SSS)]
+    opt_minus          reduce using rule 68 (SSS)
+    opt_minus          [reduce using rule 71 (SSS)]
+    opt_lower          reduce using rule 68 (SSS)
+    opt_lower          [reduce using rule 71 (SSS)]
+    opt_lower_equal    reduce using rule 68 (SSS)
+    opt_lower_equal    [reduce using rule 71 (SSS)]
+    opt_greater        reduce using rule 68 (SSS)
+    opt_greater        [reduce using rule 71 (SSS)]
+    opt_greater_equal  reduce using rule 68 (SSS)
+    opt_greater_equal  [reduce using rule 71 (SSS)]
+    opt_equal          reduce using rule 68 (SSS)
+    opt_equal          [reduce using rule 71 (SSS)]
+    opt_not_equal      reduce using rule 68 (SSS)
+    opt_not_equal      [reduce using rule 71 (SSS)]
+    opt_and            reduce using rule 68 (SSS)
+    opt_and            [reduce using rule 71 (SSS)]
+    opt_or             reduce using rule 68 (SSS)
+    opt_or             [reduce using rule 71 (SSS)]
+    opt_dot            reduce using rule 68 (SSS)
+    opt_dot            [reduce using rule 71 (SSS)]
+    opt_left_bracket   reduce using rule 68 (SSS)
+    opt_left_bracket   [reduce using rule 71 (SSS)]
+    $default           reduce using rule 68 (SSS)
+
+
+State 174
+
+   72 PPP: PPP opt_times TTT .
+   75    | TTT .
+
+    opt_plus           reduce using rule 72 (PPP)
+    opt_plus           [reduce using rule 75 (PPP)]
+    opt_minus          reduce using rule 72 (PPP)
+    opt_minus          [reduce using rule 75 (PPP)]
+    opt_times          reduce using rule 72 (PPP)
+    opt_times          [reduce using rule 75 (PPP)]
+    opt_divide         reduce using rule 72 (PPP)
+    opt_divide         [reduce using rule 75 (PPP)]
+    opt_mod            reduce using rule 72 (PPP)
+    opt_mod            [reduce using rule 75 (PPP)]
+    opt_lower          reduce using rule 72 (PPP)
+    opt_lower          [reduce using rule 75 (PPP)]
+    opt_lower_equal    reduce using rule 72 (PPP)
+    opt_lower_equal    [reduce using rule 75 (PPP)]
+    opt_greater        reduce using rule 72 (PPP)
+    opt_greater        [reduce using rule 75 (PPP)]
+    opt_greater_equal  reduce using rule 72 (PPP)
+    opt_greater_equal  [reduce using rule 75 (PPP)]
+    opt_equal          reduce using rule 72 (PPP)
+    opt_equal          [reduce using rule 75 (PPP)]
+    opt_not_equal      reduce using rule 72 (PPP)
+    opt_not_equal      [reduce using rule 75 (PPP)]
+    opt_and            reduce using rule 72 (PPP)
+    opt_and            [reduce using rule 75 (PPP)]
+    opt_or             reduce using rule 72 (PPP)
+    opt_or             [reduce using rule 75 (PPP)]
+    opt_dot            reduce using rule 72 (PPP)
+    opt_dot            [reduce using rule 75 (PPP)]
+    opt_left_bracket   reduce using rule 72 (PPP)
+    opt_left_bracket   [reduce using rule 75 (PPP)]
+    $default           reduce using rule 72 (PPP)
+
+
+State 175
+
+   73 PPP: PPP opt_divide TTT .
+   75    | TTT .
+
+    opt_plus           reduce using rule 73 (PPP)
+    opt_plus           [reduce using rule 75 (PPP)]
+    opt_minus          reduce using rule 73 (PPP)
+    opt_minus          [reduce using rule 75 (PPP)]
+    opt_times          reduce using rule 73 (PPP)
+    opt_times          [reduce using rule 75 (PPP)]
+    opt_divide         reduce using rule 73 (PPP)
+    opt_divide         [reduce using rule 75 (PPP)]
+    opt_mod            reduce using rule 73 (PPP)
+    opt_mod            [reduce using rule 75 (PPP)]
+    opt_lower          reduce using rule 73 (PPP)
+    opt_lower          [reduce using rule 75 (PPP)]
+    opt_lower_equal    reduce using rule 73 (PPP)
+    opt_lower_equal    [reduce using rule 75 (PPP)]
+    opt_greater        reduce using rule 73 (PPP)
+    opt_greater        [reduce using rule 75 (PPP)]
+    opt_greater_equal  reduce using rule 73 (PPP)
+    opt_greater_equal  [reduce using rule 75 (PPP)]
+    opt_equal          reduce using rule 73 (PPP)
+    opt_equal          [reduce using rule 75 (PPP)]
+    opt_not_equal      reduce using rule 73 (PPP)
+    opt_not_equal      [reduce using rule 75 (PPP)]
+    opt_and            reduce using rule 73 (PPP)
+    opt_and            [reduce using rule 75 (PPP)]
+    opt_or             reduce using rule 73 (PPP)
+    opt_or             [reduce using rule 75 (PPP)]
+    opt_dot            reduce using rule 73 (PPP)
+    opt_dot            [reduce using rule 75 (PPP)]
+    opt_left_bracket   reduce using rule 73 (PPP)
+    opt_left_bracket   [reduce using rule 75 (PPP)]
+    $default           reduce using rule 73 (PPP)
+
+
+State 176
+
+   74 PPP: PPP opt_mod TTT .
+   75    | TTT .
+
+    opt_plus           reduce using rule 74 (PPP)
+    opt_plus           [reduce using rule 75 (PPP)]
+    opt_minus          reduce using rule 74 (PPP)
+    opt_minus          [reduce using rule 75 (PPP)]
+    opt_times          reduce using rule 74 (PPP)
+    opt_times          [reduce using rule 75 (PPP)]
+    opt_divide         reduce using rule 74 (PPP)
+    opt_divide         [reduce using rule 75 (PPP)]
+    opt_mod            reduce using rule 74 (PPP)
+    opt_mod            [reduce using rule 75 (PPP)]
+    opt_lower          reduce using rule 74 (PPP)
+    opt_lower          [reduce using rule 75 (PPP)]
+    opt_lower_equal    reduce using rule 74 (PPP)
+    opt_lower_equal    [reduce using rule 75 (PPP)]
+    opt_greater        reduce using rule 74 (PPP)
+    opt_greater        [reduce using rule 75 (PPP)]
+    opt_greater_equal  reduce using rule 74 (PPP)
+    opt_greater_equal  [reduce using rule 75 (PPP)]
+    opt_equal          reduce using rule 74 (PPP)
+    opt_equal          [reduce using rule 75 (PPP)]
+    opt_not_equal      reduce using rule 74 (PPP)
+    opt_not_equal      [reduce using rule 75 (PPP)]
+    opt_and            reduce using rule 74 (PPP)
+    opt_and            [reduce using rule 75 (PPP)]
+    opt_or             reduce using rule 74 (PPP)
+    opt_or             [reduce using rule 75 (PPP)]
+    opt_dot            reduce using rule 74 (PPP)
+    opt_dot            [reduce using rule 75 (PPP)]
+    opt_left_bracket   reduce using rule 74 (PPP)
+    opt_left_bracket   [reduce using rule 75 (PPP)]
+    $default           reduce using rule 74 (PPP)
+
+
+State 177
+
+   56 EXPRESSION: VALUE opt_assign RRR .
+   57           | RRR .
+   58 RRR: RRR . opt_lower SSS
+   59    | RRR . opt_lower_equal SSS
+   60    | RRR . opt_greater SSS
+   61    | RRR . opt_greater_equal SSS
+   62    | RRR . opt_equal SSS
+   63    | RRR . opt_not_equal SSS
+   64    | RRR . opt_and SSS
+   65    | RRR . opt_or SSS
+
+    opt_lower          shift, and go to state 130
+    opt_lower_equal    shift, and go to state 131
+    opt_greater        shift, and go to state 132
+    opt_greater_equal  shift, and go to state 133
+    opt_equal          shift, and go to state 134
+    opt_not_equal      shift, and go to state 135
+    opt_and            shift, and go to state 136
+    opt_or             shift, and go to state 137
+
+    opt_dot           reduce using rule 56 (EXPRESSION)
+    opt_dot           [reduce using rule 57 (EXPRESSION)]
+    opt_left_bracket  reduce using rule 56 (EXPRESSION)
+    opt_left_bracket  [reduce using rule 57 (EXPRESSION)]
+    $default          reduce using rule 56 (EXPRESSION)
+
+
+State 178
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon . EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 192
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 179
+
+   47 WHILE_STMT: vip_while opt_left_parentheses EXPRESSION opt_right_parentheses . STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    STMT_BLOCK    go to state 89
+    STATEMENT     go to state 193
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 180
+
+   45 IF_STMT: vip_if opt_left_parentheses EXPRESSION opt_right_parentheses . STATEMENT
+   46        | vip_if opt_left_parentheses EXPRESSION opt_right_parentheses . STATEMENT vip_else STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    STMT_BLOCK    go to state 89
+    STATEMENT     go to state 194
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 181
+
+   80 TTT: vip_New opt_left_parentheses identifier opt_right_parentheses .
+
+    $default  reduce using rule 80 (TTT)
+
+
+State 182
+
+   81 TTT: vip_NewArray opt_left_parentheses EXPRESSION opt_coma . TYPE opt_right_parentheses
+
+    vip_int     shift, and go to state 2
+    vip_double  shift, and go to state 3
+    vip_bool    shift, and go to state 4
+    vip_string  shift, and go to state 5
+
+    TYPE  go to state 195
+
+
+State 183
+
+   51 PRINT_STMT: vip_Print opt_left_parentheses EXPRESSION_PLUS opt_right_parentheses . opt_semicolon
+
+    opt_semicolon  shift, and go to state 196
+
+
+State 184
+
+   54 EXPRESSION_PLUS: EXPRESSION opt_coma . EXPRESSION_PLUS
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION_PLUS  go to state 197
+    EXPRESSION       go to state 153
+    RRR              go to state 100
+    SSS              go to state 101
+    PPP              go to state 102
+    TTT              go to state 103
+    VALUE            go to state 104
+    CALL             go to state 105
+    CONST            go to state 106
+
+
+State 185
+
+   84 TTT: vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses .
+
+    $default  reduce using rule 84 (TTT)
+
+
+State 186
+
+   88 CALL: identifier opt_left_parentheses ACTUAL opt_right_parentheses .
+
+    $default  reduce using rule 88 (CALL)
+
+
+State 187
+
+   91 LIB_CALL: vip_GetByte opt_left_parentheses . EXPRESSION opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 198
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 188
+
+   92 LIB_CALL: vip_SetByte opt_left_parentheses . EXPRESSION opt_coma EXPRESSION opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 199
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 189
+
+   89 CALL: EXPRESSION opt_dot identifier opt_left_parentheses . ACTUAL opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 94 (ACTUAL)
+
+    EXPRESSION_PLUS  go to state 157
+    EXPRESSION       go to state 153
+    RRR              go to state 100
+    SSS              go to state 101
+    PPP              go to state 102
+    TTT              go to state 103
+    VALUE            go to state 104
+    CALL             go to state 105
+    ACTUAL           go to state 200
+    CONST            go to state 106
+
+
+State 190
+
+   90 CALL: EXPRESSION opt_dot LIB_CALL opt_left_parentheses . ACTUAL opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 94 (ACTUAL)
+
+    EXPRESSION_PLUS  go to state 157
+    EXPRESSION       go to state 153
+    RRR              go to state 100
+    SSS              go to state 101
+    PPP              go to state 102
+    TTT              go to state 103
+    VALUE            go to state 104
+    CALL             go to state 105
+    ACTUAL           go to state 201
+    CONST            go to state 106
+
+
+State 191
+
+   87 VALUE: EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket .
+
+    $default  reduce using rule 87 (VALUE)
+
+
+State 192
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION . opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+
+    opt_semicolon     shift, and go to state 202
+    opt_dot           shift, and go to state 128
+    opt_left_bracket  shift, and go to state 129
+
+
+State 193
+
+   47 WHILE_STMT: vip_while opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT .
+
+    $default  reduce using rule 47 (WHILE_STMT)
+
+
+State 194
+
+   45 IF_STMT: vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT .
+   46        | vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT . vip_else STATEMENT
+
+    vip_else  shift, and go to state 203
+
+    vip_else  [reduce using rule 45 (IF_STMT)]
+    $default  reduce using rule 45 (IF_STMT)
+
+
+State 195
+
+   15 TYPE: TYPE . opt_left_bracket opt_right_bracket
+   81 TTT: vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE . opt_right_parentheses
+
+    opt_left_bracket       shift, and go to state 23
+    opt_right_parentheses  shift, and go to state 204
+
+
+State 196
+
+   51 PRINT_STMT: vip_Print opt_left_parentheses EXPRESSION_PLUS opt_right_parentheses opt_semicolon .
+
+    $default  reduce using rule 51 (PRINT_STMT)
+
+
+State 197
+
+   54 EXPRESSION_PLUS: EXPRESSION opt_coma EXPRESSION_PLUS .
+
+    $default  reduce using rule 54 (EXPRESSION_PLUS)
+
+
+State 198
+
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+   91 LIB_CALL: vip_GetByte opt_left_parentheses EXPRESSION . opt_right_parentheses
+
+    opt_dot                shift, and go to state 128
+    opt_left_bracket       shift, and go to state 129
+    opt_right_parentheses  shift, and go to state 205
+
+
+State 199
+
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+   92 LIB_CALL: vip_SetByte opt_left_parentheses EXPRESSION . opt_coma EXPRESSION opt_right_parentheses
+
+    opt_dot           shift, and go to state 128
+    opt_coma          shift, and go to state 206
+    opt_left_bracket  shift, and go to state 129
+
+
+State 200
+
+   89 CALL: EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 207
+
+
+State 201
+
+   90 CALL: EXPRESSION opt_dot LIB_CALL opt_left_parentheses ACTUAL . opt_right_parentheses
+
+    opt_right_parentheses  shift, and go to state 208
+
+
+State 202
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon . EXPRESSION_Q opt_right_parentheses STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    EXPRESSION_Q  go to state 209
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 203
+
+   46 IF_STMT: vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else . STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    STMT_BLOCK    go to state 89
+    STATEMENT     go to state 210
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 204
+
+   81 TTT: vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses .
+
+    $default  reduce using rule 81 (TTT)
+
+
+State 205
+
+   91 LIB_CALL: vip_GetByte opt_left_parentheses EXPRESSION opt_right_parentheses .
+
+    $default  reduce using rule 91 (LIB_CALL)
+
+
+State 206
+
+   92 LIB_CALL: vip_SetByte opt_left_parentheses EXPRESSION opt_coma . EXPRESSION opt_right_parentheses
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+
+    EXPRESSION  go to state 211
+    RRR         go to state 100
+    SSS         go to state 101
+    PPP         go to state 102
+    TTT         go to state 103
+    VALUE       go to state 104
+    CALL        go to state 105
+    CONST       go to state 106
+
+
+State 207
+
+   89 CALL: EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses .
+
+    $default  reduce using rule 89 (CALL)
+
+
+State 208
+
+   90 CALL: EXPRESSION opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses .
+
+    $default  reduce using rule 90 (CALL)
+
+
+State 209
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q . opt_right_parentheses STATEMENT
+
+    opt_right_parentheses  shift, and go to state 212
+
+
+State 210
+
+   46 IF_STMT: vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT .
+
+    $default  reduce using rule 46 (IF_STMT)
+
+
+State 211
+
+   86 VALUE: EXPRESSION . opt_dot identifier
+   87      | EXPRESSION . opt_left_bracket EXPRESSION opt_right_bracket
+   89 CALL: EXPRESSION . opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses
+   90     | EXPRESSION . opt_dot LIB_CALL opt_left_parentheses ACTUAL opt_right_parentheses
+   92 LIB_CALL: vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION . opt_right_parentheses
+
+    opt_dot                shift, and go to state 128
+    opt_left_bracket       shift, and go to state 129
+    opt_right_parentheses  shift, and go to state 213
+
+
+State 212
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses . STATEMENT
+
+    vip_null         shift, and go to state 68
+    vip_this         shift, and go to state 69
+    vip_for          shift, and go to state 70
+    vip_while        shift, and go to state 71
+    vip_if           shift, and go to state 72
+    vip_return       shift, and go to state 73
+    vip_break        shift, and go to state 74
+    vip_New          shift, and go to state 75
+    vip_NewArray     shift, and go to state 76
+    vip_Print        shift, and go to state 77
+    vip_ReadInteger  shift, and go to state 78
+    vip_ReadLine     shift, and go to state 79
+    vip_Malloc       shift, and go to state 80
+    identifier       shift, and go to state 81
+    num_int          shift, and go to state 82
+    num_hex          shift, and go to state 83
+    num_double       shift, and go to state 84
+    val_string       shift, and go to state 85
+    val_bool         shift, and go to state 86
+    opt_minus        shift, and go to state 87
+    opt_not          shift, and go to state 88
+    opt_left_brace   shift, and go to state 52
+
+    $default  reduce using rule 53 (EXPRESSION_Q)
+
+    STMT_BLOCK    go to state 89
+    STATEMENT     go to state 214
+    IF_STMT       go to state 92
+    WHILE_STMT    go to state 93
+    FOR_STMT      go to state 94
+    RETURN_STMT   go to state 95
+    BREAK_STMT    go to state 96
+    PRINT_STMT    go to state 97
+    EXPRESSION_Q  go to state 98
+    EXPRESSION    go to state 99
+    RRR           go to state 100
+    SSS           go to state 101
+    PPP           go to state 102
+    TTT           go to state 103
+    VALUE         go to state 104
+    CALL          go to state 105
+    CONST         go to state 106
+
+
+State 213
+
+   92 LIB_CALL: vip_SetByte opt_left_parentheses EXPRESSION opt_coma EXPRESSION opt_right_parentheses .
+
+    $default  reduce using rule 92 (LIB_CALL)
+
+
+State 214
+
+   48 FOR_STMT: vip_for opt_left_parentheses EXPRESSION_Q opt_semicolon EXPRESSION opt_semicolon EXPRESSION_Q opt_right_parentheses STATEMENT .
+
+    $default  reduce using rule 48 (FOR_STMT)
