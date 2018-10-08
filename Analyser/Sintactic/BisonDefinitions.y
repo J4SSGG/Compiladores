@@ -77,10 +77,7 @@ void yyerror(char * s);
 %token opt_left_parentheses
 %token opt_right_parentheses
 
-
 %%
-
-
 
 PROGRAM 
       : DECL               {;}
@@ -213,32 +210,40 @@ EXPRESSION_Q
       | %empty          {;}
       ;
 
-EXPRESSION_PLUS  
+EXPRESSION_PLUS
       : EXPRESSION opt_coma EXPRESSION_PLUS     {;}
       | EXPRESSION                              {;} 
       ;
 
-EXPRESSION  
-      : VALUE opt_assign RRR {;}
+EXPRESSION
+      : VALUE opt_assign MMM  {;}
+      | MMM                   {;}
+      ;
+MMM
+      : MMM opt_or NNN  {;}
+      | NNN             {;}
+      ;
+NNN
+      : NNN opt_and OOO  {;}
+      | OOO             {;}
+      ;
+OOO  
+      : OOO opt_equal RRR {;}
+      | OOO opt_not_equal RRR {;}
       | RRR {;}
       ;
+
 RRR
       : RRR opt_lower SSS    {;}
       | RRR opt_lower_equal SSS {;}
       | RRR opt_greater SSS {;}
       | RRR opt_greater_equal SSS {;}
-      | RRR opt_equal SSS {;}
-      | RRR opt_not_equal SSS {;}
-      | RRR opt_and SSS {;}
-      | RRR opt_or SSS {;}
       | SSS {;}
       ;
 SSS
-      : SSS opt_plus PPP {;}
-      | SSS opt_minus PPP {;}
-      | opt_minus PPP {;}
-      | opt_not PPP {;}
-      | PPP {;}
+      : SSS opt_plus PPP      {;}
+      | SSS opt_minus PPP     {;}
+      | PPP                   {;}
       ;
 
 PPP
@@ -249,15 +254,21 @@ PPP
       ;
 
 TTT
-      : vip_this {;}
-      | CONST {;}
-      | CALL {;}
-      | VALUE {;}
-      | vip_New opt_left_parentheses identifier opt_right_parentheses {;}
-      | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses {;}
-      | vip_ReadInteger opt_left_parentheses opt_right_parentheses {;}
-      | vip_ReadLine opt_left_parentheses opt_right_parentheses {;}
-      | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses {;}
+      : opt_not TTT {;}
+      | opt_minus TTT {;}
+      | UUU       {;}
+      ;
+UUU
+      : vip_this                                                                                {;}
+      | CONST                                                                                   {;}
+      | CALL                                                                                    {;}
+      | VALUE                                                                                   {;}
+      | opt_left_parentheses EXPRESSION opt_right_parentheses                                   {;}
+      | vip_New opt_left_parentheses identifier opt_right_parentheses                           {;}
+      | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses        {;}
+      | vip_ReadInteger opt_left_parentheses opt_right_parentheses                              {;}
+      | vip_ReadLine opt_left_parentheses opt_right_parentheses                                 {;}
+      | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                        {;}
 
 VALUE 
       : identifier                                                      {;}
