@@ -77,6 +77,7 @@ void yyerror(char * s);
 %token opt_left_parentheses
 %token opt_right_parentheses
 
+%left vip_else
 %left opt_assign
 %left opt_or
 %left opt_and
@@ -106,12 +107,13 @@ VAR_DECL
       ;
 
 VARIABLE    
-      : TYPE identifier                         {;}
+      : TYPE identifier            {;}
       ;
 
 VARIABLE_PLUS
       : VARIABLE opt_coma VARIABLE_PLUS         {;}
       | VARIABLE                                {;}
+      ;
 
 TYPE      
       : vip_int                                 {;}
@@ -132,7 +134,7 @@ FORMALS
       ;
 
 CLASS_DECL  
-      : vip_class identifier EXTENDS IMPLEMENTS IDENTIFIER_PLUS opt_left_brace FIELD opt_right_brace  {;}
+      : vip_class identifier EXTENDS IMPLEMENTS opt_left_brace FIELD_ASTERISK opt_right_brace  {;}
       ;
 
 EXTENDS 
@@ -150,13 +152,23 @@ IDENTIFIER_PLUS
       | identifier                              {;}
       ;
 
+FIELD_ASTERISK
+      : FIELD FIELD_ASTERISK   {;}
+      | %empty          {;}
+      ;
+
 FIELD 
-      : VAR_DECL              {;}
-      | FUNCTION_DECL         {;}
+      : VAR_DECL        {;}
+      | FUNCTION_DECL   {;}
       ;
 
 INTERFACE_DECL    
-      : vip_interface identifier opt_left_brace PROTOTYPE opt_right_brace   {;}
+      : vip_interface identifier opt_left_brace PROTOTYPE_ASTERISK opt_right_brace   {;}
+      ;
+
+PROTOTYPE_ASTERISK
+      : PROTOTYPE  PROTOTYPE_ASTERISK     {;}
+      | %empty          {;}
       ;
 
 PROTOTYPE 
@@ -180,13 +192,13 @@ STMTS
 
 STATEMENT   
       : EXPRESSION_Q opt_semicolon  {;}
-      | IF_STMT             {;}
-      | WHILE_STMT          {;}
-      | FOR_STMT            {;}
-      | BREAK_STMT          {;}
-      | RETURN_STMT         {;}
-      | PRINT_STMT          {;}
-      | STMT_BLOCK          {;}
+      | IF_STMT                     {;}
+      | WHILE_STMT                  {;}
+      | FOR_STMT                    {;}
+      | BREAK_STMT                  {;}
+      | RETURN_STMT                 {;}
+      | PRINT_STMT                  {;}
+      | STMT_BLOCK                  {;}
       ;
 
 IF_STMT     
