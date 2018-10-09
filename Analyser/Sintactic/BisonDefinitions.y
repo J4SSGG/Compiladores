@@ -77,6 +77,16 @@ void yyerror(char * s);
 %token opt_left_parentheses
 %token opt_right_parentheses
 
+%left opt_assign
+%left opt_or
+%left opt_and
+%left opt_equal opt_not_equal
+%left opt_lower opt_lower_equal opt_greater opt_greater_equal
+%left opt_plus opt_minus
+%left opt_times opt_divide opt_mod
+%right opt_not
+%left opt_left_brace opt_left_bracket opt_left_parentheses opt_right_brace opt_right_bracket opt_right_parentheses opt_dot
+
 %%
 
 PROGRAM 
@@ -180,10 +190,13 @@ STATEMENT
       ;
 
 IF_STMT     
-      : vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT                        {;}
-      | vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT vip_else STATEMENT     {;}
+      : vip_if opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT ELSE_STMT{;}
       ;
 
+ELSE_STMT
+      : vip_else STATEMENT    {;}
+      | %empty                {;}
+      ;
 
 WHILE_STMT  
       : vip_while opt_left_parentheses EXPRESSION opt_right_parentheses STATEMENT     {;}
@@ -215,66 +228,42 @@ EXPRESSION_PLUS
       | EXPRESSION                              {;} 
       ;
 
-EXPRESSION
-      : VALUE opt_assign MMM  {;}
-      | MMM                   {;}
-      ;
-MMM
-      : MMM opt_or NNN  {;}
-      | NNN             {;}
-      ;
-NNN
-      : NNN opt_and OOO  {;}
-      | OOO             {;}
-      ;
-OOO  
-      : OOO opt_equal RRR {;}
-      | OOO opt_not_equal RRR {;}
-      | RRR {;}
-      ;
-
-RRR
-      : RRR opt_lower SSS    {;}
-      | RRR opt_lower_equal SSS {;}
-      | RRR opt_greater SSS {;}
-      | RRR opt_greater_equal SSS {;}
-      | SSS {;}
-      ;
-SSS
-      : SSS opt_plus PPP      {;}
-      | SSS opt_minus PPP     {;}
-      | PPP                   {;}
-      ;
-
-PPP
-      : PPP opt_times TTT {;}
-      | PPP opt_divide TTT {;}
-      | PPP opt_mod TTT {;}
-      | TTT {;}
-      ;
-
-TTT
-      : opt_not TTT {;}
-      | opt_minus TTT {;}
-      | UUU       {;}
-      ;
-UUU
-      : vip_this                                                                                {;}
-      | CONST                                                                                   {;}
-      | CALL                                                                                    {;}
-      | VALUE                                                                                   {;}
-      | opt_left_parentheses EXPRESSION opt_right_parentheses                                   {;}
-      | vip_New opt_left_parentheses identifier opt_right_parentheses                           {;}
-      | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses        {;}
-      | vip_ReadInteger opt_left_parentheses opt_right_parentheses                              {;}
-      | vip_ReadLine opt_left_parentheses opt_right_parentheses                                 {;}
-      | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                        {;}
+EXPRESSION  : VALUE opt_assign EXPRESSION                                                           {;}
+            | CONST                                                                                 {;}
+            | VALUE                                                                                 {;}
+            | vip_this                                                                              {;}
+            | CALL                                                                                  {;}
+            | opt_left_parentheses EXPRESSION opt_right_parentheses                                 {;}
+            | EXPRESSION opt_plus EXPRESSION                                                        {;}
+            | EXPRESSION opt_minus EXPRESSION                                                       {;}
+            | EXPRESSION opt_divide EXPRESSION                                                      {;}
+            | EXPRESSION opt_times EXPRESSION                                                       {;}
+            | EXPRESSION opt_mod EXPRESSION                                                         {;}
+            | opt_minus EXPRESSION                                                                  {;}
+            | EXPRESSION opt_lower EXPRESSION                                                       {;}
+            | EXPRESSION opt_lower_equal EXPRESSION                                                 {;}
+            | EXPRESSION opt_greater EXPRESSION                                                     {;}
+            | EXPRESSION opt_greater_equal EXPRESSION                                               {;}
+            | EXPRESSION opt_equal EXPRESSION                                                       {;}
+            | EXPRESSION opt_not_equal EXPRESSION                                                   {;}
+            | EXPRESSION opt_and EXPRESSION                                                         {;}
+            | EXPRESSION opt_or EXPRESSION                                                          {;}
+            | opt_not EXPRESSION                                                                    {;}
+            | vip_New opt_left_parentheses identifier opt_right_parentheses                         {;}
+            | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses      {;}
+            | vip_ReadInteger opt_left_parentheses opt_right_parentheses                            {;}
+            | vip_ReadLine opt_left_parentheses opt_right_parentheses                               {;}
+            | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                      {;}
 
 VALUE 
-      : identifier                                                      {;}
-      | EXPRESSION opt_dot identifier                                   {;}
-      | EXPRESSION opt_left_bracket EXPRESSION opt_right_bracket        {;}
+      : identifier            {;}
+      | EXPRESSION  VALUE_P   {;}
       ;
+
+
+VALUE_P     
+      : opt_dot identifier                                  {;}
+      | opt_left_bracket EXPRESSION opt_right_bracket       {;}
 
 CALL  
       : identifier opt_left_parentheses ACTUAL opt_right_parentheses                        {;}
