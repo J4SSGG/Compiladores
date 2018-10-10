@@ -4,6 +4,7 @@
 // Tokens provided by Bison (which is the Sintactic analyser)
 #include "../Sintactic/Parser.h"
 extern void yyerror(char * s);
+extern int yycolumnlineno;
 // LexicalAnalyser functions
 void yyAddText();
 char * yystring;
@@ -26,69 +27,69 @@ EXP		(e|E)("+"|"-")?
 BOOL	true|false
 COMM	"//".*
 %%
-{NWL}						;
-void						return vip_void;
-int							return vip_int;
-double						return vip_double;
-bool						return vip_bool;
-string						return vip_string;
-class						return vip_class;
-interface					return vip_interface;
-null						return vip_null;
-this						return vip_this;
-extends						return vip_extends;
-implements					return vip_implements;
-for							return vip_for;
-while						return vip_while;
-if							return vip_if;
-else						return vip_else;
-return						return vip_return;
-break						return vip_break;
-New							return vip_New;
-NewArray					return vip_NewArray;
-Print						return vip_Print;
-ReadInteger					return vip_ReadInteger;
-ReadLine					return vip_ReadLine;
-Malloc						return vip_Malloc;
-GetByte						return vip_GetByte;
-SetByte						return vip_SetByte;
-{BOOL}						return val_bool;
-{IDF}						return identifier;
-{ESP}						;
-{INT}						return num_int;
-{HEX}						return num_hex;
-{DBL}|{DBL}{EXP}{INT}		return num_double;
+{NWL}						{ yycolumnlineno = 0; }
+void						{ yycolumnlineno+= strlen(yytext); return vip_void; }
+int							{ yycolumnlineno+= strlen(yytext); return vip_int; }
+double						{ yycolumnlineno+= strlen(yytext); return vip_double; }
+bool						{ yycolumnlineno+= strlen(yytext); return vip_bool; }
+string						{ yycolumnlineno+= strlen(yytext); return vip_string; }
+class						{ yycolumnlineno+= strlen(yytext); return vip_class; }
+interface					{ yycolumnlineno+= strlen(yytext); return vip_interface; }
+null						{ yycolumnlineno+= strlen(yytext); return vip_null; }
+this						{ yycolumnlineno+= strlen(yytext); return vip_this; }
+extends						{ yycolumnlineno+= strlen(yytext); return vip_extends; }
+implements					{ yycolumnlineno+= strlen(yytext); return vip_implements; }
+for							{ yycolumnlineno+= strlen(yytext); return vip_for; }
+while						{ yycolumnlineno+= strlen(yytext); return vip_while; }
+if							{ yycolumnlineno+= strlen(yytext); return vip_if; }
+else						{ yycolumnlineno+= strlen(yytext); return vip_else; }
+return						{ yycolumnlineno+= strlen(yytext); return vip_return; }
+break						{ yycolumnlineno+= strlen(yytext); return vip_break; }
+New							{ yycolumnlineno+= strlen(yytext); return vip_New; }
+NewArray					{ yycolumnlineno+= strlen(yytext); return vip_NewArray; }
+Print						{ yycolumnlineno+= strlen(yytext); return vip_Print; }
+ReadInteger					{ yycolumnlineno+= strlen(yytext); return vip_ReadInteger; }
+ReadLine					{ yycolumnlineno+= strlen(yytext); return vip_ReadLine; }
+Malloc						{ yycolumnlineno+= strlen(yytext); return vip_Malloc; }
+GetByte						{ yycolumnlineno+= strlen(yytext); return vip_GetByte; }
+SetByte						{ yycolumnlineno+= strlen(yytext); return vip_SetByte; }
+{BOOL}						{ yycolumnlineno+= strlen(yytext); return val_bool; }
+{IDF}						{ yycolumnlineno+= strlen(yytext); return identifier; }
+{ESP}						{ yycolumnlineno+= strlen(yytext); }
+{INT}						{ yycolumnlineno+= strlen(yytext); return num_int; }
+{HEX}						{ yycolumnlineno+= strlen(yytext); return num_hex; }
+{DBL}|{DBL}{EXP}{INT}		{ yycolumnlineno+= strlen(yytext); return num_double; }
 "/*"						BEGIN(comment);
 <comment>"*/"				BEGIN(INITIAL);
-<comment>([^*]|\n)+|.		yyAddText();
+<comment>([^*]|\n)+|.		{ yycolumnlineno+= strlen(yytext); yyAddText(); }
 <comment><<EOF>>			{BEGIN(INITIAL); yyerror("Comment unclosed");}
-{COMM}						;			
-"+"							return opt_plus;
-"-"							return opt_minus;
-"*"							return opt_times;
-"/"							return opt_divide;
-"%"							return opt_mod;
-"<"							return opt_lower;
-"<="						return opt_lower_equal;
-">"							return opt_greater;
-">="						return opt_greater_equal;
-"="							return opt_assign;
-"=="						return opt_equal;
-"!="						return opt_not_equal;
-"&&"						return opt_and;
-"||"						return opt_or;
-"!"							return opt_not;
-";"							return opt_semicolon;
-"."							return opt_dot;
-","							return opt_coma;
-"["							return opt_left_bracket;
-"]"							return opt_right_bracket;
-"{"							return opt_left_brace;
-"}"							return opt_right_brace;
-"("							return opt_left_parentheses;
-")"							return opt_right_parentheses;
-\".*\"						return val_string;
-.							;
+{COMM}						{ yycolumnlineno+= strlen(yytext); }			
+"+"							{ yycolumnlineno+= strlen(yytext); return opt_plus; }
+"-"							{ yycolumnlineno+= strlen(yytext); return opt_minus; }
+"*"							{ yycolumnlineno+= strlen(yytext); return opt_times; }
+"/"							{ yycolumnlineno+= strlen(yytext); return opt_divide; }
+"%"							{ yycolumnlineno+= strlen(yytext); return opt_mod; }
+"<"							{ yycolumnlineno+= strlen(yytext); return opt_lower; }
+"<="						{ yycolumnlineno+= strlen(yytext); return opt_lower_equal; }
+">"							{ yycolumnlineno+= strlen(yytext); return opt_greater; }
+">="						{ yycolumnlineno+= strlen(yytext); return opt_greater_equal; }
+"="							{ yycolumnlineno+= strlen(yytext); return opt_assign; }
+"=="						{ yycolumnlineno+= strlen(yytext); return opt_equal; }
+"!="						{ yycolumnlineno+= strlen(yytext); return opt_not_equal; }
+"&&"						{ yycolumnlineno+= strlen(yytext); return opt_and; }
+"||"						{ yycolumnlineno+= strlen(yytext); return opt_or; }
+"!"							{ yycolumnlineno+= strlen(yytext); return opt_not; }
+";"							{ yycolumnlineno+= strlen(yytext); return opt_semicolon; }
+"."							{ yycolumnlineno+= strlen(yytext); return opt_dot; }
+","							{ yycolumnlineno+= strlen(yytext); return opt_coma; }
+"["							{ yycolumnlineno+= strlen(yytext); return opt_left_bracket; }
+"]"							{ yycolumnlineno+= strlen(yytext); return opt_right_bracket; }
+"{"							{ yycolumnlineno+= strlen(yytext); return opt_left_brace; }
+"}"							{ yycolumnlineno+= strlen(yytext); return opt_right_brace; }
+"("							{ yycolumnlineno+= strlen(yytext); return opt_left_parentheses; }
+")"							{ yycolumnlineno+= strlen(yytext); return opt_right_parentheses; }
+\".*\"						{ yycolumnlineno+= strlen(yytext); return val_string; }
+.							{ yycolumnlineno+= strlen(yytext); }
 %%
 
 int yywrap(void)

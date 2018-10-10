@@ -108,7 +108,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 18 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
+#line 20 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
 
   int intVal;
   double doubleVal;

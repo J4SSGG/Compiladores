@@ -6,13 +6,15 @@
 extern int yylex();
 extern FILE * yyin;
 extern int yylineno;
+extern char * yytext;
 extern int yydebug;
+// Variables
+int yycolumnlineno;
 
 // Syntactic analyser functions
 int ParseExpression();
 int ParseFile(char * path);
 void yyerror(char * s);
-
 %}
 %start PROGRAM
 %union {
@@ -77,6 +79,7 @@ void yyerror(char * s);
 %token opt_left_parentheses
 %token opt_right_parentheses
 
+
 %left vip_else
 %left opt_assign
 %left opt_or
@@ -91,19 +94,20 @@ void yyerror(char * s);
 %%
 
 PROGRAM 
-      : DECL               {;}
-      | DECL PROGRAM       {;}
+      : DECL                  {;}
+      | DECL PROGRAM          {;}
       ;
 
 DECL  
       : VAR_DECL            {;}
       | FUNCTION_DECL       {;}
       | CLASS_DECL          {;}
-      | INTERFACE_DECL      {;}
+      | INTERFACE_DECL      {;}   
       ;
 
 VAR_DECL    
       : VARIABLE opt_semicolon                  {;}
+      | ERR                                     {;}
       ;
 
 VARIABLE    
@@ -140,16 +144,19 @@ CLASS_DECL
 EXTENDS 
       : vip_extends identifier      {;}
       | %empty                      {;}
+      | ERR                         {;}
       ;
 
 IMPLEMENTS
       : vip_implements IDENTIFIER_PLUS    {;}
-      | %empty
+      | %empty                            {;}
+      | ERR                               {;}
       ;
 
 IDENTIFIER_PLUS  
       : identifier opt_coma IDENTIFIER_PLUS     {;}
       | identifier                              {;}
+      | ERR                         {;}
       ;
 
 FIELD_ASTERISK
@@ -169,6 +176,7 @@ INTERFACE_DECL
 PROTOTYPE_ASTERISK
       : PROTOTYPE  PROTOTYPE_ASTERISK     {;}
       | %empty          {;}
+      | ERR                         {;}
       ;
 
 PROTOTYPE 
@@ -199,6 +207,7 @@ STATEMENT
       | RETURN_STMT                 {;}
       | PRINT_STMT                  {;}
       | STMT_BLOCK                  {;}
+      | ERR                         {;}
       ;
 
 IF_STMT     
@@ -240,33 +249,34 @@ EXPRESSION_PLUS
       | EXPRESSION                              {;} 
       ;
 
-EXPRESSION  : VALUE opt_assign EXPRESSION                                                           {;}
-            | CONST                                                                                 {;}
-            | VALUE                                                                                 {;}
-            | vip_this                                                                              {;}
-            | CALL                                                                                  {;}
-            | opt_left_parentheses EXPRESSION opt_right_parentheses                                 {;}
-            | EXPRESSION opt_plus EXPRESSION                                                        {;}
-            | EXPRESSION opt_minus EXPRESSION                                                       {;}
-            | EXPRESSION opt_divide EXPRESSION                                                      {;}
-            | EXPRESSION opt_times EXPRESSION                                                       {;}
-            | EXPRESSION opt_mod EXPRESSION                                                         {;}
-            | opt_minus EXPRESSION                                                                  {;}
-            | EXPRESSION opt_lower EXPRESSION                                                       {;}
-            | EXPRESSION opt_lower_equal EXPRESSION                                                 {;}
-            | EXPRESSION opt_greater EXPRESSION                                                     {;}
-            | EXPRESSION opt_greater_equal EXPRESSION                                               {;}
-            | EXPRESSION opt_equal EXPRESSION                                                       {;}
-            | EXPRESSION opt_not_equal EXPRESSION                                                   {;}
-            | EXPRESSION opt_and EXPRESSION                                                         {;}
-            | EXPRESSION opt_or EXPRESSION                                                          {;}
-            | opt_not EXPRESSION                                                                    {;}
-            | vip_New opt_left_parentheses identifier opt_right_parentheses                         {;}
-            | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses      {;}
-            | vip_ReadInteger opt_left_parentheses opt_right_parentheses                            {;}
-            | vip_ReadLine opt_left_parentheses opt_right_parentheses                               {;}
-            | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                      {;}
-
+EXPRESSION  
+      : VALUE opt_assign EXPRESSION                                                           {;}
+      | CONST                                                                                 {;}
+      | VALUE                                                                                 {;}
+      | vip_this                                                                              {;}
+      | CALL                                                                                  {;}
+      | opt_left_parentheses EXPRESSION opt_right_parentheses                                 {;}
+      | EXPRESSION opt_plus EXPRESSION                                                        {;}
+      | EXPRESSION opt_minus EXPRESSION                                                       {;}
+      | EXPRESSION opt_divide EXPRESSION                                                      {;}
+      | EXPRESSION opt_times EXPRESSION                                                       {;}
+      | EXPRESSION opt_mod EXPRESSION                                                         {;}
+      | opt_minus EXPRESSION                                                                  {;}
+      | EXPRESSION opt_lower EXPRESSION                                                       {;}
+      | EXPRESSION opt_lower_equal EXPRESSION                                                 {;}
+      | EXPRESSION opt_greater EXPRESSION                                                     {;}
+      | EXPRESSION opt_greater_equal EXPRESSION                                               {;}
+      | EXPRESSION opt_equal EXPRESSION                                                       {;}
+      | EXPRESSION opt_not_equal EXPRESSION                                                   {;}
+      | EXPRESSION opt_and EXPRESSION                                                         {;}
+      | EXPRESSION opt_or EXPRESSION                                                          {;}
+      | opt_not EXPRESSION                                                                    {;}
+      | vip_New opt_left_parentheses identifier opt_right_parentheses                         {;}
+      | vip_NewArray opt_left_parentheses EXPRESSION opt_coma TYPE opt_right_parentheses      {;}
+      | vip_ReadInteger opt_left_parentheses opt_right_parentheses                            {;}
+      | vip_ReadLine opt_left_parentheses opt_right_parentheses                               {;}
+      | vip_Malloc opt_left_parentheses EXPRESSION opt_right_parentheses                      {;}
+      ;
 VALUE 
       : identifier            {;}
       | EXPRESSION  VALUE_P   {;}
@@ -276,7 +286,7 @@ VALUE
 VALUE_P     
       : opt_dot identifier                                  {;}
       | opt_left_bracket EXPRESSION opt_right_bracket       {;}
-
+      ;
 CALL  
       : identifier opt_left_parentheses ACTUAL opt_right_parentheses                        {;}
       | EXPRESSION opt_dot identifier opt_left_parentheses ACTUAL opt_right_parentheses     {;}
@@ -302,14 +312,25 @@ CONST
       | vip_null    {;}    
       ;
 
+ERR
+      : error opt_left_brace  {yyerrok;}
+      | error opt_right_brace  {yyerrok;}
+      | error opt_left_bracket  {yyerrok;}
+      | error opt_right_bracket  {yyerrok;}
+      | error opt_left_parentheses  {yyerrok;}
+      | error opt_right_parentheses  {yyerrok;}
+      | error opt_semicolon   {yyerrok;}
+      | error VARIABLE  {yyerrok;}
+
 %%
 
 void yyerror(char * s){
-      printf("%s", s);
+      printf("Syntax error in line %3d and column %3d - Not expecting '%s'\n", yylineno, yycolumnlineno, yytext);
 }
 
 int ParseFile(char * filePath){
-      yydebug = 1;
+      yycolumnlineno = 0;
+      //yydebug = 1;
       FILE * inputFile;
       if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
       yyin = inputFile;
@@ -317,5 +338,6 @@ int ParseFile(char * filePath){
 }
 
 int ParseExpression(){
+      yycolumnlineno = 0;
       return yyparse();
 }

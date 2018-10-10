@@ -636,6 +636,7 @@ char *yytext;
 // Tokens provided by Bison (which is the Sintactic analyser)
 #include "../Sintactic/Parser.h"
 extern void yyerror(char * s);
+extern int yycolumnlineno;
 // LexicalAnalyser functions
 void yyAddText();
 char * yystring;
@@ -645,7 +646,7 @@ void ToLowerCase(char * word);
 void ToUpperCase(char * word);
 char * FileOut(char * FileInput);*/
 
-#line 649 "Analyser/Lexical/Analyser.c"
+#line 650 "Analyser/Lexical/Analyser.c"
 
 #define INITIAL 0
 #define quote 1
@@ -865,9 +866,9 @@ YY_DECL
 		}
 
 	{
-#line 28 "Analyser/Lexical/FlexDefinitions.l"
+#line 29 "Analyser/Lexical/FlexDefinitions.l"
 
-#line 871 "Analyser/Lexical/Analyser.c"
+#line 872 "Analyser/Lexical/Analyser.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -937,325 +938,325 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 29 "Analyser/Lexical/FlexDefinitions.l"
-;
+#line 30 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno = 0; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "Analyser/Lexical/FlexDefinitions.l"
-return vip_void;
+#line 31 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_void; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "Analyser/Lexical/FlexDefinitions.l"
-return vip_int;
+#line 32 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_int; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 32 "Analyser/Lexical/FlexDefinitions.l"
-return vip_double;
+#line 33 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_double; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 33 "Analyser/Lexical/FlexDefinitions.l"
-return vip_bool;
+#line 34 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_bool; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 34 "Analyser/Lexical/FlexDefinitions.l"
-return vip_string;
+#line 35 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_string; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "Analyser/Lexical/FlexDefinitions.l"
-return vip_class;
+#line 36 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_class; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 36 "Analyser/Lexical/FlexDefinitions.l"
-return vip_interface;
+#line 37 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_interface; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 37 "Analyser/Lexical/FlexDefinitions.l"
-return vip_null;
+#line 38 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_null; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 38 "Analyser/Lexical/FlexDefinitions.l"
-return vip_this;
+#line 39 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_this; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 39 "Analyser/Lexical/FlexDefinitions.l"
-return vip_extends;
+#line 40 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_extends; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 40 "Analyser/Lexical/FlexDefinitions.l"
-return vip_implements;
+#line 41 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_implements; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 41 "Analyser/Lexical/FlexDefinitions.l"
-return vip_for;
+#line 42 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_for; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 42 "Analyser/Lexical/FlexDefinitions.l"
-return vip_while;
+#line 43 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_while; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 43 "Analyser/Lexical/FlexDefinitions.l"
-return vip_if;
+#line 44 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_if; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 44 "Analyser/Lexical/FlexDefinitions.l"
-return vip_else;
+#line 45 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_else; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "Analyser/Lexical/FlexDefinitions.l"
-return vip_return;
+#line 46 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_return; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "Analyser/Lexical/FlexDefinitions.l"
-return vip_break;
+#line 47 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_break; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 47 "Analyser/Lexical/FlexDefinitions.l"
-return vip_New;
+#line 48 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_New; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 48 "Analyser/Lexical/FlexDefinitions.l"
-return vip_NewArray;
+#line 49 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_NewArray; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 49 "Analyser/Lexical/FlexDefinitions.l"
-return vip_Print;
+#line 50 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_Print; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 50 "Analyser/Lexical/FlexDefinitions.l"
-return vip_ReadInteger;
+#line 51 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_ReadInteger; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 51 "Analyser/Lexical/FlexDefinitions.l"
-return vip_ReadLine;
+#line 52 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_ReadLine; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 52 "Analyser/Lexical/FlexDefinitions.l"
-return vip_Malloc;
+#line 53 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_Malloc; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 53 "Analyser/Lexical/FlexDefinitions.l"
-return vip_GetByte;
+#line 54 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_GetByte; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 54 "Analyser/Lexical/FlexDefinitions.l"
-return vip_SetByte;
+#line 55 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return vip_SetByte; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 55 "Analyser/Lexical/FlexDefinitions.l"
-return val_bool;
+#line 56 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return val_bool; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 56 "Analyser/Lexical/FlexDefinitions.l"
-return identifier;
+#line 57 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return identifier; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 57 "Analyser/Lexical/FlexDefinitions.l"
-;
+#line 58 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 58 "Analyser/Lexical/FlexDefinitions.l"
-return num_int;
+#line 59 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return num_int; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 59 "Analyser/Lexical/FlexDefinitions.l"
-return num_hex;
+#line 60 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return num_hex; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 60 "Analyser/Lexical/FlexDefinitions.l"
-return num_double;
+#line 61 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return num_double; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 61 "Analyser/Lexical/FlexDefinitions.l"
+#line 62 "Analyser/Lexical/FlexDefinitions.l"
 BEGIN(comment);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 62 "Analyser/Lexical/FlexDefinitions.l"
+#line 63 "Analyser/Lexical/FlexDefinitions.l"
 BEGIN(INITIAL);
 	YY_BREAK
 case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
-#line 63 "Analyser/Lexical/FlexDefinitions.l"
-yyAddText();
+#line 64 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); yyAddText(); }
 	YY_BREAK
 case YY_STATE_EOF(comment):
-#line 64 "Analyser/Lexical/FlexDefinitions.l"
+#line 65 "Analyser/Lexical/FlexDefinitions.l"
 {BEGIN(INITIAL); yyerror("Comment unclosed");}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 65 "Analyser/Lexical/FlexDefinitions.l"
-;			
+#line 66 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); }			
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 66 "Analyser/Lexical/FlexDefinitions.l"
-return opt_plus;
+#line 67 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_plus; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 67 "Analyser/Lexical/FlexDefinitions.l"
-return opt_minus;
+#line 68 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_minus; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 68 "Analyser/Lexical/FlexDefinitions.l"
-return opt_times;
+#line 69 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_times; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 69 "Analyser/Lexical/FlexDefinitions.l"
-return opt_divide;
+#line 70 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_divide; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 70 "Analyser/Lexical/FlexDefinitions.l"
-return opt_mod;
+#line 71 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_mod; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 71 "Analyser/Lexical/FlexDefinitions.l"
-return opt_lower;
+#line 72 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_lower; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 72 "Analyser/Lexical/FlexDefinitions.l"
-return opt_lower_equal;
+#line 73 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_lower_equal; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 73 "Analyser/Lexical/FlexDefinitions.l"
-return opt_greater;
+#line 74 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_greater; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 74 "Analyser/Lexical/FlexDefinitions.l"
-return opt_greater_equal;
+#line 75 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_greater_equal; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 75 "Analyser/Lexical/FlexDefinitions.l"
-return opt_assign;
+#line 76 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_assign; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 76 "Analyser/Lexical/FlexDefinitions.l"
-return opt_equal;
+#line 77 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_equal; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 77 "Analyser/Lexical/FlexDefinitions.l"
-return opt_not_equal;
+#line 78 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_not_equal; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 78 "Analyser/Lexical/FlexDefinitions.l"
-return opt_and;
+#line 79 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_and; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 79 "Analyser/Lexical/FlexDefinitions.l"
-return opt_or;
+#line 80 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_or; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 80 "Analyser/Lexical/FlexDefinitions.l"
-return opt_not;
+#line 81 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_not; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 81 "Analyser/Lexical/FlexDefinitions.l"
-return opt_semicolon;
+#line 82 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_semicolon; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 82 "Analyser/Lexical/FlexDefinitions.l"
-return opt_dot;
+#line 83 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_dot; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 83 "Analyser/Lexical/FlexDefinitions.l"
-return opt_coma;
+#line 84 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_coma; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 84 "Analyser/Lexical/FlexDefinitions.l"
-return opt_left_bracket;
+#line 85 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_left_bracket; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 85 "Analyser/Lexical/FlexDefinitions.l"
-return opt_right_bracket;
+#line 86 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_right_bracket; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 86 "Analyser/Lexical/FlexDefinitions.l"
-return opt_left_brace;
+#line 87 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_left_brace; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 87 "Analyser/Lexical/FlexDefinitions.l"
-return opt_right_brace;
+#line 88 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_right_brace; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 88 "Analyser/Lexical/FlexDefinitions.l"
-return opt_left_parentheses;
+#line 89 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_left_parentheses; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 89 "Analyser/Lexical/FlexDefinitions.l"
-return opt_right_parentheses;
+#line 90 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return opt_right_parentheses; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 90 "Analyser/Lexical/FlexDefinitions.l"
-return val_string;
+#line 91 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); return val_string; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 91 "Analyser/Lexical/FlexDefinitions.l"
-;
+#line 92 "Analyser/Lexical/FlexDefinitions.l"
+{ yycolumnlineno+= strlen(yytext); }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 92 "Analyser/Lexical/FlexDefinitions.l"
+#line 93 "Analyser/Lexical/FlexDefinitions.l"
 ECHO;
 	YY_BREAK
-#line 1259 "Analyser/Lexical/Analyser.c"
+#line 1260 "Analyser/Lexical/Analyser.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quote):
 	yyterminate();
@@ -2269,7 +2270,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 92 "Analyser/Lexical/FlexDefinitions.l"
+#line 93 "Analyser/Lexical/FlexDefinitions.l"
 
 
 
