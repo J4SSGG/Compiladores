@@ -1,6 +1,6 @@
 # miniC#
 
-**miniC#** es un analizar léxico, escrito en **Flex** y en el **lenguaje C**, para el lenguaje de programacion miniC#. Entre sus características están el soporte a multiples archivos de entrada, correcta validación e identificación de errores y un claro manejo de mensajes de error. 
+**miniC#** es un analizar léxico y sintáctico, y futuro compilador, basado en **Flex** y **Bison** y escrito en el **lenguaje C**, para el lenguaje de programacion miniC#. Entre sus características está la correcta validación e identificación de errores y un claro manejo de mensajes de error. 
 
 # Uso
 
