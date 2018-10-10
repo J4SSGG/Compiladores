@@ -1,6 +1,6 @@
-#line 2 "Analyser/Lexical/Analyser.c"
+#line 2 "Analyser/Lexical/Scanner.c"
 
-#line 4 "Analyser/Lexical/Analyser.c"
+#line 4 "Analyser/Lexical/Scanner.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -646,7 +646,7 @@ void ToLowerCase(char * word);
 void ToUpperCase(char * word);
 char * FileOut(char * FileInput);*/
 
-#line 650 "Analyser/Lexical/Analyser.c"
+#line 650 "Analyser/Lexical/Scanner.c"
 
 #define INITIAL 0
 #define quote 1
@@ -868,7 +868,7 @@ YY_DECL
 	{
 #line 29 "Analyser/Lexical/FlexDefinitions.l"
 
-#line 872 "Analyser/Lexical/Analyser.c"
+#line 872 "Analyser/Lexical/Scanner.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1256,7 +1256,7 @@ YY_RULE_SETUP
 #line 93 "Analyser/Lexical/FlexDefinitions.l"
 ECHO;
 	YY_BREAK
-#line 1260 "Analyser/Lexical/Analyser.c"
+#line 1260 "Analyser/Lexical/Scanner.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quote):
 	yyterminate();
