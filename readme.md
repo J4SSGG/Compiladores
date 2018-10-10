@@ -31,7 +31,7 @@ $  gcc -o miniC#/bin/mcsc.out miniC#/source/minic.c  Analyser/Sintactic/Parser.c
 ### Análisis del archivo
 Para analizar un archivo ejecute el siguiente comando. Sustituye `archivo.cs` con el archivo que deseas analizar.
 ```shell
-$  miniC# /bin/mcsc.out Test/reserved.cs
+$  miniC#/bin/mcsc.out Test/reserved.cs
 ```
 
 ## Funcionamiento
