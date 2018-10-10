@@ -89,7 +89,7 @@ SetByte						{ yycolumnlineno+= strlen(yytext); return vip_SetByte; }
 "("							{ yycolumnlineno+= strlen(yytext); return opt_left_parentheses; }
 ")"							{ yycolumnlineno+= strlen(yytext); return opt_right_parentheses; }
 \".*\"						{ yycolumnlineno+= strlen(yytext); return val_string; }
-.							{ yycolumnlineno+= strlen(yytext); }
+.							{ yycolumnlineno+= strlen(yytext); return -1;}
 %%
 
 int yywrap(void)

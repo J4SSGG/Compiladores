@@ -1249,7 +1249,7 @@ YY_RULE_SETUP
 case 62:
 YY_RULE_SETUP
 #line 92 "Analyser/Lexical/FlexDefinitions.l"
-{ yycolumnlineno+= strlen(yytext); }
+{ yycolumnlineno+= strlen(yytext); return -1;}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
