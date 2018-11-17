@@ -5,10 +5,10 @@
 #include "../Sintactic/Parser.h"
 extern void yyerror(char * s);
 extern int yycolumnlineno;
+extern char * newString(char * S);
 // LexicalAnalyser functions
 void yyAddText();
 char * yystring;
-
 /*int yycol;
 void ToLowerCase(char * word);
 void ToUpperCase(char * word);
@@ -19,7 +19,7 @@ char * FileOut(char * FileInput);*/
 ALL		.*
 ESP		[ \t\r]+
 NWL		[\n]+
-IDF		[a-zA-Z][_0-9a-zA-Z]*
+IDF		[a-zA-Z][0-9a-zA-Z]*
 INT		[0-9]+
 HEX		("0x"|"0X")[0-9a-fA-F]+
 DBL		[0-9]+"."[0-9]*
@@ -53,8 +53,9 @@ ReadLine					{ yycolumnlineno+= strlen(yytext); return vip_ReadLine; }
 Malloc						{ yycolumnlineno+= strlen(yytext); return vip_Malloc; }
 GetByte						{ yycolumnlineno+= strlen(yytext); return vip_GetByte; }
 SetByte						{ yycolumnlineno+= strlen(yytext); return vip_SetByte; }
+const						{ yycolumnlineno+= strlen(yytext); return vip_const; }
 {BOOL}						{ yycolumnlineno+= strlen(yytext); return val_bool; }
-{IDF}						{ yycolumnlineno+= strlen(yytext); return identifier; }
+{IDF}						{ yycolumnlineno+= strlen(yytext); yylval.stringVal = newString(yytext); return identifier; }
 {ESP}						{ yycolumnlineno+= strlen(yytext); }
 {INT}						{ yycolumnlineno+= strlen(yytext); return num_int; }
 {HEX}						{ yycolumnlineno+= strlen(yytext); return num_hex; }

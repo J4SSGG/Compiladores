@@ -70,36 +70,37 @@ extern int yydebug;
     vip_Malloc = 280,
     vip_GetByte = 281,
     vip_SetByte = 282,
-    identifier = 283,
-    num_int = 284,
-    num_hex = 285,
-    num_double = 286,
-    val_string = 287,
-    val_bool = 288,
-    opt_plus = 289,
-    opt_minus = 290,
-    opt_times = 291,
-    opt_divide = 292,
-    opt_mod = 293,
-    opt_lower = 294,
-    opt_lower_equal = 295,
-    opt_greater = 296,
-    opt_greater_equal = 297,
-    opt_assign = 298,
-    opt_equal = 299,
-    opt_not_equal = 300,
-    opt_and = 301,
-    opt_or = 302,
-    opt_not = 303,
-    opt_semicolon = 304,
-    opt_dot = 305,
-    opt_coma = 306,
-    opt_left_bracket = 307,
-    opt_right_bracket = 308,
-    opt_left_brace = 309,
-    opt_right_brace = 310,
-    opt_left_parentheses = 311,
-    opt_right_parentheses = 312
+    vip_const = 283,
+    identifier = 284,
+    num_int = 285,
+    num_hex = 286,
+    num_double = 287,
+    val_string = 288,
+    val_bool = 289,
+    opt_plus = 290,
+    opt_minus = 291,
+    opt_times = 292,
+    opt_divide = 293,
+    opt_mod = 294,
+    opt_lower = 295,
+    opt_lower_equal = 296,
+    opt_greater = 297,
+    opt_greater_equal = 298,
+    opt_assign = 299,
+    opt_equal = 300,
+    opt_not_equal = 301,
+    opt_and = 302,
+    opt_or = 303,
+    opt_not = 304,
+    opt_semicolon = 305,
+    opt_dot = 306,
+    opt_coma = 307,
+    opt_left_bracket = 308,
+    opt_right_bracket = 309,
+    opt_left_brace = 310,
+    opt_right_brace = 311,
+    opt_left_parentheses = 312,
+    opt_right_parentheses = 313
   };
 #endif
 
@@ -108,14 +109,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
+#line 37 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1909  */
 
   int intVal;
   double doubleVal;
   char * stringVal;
   char charVal;
 
-#line 119 "Analyser/Sintactic/Parser.h" /* yacc.c:1909  */
+#line 120 "Analyser/Sintactic/Parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
