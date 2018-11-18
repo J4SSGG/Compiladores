@@ -1,5 +1,4 @@
 int x;
-int a (int x, double y, int z){
-
+int asz (double y, int a){
+    double asz;
 }
-int y;

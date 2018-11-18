@@ -16,6 +16,7 @@ int yycolumnlineno;
 int minContext;
 int currentContext;
 int CONTEXT;
+int BK_CONTEXT = 0;
 char * A_TYPE;
 char * A_ID;
 char * A_ARGS;
@@ -149,8 +150,8 @@ TYPE
       ;
 
 FUNCTION_DECL 
-      : TYPE identifier {T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal);} opt_left_parentheses {addContext(); } FORMALS opt_right_parentheses STMT_BLOCK {freeContext(); AddFunction(); }
-      | vip_void identifier {T_TYPE = newString(A_TYPE); T_ID =newString("void");} opt_left_parentheses {addContext();} FORMALS opt_right_parentheses STMT_BLOCK         {freeContext(); AddFunction();}
+      : TYPE identifier {T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext(); } FORMALS opt_right_parentheses STMT_BLOCK {freeContext(); AddFunction(); }
+      | vip_void identifier {T_TYPE = newString(A_TYPE); T_ID =newString("void"); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext();} FORMALS opt_right_parentheses STMT_BLOCK         {freeContext(); AddFunction(); }
       ;
 
 FORMALS 
@@ -352,8 +353,8 @@ void yyerror(char * s){
 int ParseFile(char * filePath){
       ContextStack = List();
       SymbolTable = List();
-      Push(-1);
-      addContext();
+      Push(0);
+      CONTEXT = 0;
       F_ARG = 0;
       yycolumnlineno = 0;
       //yydebug = 1;
@@ -361,7 +362,7 @@ int ParseFile(char * filePath){
       if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
       yyin = inputFile;
       int x = yyparse();
-      //PrintList(SymbolTable);
+      PrintList(SymbolTable);
       return x;
 }
 
@@ -409,16 +410,17 @@ void AddFunction()
       {
             if (SearchKeyInContext(SymbolTable, T_ID, i) == 1)
             {
-                  printf("Linea: %d - Columna: %d -> El nombre de la funcion '%s' ya ha sido definido anteriormente...\n", yylineno, yycolumnlineno, yylval.stringVal);
+                  printf("Linea: %d - Columna: %d -> El nombre de la funcion '%s' ya ha sido definido anteriormente...\n", yylineno, yycolumnlineno, T_ID);
                   return;
             }
       }
-      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, 0, CONTEXT, A_ARGS);
+      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, 0, BK_CONTEXT, A_ARGS);
       A_VAR = newString(A_TYPE);
 }
 
 void addContext()
 {
+     
       int x = Peek() + 1;
       Push(x);
       CONTEXT = x;
@@ -426,6 +428,7 @@ void addContext()
 
 void freeContext(){
       RemoveFromContext(SymbolTable, Pop());
+      CONTEXT = Peek();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -547,11 +550,16 @@ int SearchKeyInContext(struct list * item, char * key, int context)
 void RemoveFromContext(struct list * item, int context)
 {
       struct node * current = item->tail;
-      while (current && current->context == context)
+      while (current)
       {     
+            if (current->context == context)
+            {     
+                  current = current->last;
+                  item->tail = current;
+                  current->next = NULL;
+                  continue;
+            }
             current = current->last;
-            item->tail = current;
-            current->next = NULL;
       }
 }
 
@@ -572,9 +580,11 @@ void Push(int value)
 }
 
 int Pop(){
-      int value = ContextStack->tail->context;
-      ContextStack->tail->last = ContextStack->tail->last->last;
-      ContextStack->tail = ContextStack->tail->last;
+      struct node * current = ContextStack->tail;
+      int value = current->context;
+      current = current->last;
+      ContextStack->tail = current;
+      current->next = NULL;
       return value;
 }
 

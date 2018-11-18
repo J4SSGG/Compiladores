@@ -81,6 +81,7 @@ int yycolumnlineno;
 int minContext;
 int currentContext;
 int CONTEXT;
+int BK_CONTEXT = 0;
 char * A_TYPE;
 char * A_ID;
 char * A_ARGS;
@@ -98,7 +99,7 @@ void AddFunction();
 void addContext();
 void freeContext();
 
-#line 102 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
+#line 103 "Analyser/Sintactic/Parser.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -197,14 +198,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 37 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
+#line 38 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:355  */
 
   int intVal;
   double doubleVal;
   char * stringVal;
   char charVal;
 
-#line 208 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
+#line 209 "Analyser/Sintactic/Parser.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -221,7 +222,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 225 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
+#line 226 "Analyser/Sintactic/Parser.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -524,19 +525,19 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   116,   116,   117,   121,   122,   123,   124,   128,   129,
-     133,   134,   138,   138,   139,   143,   144,   145,   146,   147,
-     148,   152,   152,   152,   153,   153,   153,   157,   158,   162,
-     166,   167,   168,   172,   173,   174,   178,   179,   180,   184,
-     185,   189,   190,   194,   198,   199,   200,   204,   205,   209,
-     213,   214,   218,   219,   223,   224,   225,   226,   227,   228,
-     229,   230,   231,   235,   239,   240,   244,   248,   252,   256,
-     260,   264,   265,   269,   270,   274,   275,   276,   277,   278,
-     279,   280,   281,   282,   283,   284,   285,   286,   287,   288,
-     289,   290,   291,   292,   293,   294,   295,   296,   297,   298,
-     299,   302,   303,   308,   309,   312,   313,   314,   318,   319,
-     323,   324,   328,   329,   330,   331,   332,   333,   337,   338,
-     339,   340,   341,   342,   343,   344
+       0,   117,   117,   118,   122,   123,   124,   125,   129,   130,
+     134,   135,   139,   139,   140,   144,   145,   146,   147,   148,
+     149,   153,   153,   153,   154,   154,   154,   158,   159,   163,
+     167,   168,   169,   173,   174,   175,   179,   180,   181,   185,
+     186,   190,   191,   195,   199,   200,   201,   205,   206,   210,
+     214,   215,   219,   220,   224,   225,   226,   227,   228,   229,
+     230,   231,   232,   236,   240,   241,   245,   249,   253,   257,
+     261,   265,   266,   270,   271,   275,   276,   277,   278,   279,
+     280,   281,   282,   283,   284,   285,   286,   287,   288,   289,
+     290,   291,   292,   293,   294,   295,   296,   297,   298,   299,
+     300,   303,   304,   309,   310,   313,   314,   315,   319,   320,
+     324,   325,   329,   330,   331,   332,   333,   334,   338,   339,
+     340,   341,   342,   343,   344,   345
 };
 #endif
 
@@ -1564,751 +1565,751 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 116 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 117 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1570 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1571 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 117 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 118 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1576 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1577 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 121 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 122 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1582 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1583 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 122 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 123 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1588 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1589 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 123 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 124 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1594 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1595 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 124 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 125 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1600 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1601 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 128 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 129 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1606 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1607 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 129 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 130 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1612 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1613 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 133 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 134 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {AddVar(1);}
-#line 1618 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1619 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 134 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 135 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {AddVar(0);}
-#line 1624 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1625 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 138 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 139 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {AddArg(",");}
-#line 1630 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1631 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 138 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 139 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1636 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1637 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 139 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 140 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {AddArg("");}
-#line 1642 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1643 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 143 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 144 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString("int");}
-#line 1648 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1649 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 144 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 145 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString("double");}
-#line 1654 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1655 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 145 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 146 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString("bool");}
-#line 1660 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1661 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 146 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 147 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString("string");}
-#line 1666 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1667 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 147 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 148 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString("ARRAY");}
-#line 1672 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1673 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 148 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 149 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {A_TYPE = newString(yylval.stringVal);}
-#line 1678 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1679 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 152 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
-    {T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal);}
-#line 1684 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal); BK_CONTEXT = CONTEXT;}
+#line 1685 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 152 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {addContext(); }
-#line 1690 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1691 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 152 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {freeContext(); AddFunction(); }
-#line 1696 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1697 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
-    {T_TYPE = newString(A_TYPE); T_ID =newString("void");}
-#line 1702 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 154 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {T_TYPE = newString(A_TYPE); T_ID =newString("void"); BK_CONTEXT = CONTEXT;}
+#line 1703 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 154 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {addContext();}
-#line 1708 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1709 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 153 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
-    {freeContext(); AddFunction();}
-#line 1714 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 154 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+    {freeContext(); AddFunction(); }
+#line 1715 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 157 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 158 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1720 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1721 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 158 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 159 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1726 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1727 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 162 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 163 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1732 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1733 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 166 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 167 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1738 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1739 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 167 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 168 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1744 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1745 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 168 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 169 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1750 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1751 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 172 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 173 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1756 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1757 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 173 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 174 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1762 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1763 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 174 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 175 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1768 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1769 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 178 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 179 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1774 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1775 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 179 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 180 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1780 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1781 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 180 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 181 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1786 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1787 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 184 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 185 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1792 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1793 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 185 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 186 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1798 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1799 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 189 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 190 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1804 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1805 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 190 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 191 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1810 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1811 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 194 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 195 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1816 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1817 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 198 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 199 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1822 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1823 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 199 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 200 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1828 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1829 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 200 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 201 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1834 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1835 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 204 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 205 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1840 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1841 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 205 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 206 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1846 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1847 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 209 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 210 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1852 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1853 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 213 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 214 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1858 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1859 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 214 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 215 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1864 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1865 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 218 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 219 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1870 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1871 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 219 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 220 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1876 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1877 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 223 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 224 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1882 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1883 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 224 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 225 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1888 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1889 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 225 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 226 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1894 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1895 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 226 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 227 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1900 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1901 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 227 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 228 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1906 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1907 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 228 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 229 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1912 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1913 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 229 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 230 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1918 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1919 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 230 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 231 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1924 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1925 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 231 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 232 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1930 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1931 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 235 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 236 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1936 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1937 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 239 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 240 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1942 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1943 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 240 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 241 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1948 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1949 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 244 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 245 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1954 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1955 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 248 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 249 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1960 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1961 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 252 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 253 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1966 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1967 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 256 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 257 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1972 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1973 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 260 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 261 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1978 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1979 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 264 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 265 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1984 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1985 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 265 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 266 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1990 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1991 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 269 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 270 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 1996 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 1997 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 270 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 271 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2002 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2003 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 274 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 275 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2008 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2009 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 275 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 276 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2014 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2015 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 276 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 277 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2020 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2021 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 277 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 278 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2026 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2027 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 278 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 279 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2032 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2033 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 279 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 280 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2038 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2039 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 280 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 281 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2044 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2045 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 281 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 282 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2050 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2051 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 282 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 283 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2056 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2057 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 283 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 284 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2062 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2063 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 284 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 285 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2068 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2069 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 285 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 286 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2074 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2075 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 286 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 287 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2080 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2081 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 287 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 288 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2086 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2087 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 288 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 289 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2092 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2093 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 289 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 290 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2098 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2099 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 290 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 291 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2104 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2105 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 291 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 292 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2110 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2111 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 292 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 293 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2116 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2117 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 293 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 294 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2122 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2123 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 294 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 295 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2128 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2129 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 295 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 296 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2134 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2135 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 296 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 297 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2140 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2141 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 297 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 298 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2146 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2147 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 298 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 299 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2152 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2153 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 299 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 300 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2158 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2159 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 302 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 303 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2164 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2165 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 303 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 304 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2170 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2171 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 308 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 309 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2176 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2177 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 309 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 310 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2182 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2183 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 312 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 313 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2188 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2189 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 313 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 314 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2194 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2195 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 314 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 315 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2200 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2201 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 318 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 319 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2206 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2207 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 319 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 320 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2212 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2213 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 323 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 324 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2218 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2219 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 324 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 325 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2224 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2225 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 112:
-#line 328 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 329 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2230 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2231 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 113:
-#line 329 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 330 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2236 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2237 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 114:
-#line 330 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 331 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2242 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2243 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 115:
-#line 331 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 332 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2248 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2249 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 116:
-#line 332 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 333 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2254 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2255 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 117:
-#line 333 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 334 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {;}
-#line 2260 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2261 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 118:
-#line 337 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 338 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2266 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2267 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 119:
-#line 338 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 339 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2272 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2273 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 120:
-#line 339 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 340 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2278 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2279 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 121:
-#line 340 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 341 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2284 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2285 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 122:
-#line 341 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 342 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2290 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2291 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 123:
-#line 342 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 343 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2296 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2297 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 124:
-#line 343 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 344 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2302 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2303 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
   case 125:
-#line 344 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
+#line 345 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1646  */
     {yyerrok;}
-#line 2308 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2309 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
     break;
 
 
-#line 2312 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
+#line 2313 "Analyser/Sintactic/Parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2536,7 +2537,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 346 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
+#line 347 "Analyser/Sintactic/BisonDefinitions.y" /* yacc.c:1906  */
 
 
 void yyerror(char * s){
@@ -2546,8 +2547,8 @@ void yyerror(char * s){
 int ParseFile(char * filePath){
       ContextStack = List();
       SymbolTable = List();
-      Push(-1);
-      addContext();
+      Push(0);
+      CONTEXT = 0;
       F_ARG = 0;
       yycolumnlineno = 0;
       //yydebug = 1;
@@ -2555,7 +2556,7 @@ int ParseFile(char * filePath){
       if (!(inputFile = fopen(filePath, "r"))) return -1; // Could not open file
       yyin = inputFile;
       int x = yyparse();
-      //PrintList(SymbolTable);
+      PrintList(SymbolTable);
       return x;
 }
 
@@ -2603,16 +2604,17 @@ void AddFunction()
       {
             if (SearchKeyInContext(SymbolTable, T_ID, i) == 1)
             {
-                  printf("Linea: %d - Columna: %d -> El nombre de la funcion '%s' ya ha sido definido anteriormente...\n", yylineno, yycolumnlineno, yylval.stringVal);
+                  printf("Linea: %d - Columna: %d -> El nombre de la funcion '%s' ya ha sido definido anteriormente...\n", yylineno, yycolumnlineno, T_ID);
                   return;
             }
       }
-      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, con, CONTEXT, A_ARGS);
+      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, 0, BK_CONTEXT, A_ARGS);
       A_VAR = newString(A_TYPE);
 }
 
 void addContext()
 {
+     
       int x = Peek() + 1;
       Push(x);
       CONTEXT = x;
@@ -2620,6 +2622,7 @@ void addContext()
 
 void freeContext(){
       RemoveFromContext(SymbolTable, Pop());
+      CONTEXT = Peek();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2741,11 +2744,16 @@ int SearchKeyInContext(struct list * item, char * key, int context)
 void RemoveFromContext(struct list * item, int context)
 {
       struct node * current = item->tail;
-      while (current && current->context == context)
+      while (current)
       {     
+            if (current->context == context)
+            {     
+                  current = current->last;
+                  item->tail = current;
+                  current->next = NULL;
+                  continue;
+            }
             current = current->last;
-            item->tail = current;
-            current->next = NULL;
       }
 }
 
@@ -2766,9 +2774,11 @@ void Push(int value)
 }
 
 int Pop(){
-      int value = ContextStack->tail->context;
-      ContextStack->tail->last = ContextStack->tail->last->last;
-      ContextStack->tail = ContextStack->tail->last;
+      struct node * current = ContextStack->tail;
+      int value = current->context;
+      current = current->last;
+      ContextStack->tail = current;
+      current->next = NULL;
       return value;
 }
 
