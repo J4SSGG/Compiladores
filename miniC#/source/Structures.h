@@ -6,6 +6,7 @@ struct node {
     int         context;
     int         isConst;
     char *      params;
+    char *      clas;
     struct node * next;
     struct node * last;
 };
@@ -20,7 +21,7 @@ struct list {
     struct list * SymbolTable;
     struct list * ContextStack;
 
-    int InsertList(struct list * item, char * name, char * value, char * type, char * returnType, int con, int context, char * params); // change parameters...
+    int InsertList(struct list * item, char * name, char * value, char * type, char * returnType, int con, int context, char * params, char * clas); // change parameters...
     void PrintList(struct list * item);
     char * newString (char * name);
     struct node * SearchList(struct list * item, char * name);

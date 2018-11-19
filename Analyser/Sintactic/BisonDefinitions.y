@@ -23,7 +23,10 @@ char * A_ARGS;
 char * A_VAR;
 char * T_TYPE;
 char * T_ID;
-int F_ARG;
+char * T_VAR;
+char * A_CLASS = NULL;
+int F_ARG = 0;
+int F_VAR = 0;
 // Syntactic analyser functions
 int ParseExpression();
 int ParseFile(char * path);
@@ -33,6 +36,7 @@ void AddArg(char * extra);
 void AddFunction();
 void addContext();
 void freeContext();
+void addClass();
 %}
 %start PROGRAM
 %union {
@@ -126,8 +130,9 @@ DECL
       ;
 
 VAR_DECL    
-      : VARIABLE opt_semicolon                  {;}
-      | ERR                                     {;}
+      : VARIABLE opt_semicolon            {;}
+      | ERR                               {;}
+      | identifier {A_TYPE = newString(yylval.stringVal);} identifier {T_VAR = newString(yylval.stringVal);} opt_semicolon { yylval.stringVal = newString(T_VAR); AddVar(0);}
       ;
 
 VARIABLE    
@@ -137,7 +142,7 @@ VARIABLE
 
 VARIABLE_PLUS
       : VARIABLE opt_coma {AddArg(",");} VARIABLE_PLUS      {;}
-      | VARIABLE                                            {AddArg("");}
+      | VARIABLE                                            {A_ARGS = NULL; AddArg("");}
       ;
 
 TYPE      
@@ -146,12 +151,11 @@ TYPE
       | vip_bool                                      {A_TYPE = newString("bool");}
       | vip_string                                    {A_TYPE = newString("string");}  
       | TYPE opt_left_bracket opt_right_bracket       {A_TYPE = newString("ARRAY");}
-      | identifier                                    {A_TYPE = newString(yylval.stringVal);}
       ;
 
 FUNCTION_DECL 
-      : TYPE identifier {T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext(); } FORMALS opt_right_parentheses STMT_BLOCK {freeContext(); AddFunction(); }
-      | vip_void identifier {T_TYPE = newString(A_TYPE); T_ID =newString("void"); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext();} FORMALS opt_right_parentheses STMT_BLOCK         {freeContext(); AddFunction(); }
+      : TYPE identifier { F_ARG =1; T_TYPE = newString(A_TYPE); T_ID = newString(yylval.stringVal); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext(); } FORMALS opt_right_parentheses STMT_BLOCK {freeContext(); AddFunction(); }
+      | vip_void identifier {F_ARG=1; T_TYPE = newString(A_TYPE); T_ID =newString("void"); BK_CONTEXT = CONTEXT;} opt_left_parentheses {addContext();} FORMALS opt_right_parentheses STMT_BLOCK         {freeContext(); AddFunction(); }
       ;
 
 FORMALS 
@@ -160,7 +164,7 @@ FORMALS
       ;
 
 CLASS_DECL  
-      : vip_class identifier EXTENDS IMPLEMENTS opt_left_brace FIELD_ASTERISK opt_right_brace  {;}
+      : vip_class identifier {addClass();} EXTENDS IMPLEMENTS opt_left_brace FIELD_ASTERISK opt_right_brace  {A_CLASS = NULL;}
       ;
 
 EXTENDS 
@@ -211,8 +215,8 @@ STMT_BLOCK
       ;
 
 VARS  
-      : VAR_DECL VARS   {;}
-      | %empty          {;}
+      : VARIABLE opt_semicolon VARS       {;}
+      | %empty                            {;}
       ;
 
 STMTS 
@@ -373,15 +377,19 @@ int ParseExpression(){
 
 void AddVar(int con)
 {
+      if (F_ARG == 1) return;
+
       for(int i = 0; i <= CONTEXT; i++)
       {
             if (SearchKeyInContext(SymbolTable, yylval.stringVal, i) == 1)
             {
-                  printf("Linea: %d - Columna: %d -> La variable '%s' ya ha sido definido anteriormente...\n", yylineno, yycolumnlineno, yylval.stringVal);
+                  struct node * _x = SearchList(SymbolTable, yylval.stringVal);
+                  printf("Linea: %d - Columna: %d -> La variable '%s' ya ha sido definido anteriormente con tipo '%s'...\n", yylineno, yycolumnlineno, yylval.stringVal, _x->returnType);
                   return;
             }
       }
-      InsertList(SymbolTable, yylval.stringVal, NULL, "var", A_TYPE, con, CONTEXT, NULL);
+      
+      InsertList(SymbolTable, yylval.stringVal, NULL, "var", A_TYPE, con, CONTEXT, NULL, A_CLASS);
       A_VAR = newString(A_TYPE);
 }
 
@@ -414,8 +422,8 @@ void AddFunction()
                   return;
             }
       }
-      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, 0, BK_CONTEXT, A_ARGS);
-      A_VAR = newString(A_TYPE);
+      InsertList(SymbolTable, T_ID, NULL, "func", T_TYPE, 0, BK_CONTEXT, A_ARGS, A_CLASS);
+      A_VAR = NULL;
 }
 
 void addContext()
@@ -429,6 +437,22 @@ void addContext()
 void freeContext(){
       RemoveFromContext(SymbolTable, Pop());
       CONTEXT = Peek();
+      F_ARG = 0;
+}
+
+void addClass()
+{
+      A_CLASS = newString(yylval.stringVal);
+
+      for(int i = 0; i <= CONTEXT; i++)
+      {
+            if (SearchKeyInContext(SymbolTable, yylval.stringVal, i) == 1)
+            {
+                  struct node * _x = SearchList(SymbolTable, yylval.stringVal);
+                  printf("Linea: %d - Columna: %d -> El nombre de la clase '%s' ya se ha definido anteriormente con otro objeto de tipo '%s'...\n", yylineno, yycolumnlineno, yylval.stringVal, _x->returnType);
+                  return;
+            }
+      }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -473,7 +497,7 @@ struct node * Node()
     return newNode;
 }
 
-int InsertList(struct list * item, char * name, char * value, char * type, char * returnType, int con, int context, char * params)
+int InsertList(struct list * item, char * name, char * value, char * type, char * returnType, int con, int context, char * params, char * clas)
 {
       struct node * newNode =  Node();
 
@@ -484,6 +508,7 @@ int InsertList(struct list * item, char * name, char * value, char * type, char 
       newNode->context = context;
       newNode->params = newString(params);
       newNode->isConst = con;
+      newNode->clas = newString(clas);
 
       item->tail->next = newNode;
       newNode->last = item->tail;
@@ -502,12 +527,22 @@ void PrintList(struct list * item){
       while (current)
       {
             printf("------------------------------\n");
-            printf("Key: %s\n", current->name);
-            printf("Value: %s\n", current->value);
-            printf("Type: %s\n", current->type);
-            printf("Returns: %s\n", current->returnType);
-            printf("Constant: %d\n", current->isConst);
-            printf("Params: %s\n", current->params);
+            if (strcmp(current->type, "func") == 0)
+            {
+                  printf("Key: %s\n", current->name);
+                  printf("Type: %s\n", current->type);
+                  printf("Returns: %s\n", current->returnType);
+                  printf("Params: %s\n", current->params);
+            }
+            else if (strcmp(current->type, "var") == 0)
+            {
+                  printf("Key: %s\n", current->name);
+                  printf("Value: %s\n", current->value);
+                  printf("Type: %s\n", current->type);
+                  printf("Returns: %s\n", current->returnType);
+                  printf("Constant: %d\n", current->isConst);
+            }
+            printf("Class: %s\n", current->clas);
             printf("Context: %d\n", current->context);
             current = current->next;
       }
@@ -576,7 +611,7 @@ void RemoveFromContext(struct list * item, int context)
 
 void Push(int value)
 {
-      InsertList(ContextStack, NULL, NULL, NULL, NULL,-1,  value,  NULL);
+      InsertList(ContextStack, NULL, NULL, NULL, NULL,-1,  value,  NULL, NULL);
 }
 
 int Pop(){
